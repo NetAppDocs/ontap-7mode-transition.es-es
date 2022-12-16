@@ -1,0 +1,68 @@
+---
+permalink: copy-free/concept_copy_free_transition_using_7mtt.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, 7, mode, tool 
+summary: La herramienta 7-Mode Transition Tool permite recopilar inventario y evaluar controladoras de 7-Mode, hosts, switches y aplicaciones para la transición. Tras la evaluación, puede utilizar una transición sin copias para migrar sus datos y configuraciones a ONTAP. En la transición sin copias, puede desconectar todas las bandejas de discos de un par de alta disponibilidad de 7-Mode y conectarlos a un par de alta disponibilidad del clúster de destino. 
+---
+= Transición sin copias mediante la herramienta de transición de 7-Mode
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La herramienta 7-Mode Transition Tool permite recopilar inventario y evaluar controladoras de 7-Mode, hosts, switches y aplicaciones para la transición. Tras la evaluación, puede utilizar una transición sin copias para migrar sus datos y configuraciones a ONTAP. En la transición sin copias, puede desconectar todas las bandejas de discos de un par de alta disponibilidad de 7-Mode y conectarlos a un par de alta disponibilidad del clúster de destino.
+
+La transición sin copias reduce de forma significativa el coste de la migración al permitir la reutilización de bandejas de discos de 7-Mode. La duración general para realizar la transición es más rápida, ya que no se requiere la copia de datos.
+
+La unidad de una transición sin copias es un par de alta disponibilidad. Debe mover todas las bandejas de discos de la pareja de ha 7-Mode a los nodos de clúster de destino.
+
+Los metadatos de los agregados y volúmenes de 7-Mode se convierten al formato ONTAP con la herramienta 7-Mode Transition Tool. El tiempo que se tarda en realizar esta conversión no depende del tamaño de los agregados y volúmenes. Por ejemplo, el tiempo necesario para convertir un agregado de 10 GB al formato ONTAP es el mismo que el tiempo necesario para convertir un agregado de 100 TB.
+
+La transición sin copias implica una interrupción del acceso a los datos. Sin embargo, el tiempo total que se tarda en realizar la migración de datos es más rápido porque no se requiere ninguna copia de estos.
+
+En la siguiente ilustración, se muestran los escenarios antes y después para la transición sin copias de un par de alta disponibilidad de 7-Mode a un clúster de dos nodos:
+
+image::../media/cft_overview.gif[información general sobre cft]
+
+La herramienta de transición de 7-Mode se ejecuta en un sistema Windows y proporciona una interfaz web para gestionar operaciones de transición.
+
+
+
+== Recopilación y evaluación de sistemas, hosts, switches y aplicaciones de ONTAP
+
+Puede llevar a cabo las siguientes tareas de recopilación y evaluación usando la herramienta 7-Mode Transition Tool:
+
+* Recopilar información de inventario de sistemas ONTAP (controladoras de 7-Mode y nodos en el clúster), hosts, switches y aplicaciones host.
+* Generar el plan de zona FC para configurar las zonas para la transición SAN FC.
+* Evaluación de las características y funcionalidades de los sistemas 7-Mode, e identificación de cómo funcionan estas funciones y funcionalidades en la versión de ONTAP seleccionada para la transición.
+
+
+
+
+== Traslado de datos y configuraciones de 7-Mode a ONTAP
+
+La transición sin copias reutiliza las bandejas de discos 7-Mode para copiar los datos de 7-Mode de 7-Mode a ONTAP. Puede realizar las siguientes tareas utilizando la herramienta 7-Mode Transition Tool para realizar una migración sin copias:
+
+* Planificar la transición para asignar las controladoras de 7-Mode o las unidades vFiler a las SVM de destino y diseñar el espacio de nombres.
+* Ejecución de comprobaciones previas para verificar la compatibilidad de los sistemas 7-Mode y los nodos de clúster de destino para la transición.
+* Importar bandejas de discos de 7-Mode de las siguientes maneras:
++
+** De un par de alta disponibilidad 7-Mode a un nuevo par de alta disponibilidad en un nuevo clúster
+** Desde una pareja de alta disponibilidad de 7-Mode a una nueva pareja de alta disponibilidad en un clúster existente que tiene nodos que sirven datos adicionales
+** Desde una pareja de alta disponibilidad 7-Mode a una pareja de alta disponibilidad que tiene agregados de datos en un clúster existente que ofrece datos
+** De una pareja de alta disponibilidad que contiene volúmenes en una relación de SnapMirror para volúmenes con una pareja de alta disponibilidad en un clúster nuevo o existente
++
+Debe crear manualmente la relación de paridad de clústeres después de la transición. Sin embargo, no es necesario realizar una transferencia completa y puede conservar la relación de SnapMirror después de la transición.
+
+
+
+* Realizar la transición de configuraciones de 7-Mode a SVM.
++
+La transición sin copia admite la transición de las configuraciones NAS y SAN.
+
+* Revertir el almacenamiento y las configuraciones a 7-Mode si se produce un error en la transición a ONTAP.
++
+La herramienta genera la lista de pasos necesarios para volver a 7-Mode. Debe realizar manualmente estos pasos de reversión en los sistemas 7-Mode y en el clúster.
+
+

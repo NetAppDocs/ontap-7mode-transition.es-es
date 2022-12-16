@@ -1,0 +1,116 @@
+---
+permalink: san-host/task_making_san_boot_lun_primary_boot_lun_for_hp_ux_qlogic_hbas_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, boot, lun, primary, hp, ux, logic, hbas 
+summary: Si su host HP-UX de 7-Mode de Data ONTAP se arrancó CON SAN, debe hacer que el LUN de arranque SAN sea el LUN de arranque principal tras la transición a Clustered Data ONTAP. 
+---
+= Creación de un LUN DE arranque SAN como el LUN de arranque principal para los HBA QLogic HP-UX después de la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si su host HP-UX de 7-Mode de Data ONTAP se arrancó CON SAN, debe hacer que el LUN de arranque SAN sea el LUN de arranque principal tras la transición a Clustered Data ONTAP.
+
+* Debe completar la migración de datos.
+* Debe asignar su LUN de arranque al host desde su nodo de Clustered Data ONTAP.
+
+
+El arranque SAN es compatible con HP-UX 11.3x en sistemas HP 9000 mediante el menú BCH y en servidores HP Integrity utilizando HP-UX Loader (EFI).
+
+Para las transiciones basadas en copias, realice estos pasos después de completar el funcionamiento de transición del almacenamiento en la herramienta de transición de 7-Mode. Los hosts HP-UX no admiten las transiciones sin copia.
+
+.Pasos
+. Abra el intérprete de comandos:
++
+`*Ctrl B*`
+
+. Inicie desde el shell EFI.
++
+El shell EFI sólo está disponible en sistemas HP Integrity.
+
+. Utilice una consola serie para acceder al inicio de sesión en el procesador de servicios (MP).
+. Acceda a la lista de consola: `CO`
++
+Esto abre el menú de EFI Boot Manager.
+
+. En el menú EFI Boot Manager, seleccione la opción del menú EFI Shell para acceder al entorno EFI shell.
+. Identifique los números de los controladores de QLogic:
++
+`*drivers*`
+
++
+Los números del conductor se encuentran en la columna DRV.
+
+. Identifique el número de controlador correspondiente para cada controlador:
++
+`*drvcfg _driver_number_*`
+
++
+En el siguiente ejemplo: `27` es el número de controlador correspondiente para el controlador `23` y.. `26` es el número de controlador correspondiente para el controlador `24`:
+
++
+[listing]
+----
+Shell> drvcfg 23
+Configurable Components
+		Drv[23]		Ctrl[27]			Lang[eng]
+
+Shell> drvcfg 24
+Configurable Components
+		Drv[24]		Ctrl[26]			Lang[eng]
+----
+. Abra el BIOS del controlador:
++
+`*drvcfg _drv_number ctrl_number_ -s*`
+
+. Introduzca `*4*` para seleccionar *4. Editar configuración de arranque*.
+. En Edit Boot Settings, introduzca `6` para seleccionar *6. Variable EFI EFIFCScanLevel*.
+. Introduzca `*1*` Para cambiar el valor de la variable EFI EFIFCScanLevel de 0 a 1.
+. Introduzca `*7*` para seleccionar *7. Activar el inicio de sesión mundial*.
+. Introduzca `*y*` para habilitar el inicio de sesión de world.
+. Introduzca `*0*` para ir al menú anterior.
+. En el menú principal, introduzca `*11*` para guardar los cambios.
+. Introduzca `*12*` para salir.
+. En el indicador de comandos del shell, vuelva a explorar los dispositivos:
++
+`*reconnect -r*`
+
+. Muestre la LUN para obtener la ruta de la LUN desde la que desea arrancar:
++
+`*map -r*`
+
++
+Las rutas de LUN se enumeran en la columna dispositivo. El disco SAN de arranque se muestra bajo la columna de la tabla de mapeo y tiene "'WWN'" y "'parte 1'" en la cadena de salida.
+
+. Introduzca la ruta de LUN de su LUN de arranque SAN.
++
+Un ejemplo de una ruta de LUN es fs0.
+
+. Salga del shell EFI:
++
+`*cd efi*`
+
+. Introduzca el directorio HPUX:
++
+`*cd hpux*`
+
+. Haga que la nueva LUN DE arranque SAN de Clustered Data ONTAP sea la LUN de arranque principal:
++
+`*bcfg boot add 1 hpux.efi "HP-UX-Primary Boot"*`
+
+. Actualice manualmente el BIOS del HBA realizando una entrada en el EFI para el LUN DE arranque DE SAN.
+. Cree una ruta de arranque alternativa:
++
+`*bcfg boot add 2 hpux.efi “HPUX alternate boot”*`
+
+. Cree una tercera ruta de arranque:
++
+`*bcfg boot add 2 hpux.efi “HPUX third boot”*`
+
+. Cree una cuarta ruta de arranque:
++
+`*bcfg boot add 2 hpux.efi “HPUX fourth boot”*`
+
+

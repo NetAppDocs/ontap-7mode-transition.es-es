@@ -1,0 +1,67 @@
+---
+permalink: snapmirror/task_creating_a_transition_peering_relationship.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, create, peer, relationship, snapmirror 
+summary: Debe crear una relación de transición entre iguales antes de poder configurar una relación de SnapMirror para la transición entre un sistema de 7-Mode y un clúster. Como administrador de clústeres, puede crear una relación entre iguales entre ANSVM y un sistema de 7-Mode mediante el comando vserver peer Transition create. 
+---
+= Creación de una relación de transición entre iguales
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe crear una relación de transición entre iguales antes de poder configurar una relación de SnapMirror para la transición entre un sistema de 7-Mode y un clúster. Como administrador de clústeres, puede crear una relación entre iguales entre ANSVM y un sistema de 7-Mode mediante el `vserver peer transition create` comando.
+
+* Debe haberse asegurado de que el nombre del sistema 7-Mode de origen no entra en conflicto con ninguna de las SVM locales o ya tiene una relación entre iguales.
+* Debe haber creado un volumen de Clustered Data ONTAP del tipo DP al que se deben realizar la transición de los datos de 7-Mode.
++
+El tamaño del volumen de Clustered Data ONTAP debe ser igual o mayor que el tamaño del volumen de 7-Mode.
+
+* Debe haberse asegurado de que los nombres de las SVM no contienen un "."
+* Si utiliza LIF locales, debe haber garantizado lo siguiente:
++
+** Las LIF locales se crean en el espacio IP predeterminado
+** Los LIF locales se configuran en el nodo en el que reside el volumen
+** La política de migración de LIF es la misma que el nodo de volumen, por lo que ambos pueden migrar al mismo nodo de destino
+
+
+
+
+Al crear una relación entre iguales de transiciones, también es posible especificar un FQDN multivía o una dirección IP para equilibrar la carga de las transferencias de datos.
+
+.Pasos
+. Utilice la `vserver peer transition create` comando para crear una relación entre iguales de transición.
+. Utilice la `vserver peer transition show` para verificar que la relación entre iguales de la transición se ha creado correctamente.
+
+
+
+
+== Ejemplo de creación y visualización de relaciones entre iguales de transición
+
+El siguiente comando crea una relación entre iguales de transición entre la SVM vs1 y el sistema 7-Mode src1 con la dirección multivía src1-e0d y las LIF locales lif1 y lif2:
+
+[listing]
+----
+cluster1::> vserver peer transition create -local-vserver vs1 -src-filer-name src1 -multi-path-address src1-e0d -local-lifs lif1,lif2
+----
+Los siguientes ejemplos muestran una relación entre iguales de una sola SVM (vs1) y varios sistemas 7-Mode:
+
+[listing]
+----
+cluster1::> vserver peer transition create -local-vserver vs1 -src-filer-name src3
+Transition peering created
+
+cluster1::> vserver peer transition create -local-vserver vs1 -src-filer-name src2
+Transition peering created
+----
+El siguiente resultado muestra las relaciones entre iguales de la SVM vs1:
+
+[listing]
+----
+cluster1::> vserver peer transition show
+Vserver  Source Filer  Multi Path Address   Local LIFs
+-------  ------------  -----------------    ---------
+vs1      src2	         	-				    	-
+vs1      src3	        	-				     	-
+----

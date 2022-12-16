@@ -1,0 +1,60 @@
+---
+permalink: copy-based/concept_preparing_for_metrocluster_configuration_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, prepare, metrocluster, configuration 
+summary: Antes de pasar a una configuración de MetroCluster, debe comprender los requisitos y consideraciones para realizar la transición de volúmenes de 7-Mode a una configuración de MetroCluster en ONTAP. 
+---
+= Preparar la transición de la configuración de MetroCluster
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de pasar a una configuración de MetroCluster, debe comprender los requisitos y consideraciones para realizar la transición de volúmenes de 7-Mode a una configuración de MetroCluster en ONTAP.
+
+
+
+== Requisitos previos
+
+* La configuración de MetroCluster en ONTAP ya debe estar configurada.
+* El tipo de SVM debe ser `sync-source`.
+* Las controladoras de 7-Mode no deben estar en un estado tomado de control ni esperando una devolución del nodo primario.
+* Los nodos de la configuración de MetroCluster en ONTAP no deben conmutar ni esperar a que esto suceda.
+
+
+
+
+== Consideraciones
+
+* La transición de los volúmenes de cumplimiento de SnapLock no es compatible si el clúster de destino se encuentra en una configuración MetroCluster.
+* Puede realizar la transición de volúmenes de una controladora de 7-Mode, una configuración de alta disponibilidad o una configuración de MetroCluster a una configuración de MetroCluster en ONTAP como volúmenes independientes.
+* Si una configuración de MetroCluster de 7-Mode tiene volúmenes en relaciones de SnapMirror para volúmenes con volúmenes en otra controladora de 7-Mode, puede realizar la transición de las relaciones de SnapMirror como relaciones primarias y secundarias.
++
+Debe instalar la herramienta 7-Mode Transition Tool en cada sitio MetroCluster y realizar la transición de los volúmenes de cada sitio.
+
+* No se pueden configurar diferentes subredes configuradas para una configuración de MetroCluster estructural 7-Mode en la configuración de MetroCluster en ONTAP.
+* El puerto preferido configurado en una configuración de MetroCluster estructural 7-Mode no se puede configurar para las configuraciones de MetroCluster en ONTAP.
+* Si su configuración de MetroCluster de estructura 7-Mode utiliza switches Brocade 6510, puede compartir los switches existentes con la nueva configuración de MetroCluster en ONTAP.
++
+Lo mejor es compartir las estructuras de switch únicamente durante la transición.
+
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-mcc-inst-cnfg-fabric/home.html["Instalación y configuración de MetroCluster estructural, ONTAP 9.8 o anterior"]
+
++
+https://docs.netapp.com/us-en/ontap-metrocluster/install-fc/index.html["Instalación y configuración de MetroCluster estructural, ONTAP 9.9.1"]
+
+* Las programaciones de tareas de cron creadas durante la transición no se replican en el sitio remoto y, por lo tanto, la conmutación negociada falla después de la transición.
++
+Debe crear manualmente las programaciones de trabajo de cron en el sitio remoto después de la transición.
+
+
+
+*Información relacionada*
+
+xref:task_post_transition_task_for_a_metrocluster_configuration.adoc[Configurar programaciones de tareas de cron en el sitio remoto tras realizar la transición de una configuración de MetroCluster]
+
+xref:concept_impact_of_takeover_and_giveback_on_transition.adoc[Impacto de la toma de control y el retorno al nodo primario en la transición]
+
+xref:task_transitioning_a_metrocluster_configuration_if_a_switchover_or_switchback_event_occurs.adoc[Pasar una configuración de MetroCluster que no pudo realizarse debido a la conmutación de sitios o a una conmutación de estado]

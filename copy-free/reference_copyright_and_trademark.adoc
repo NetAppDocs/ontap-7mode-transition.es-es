@@ -1,0 +1,12 @@
+---
+permalink: copy-free/reference_copyright_and_trademark.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, copyright, trademark 
+summary: Copyright y Marca comercial de la Guía de transición sin copia. 
+---
+= Copyright y Marca comercial
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+

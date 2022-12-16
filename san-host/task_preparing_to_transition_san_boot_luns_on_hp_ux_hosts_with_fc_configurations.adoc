@@ -1,0 +1,59 @@
+---
+permalink: san-host/task_preparing_to_transition_san_boot_luns_on_hp_ux_hosts_with_fc_configurations.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, hp, ux, hosts, fc, configurations 
+summary: Antes de realizar la transición de un LUN de arranque SAN en un host HP-UX con una configuración FC, debe registrar el nombre del LUN de 7-Mode en el que está instalado HP-UX, el nombre del dispositivo SCSI para ese LUN, la convención de nomenclatura Agile y el WWID. 
+---
+= Preparar la transición de LUN de arranque SAN en hosts HP-UX con configuraciones FC
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de realizar la transición de un LUN de arranque SAN en un host HP-UX con una configuración FC, debe registrar el nombre del LUN de 7-Mode en el que está instalado HP-UX, el nombre del dispositivo SCSI para ese LUN, la convención de nomenclatura Agile y el WWID.
+
+. En la consola del controlador 7-Mode, muestre sus LUN de 7-Mode para identificar el nombre de LUN en el que está instalado el sistema operativo "'HPUX11v3 marzo 2014'":
++
+`*lun show*`
+
+. Obtenga el nombre de dispositivo SCSI para la LUN:
++
+`*sanlun lun show -p*`
+
++
+En este ejemplo, la LUN de transición es bootlun_94. Los dispositivos SCSI para esta LUN son `/dev/dsk/c14t0d0`, `/dev/dsk/c27t0d0`, `/dev/dsk/c40t0d0`, y. `/dev/dsk/c31t0d0` .
+
++
+[listing]
+----
+        ONTAP Path: f8040-211-183:/vol/vol_183/bootlun_94
+               LUN: 0
+          LUN Size: 100g
+       Host Device: /dev/rdisk/disk6
+              Mode: 7
+Multipath Provider: None
+host      vserver   /dev/dsk
+path      path      filename           host     vserver
+state     type      or hardware path   adapter  LIF
+-----     -------   ----------------   -------  -------
+up        secondary /dev/dsk/c14t0d0   fcd0     fc4
+up        primary   /dev/dsk/c27t0d0   fcd0     fc2
+up        primary   /dev/dsk/c40t0d0   fcd1     fc1
+up        secondary /dev/dsk/c31t0d0   fcd1     fc3
+----
+. Identificar el WWID para el LUN en el host:
++
+`*scsimgr get_info -D _SCSI_device_name_ |grep WWID*`
+
++
+En el ejemplo siguiente, el WWID de LUN para el dispositivo `/dev/rdisk/disk6` es 0x600a09804d5377394224456b75556:
+
++
+[listing]
+----
+bash-2.05# scsimgr get_info -D /dev/rdisk/disk6 | grep WWID
+World Wide Identifier (WWID)      = 0x600a09804d537739422445386b755564
+bash-2.05#
+----
+

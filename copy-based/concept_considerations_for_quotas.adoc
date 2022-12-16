@@ -1,0 +1,26 @@
+---
+permalink: copy-based/concept_considerations_for_quotas.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, quotas 
+summary: 'Debe saber cómo se realiza la transición de las cuotas cuando se ejecuta “aplicar configuración” \(Pretover\) en modo de sólo lectura y de lectura y escritura.' 
+---
+= Consideraciones sobre cuotas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe ser consciente de cómo se realiza la transición de las cuotas cuando se ejecuta «"aplicar configuración»» (transición previa) en modo de solo lectura y de lectura y escritura.
+
+Las cuotas se aplican de las siguientes formas durante la fase de precautada:
+
+* Modo de solo lectura
++
+Las cuotas no se aplican en el modo previo de solo lectura del sistema ONTAP; solo se aplican durante la fase de transposición del almacenamiento.
+
+* Modo de lectura/escritura
++
+Las cuotas se aplican en el modo de lectura y escritura previa en el sistema ONTAP, para que pueda probarlas en ONTAP. Sin embargo, las cuotas se eliminan durante la resincronización (una vez que se completa la prueba) de los volúmenes de ONTAP. Las cuotas se aplican de nuevo durante la fase de transición del almacenamiento.
+
+

@@ -1,0 +1,18 @@
+---
+permalink: install-admin/concept_transition_to_clustered_ontap_using_7mtt.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, transition, tool, clustered 
+summary: La herramienta 7-Mode Transition Tool le permite recopilar un inventario de controladoras, hosts, switches y aplicaciones de 7-Mode, y evaluar si está preparada para la transición a Clustered ONTAP. Tras la evaluación, puede migrar sus datos y configuraciones de 7-Mode a Clustered ONTAP usando el método de transición basado en copias o el método de transición sin copias. La herramienta de transición de 7-Mode se puede descargar del sitio de soporte de NetApp y instalarse en un sistema Linux o Windows. 
+---
+= Realice la transición a Clustered ONTAP usando la herramienta de transición de 7-Mode
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La herramienta 7-Mode Transition Tool le permite recopilar un inventario de controladoras, hosts, switches y aplicaciones de 7-Mode, y evaluar si está preparada para la transición a Clustered ONTAP. Tras la evaluación, puede migrar sus datos y configuraciones de 7-Mode a Clustered ONTAP usando el método de transición basado en copias o el método de transición sin copias. La herramienta de transición de 7-Mode se puede descargar del sitio de soporte de NetApp y instalarse en un sistema Linux o Windows.
+
+Asegúrese de consultar la herramienta 7-Mode Transition Tool _Notas de la versión_ para obtener la información más reciente sobre las versiones de destino compatibles y los problemas conocidos.
+
+http://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Notas de la versión de 7-Mode Transition Tool"]

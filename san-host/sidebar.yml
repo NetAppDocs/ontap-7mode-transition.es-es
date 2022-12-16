@@ -1,0 +1,301 @@
+---
+section: san-host
+title: Transición y corrección de hosts de SAN
+url: "/san-host/index.html"
+entries:
+- title: Versiones de destino de ONTAP compatibles con la herramienta 7-Mode Transition
+    Tool
+  url: "/san-host/concept_ontap_target_releases_supported_by_7mtt.html"
+- title: Fases de transición de 7-Mode Transition Tool
+  url: "/san-host/concept_7mtt_transition_phases.html"
+- title: Corrección de hosts VMware ESXi
+  url: "/san-host/concept_vmware_esxi_host_remediation.html"
+  entries:
+  - title: Versiones y funciones de ESXi compatibles con las transiciones DE SAN mediante
+      7MTT
+    url: "/san-host/concept_esxi_versions_and_features_supported_for_san_transitions_using_7mtt.html"
+  - title: Preparar la transición de hosts ESXi
+    url: "/san-host/task_preparing_for_transition_of_esxi_hosts.html"
+    entries:
+    - title: Qué es la herramienta de recopilación de inventario
+      url: "/san-host/concept_what_the_inventory_collect_tool_is.html"
+    - title: Preparar los sistemas operativos invitados de Linux para la transición
+      url: "/san-host/task_preparing_linux_guest_operating_systems_for_transition.html"
+    - title: Preparación de sistemas operativos invitados de Windows para la transición
+      url: "/san-host/concept_preparing_windows_guest_operating_systems_for_transition.html"
+    - title: Cómo identificar las copias Snapshot de VM que se deben eliminar antes
+        de la transición
+      url: "/san-host/concept_how_to_identify_vm_snapshots_that_must_be_removed_before_transition.html"
+      entries:
+      - title: Eliminar copias de Snapshot de máquina virtual con vSphere Client
+        url: "/san-host/task_deleting_vm_snapshots_using_vsphere_client.html"
+      - title: Quitar las snapshots de máquinas virtuales con la interfaz de línea
+          de comandos de ESXi
+        url: "/san-host/task_removing_vm_snapshots_using_esxi_cli.html"
+  - title: Prueba de la transición de LUN y aplicaciones host ESXi antes de la fase
+      de transición de las transiciones basadas en copias
+    url: "/san-host/task_testing_transitioned_luns_and_esxi_host_applications_before_cutover.html"
+  - title: Fase de tiempo de inactividad en la configuración aplicada (previa) de
+      la transición del host ESXi
+    url: "/san-host/concept_downtime_at_precutover_phase_of_esxi_host_transition.html"
+  - title: Requisitos de la corrección posterior a la transición para hosts ESXi
+    url: "/san-host/concept_post_transition_requirements_for_esxi_hosts.html"
+    entries:
+    - title: Preparación para la corrección de hosts ESXi posterior a la transición
+      url: "/san-host/task_preparing_for_post_transition_esxi_host_remediation.html"
+    - title: Volver a registrar equipos virtuales tras la transición en hosts ESXi
+        de arranque que no sean SAN mediante vSphere Client
+      url: "/san-host/task_reregistering_vms_after_transition_on_non_san_boot_esxi_host_using_vsphere_client.html"
+    - title: Reconfiguración del iniciador iSCSI del software VMware después de la
+        transición
+      url: "/san-host/concept_reconfiguration_of_vmware_software_iscsi_initiator.html"
+    - title: Configurar los hosts ESXi configurados para el arranque SAN después de
+        la transición
+      url: "/san-host/task_setting_up_esxi_hosts_configured_for_san_boot_after_transition.html"
+    - title: Determinar si es necesario volver a montar los volúmenes VMFS después
+        de la transición
+      url: "/san-host/task_determining_whether_vmfs_volumes_need_to_be_remounted_after_transition.html"
+      entries:
+      - title: Volver a montar volúmenes VMFS después de la transición mediante vSphere
+          Client
+        url: "/san-host/task_remounting_vmfs_volumes_after_transition_using_vsphere_client.html"
+      - title: Volver a montar los volúmenes VMFS después de la transición mediante
+          la interfaz de línea de comandos de ESXi
+        url: "/san-host/task_remounting_vmfs_volumes_after_transition_using_esxi_cli_console.html"
+    - title: Volver a asociar LUN de RDM a máquinas virtuales
+      url: "/san-host/task_reattaching_rdm_luns_to_vms.html"
+      entries:
+      - title: Eliminación de RDM obsoletos mediante vSphere Client
+        url: "/san-host/task_removing_stale_rdm_using_vsphere_client.html"
+      - title: Volver a asociar RDM a máquinas virtuales mediante vSphere Client
+        url: "/san-host/task_reattaching_rdm_to_vms_using_vsphere_client.html"
+      - title: Volver a conectar RDM con ESXi la CLI/Console
+        url: "/san-host/task_reattaching_rdm_using_esxi_cli_console.html"
+    - title: Solución posterior a la transición para sistemas operativos invitados
+        Linux y Windows
+      url: "/san-host/concept_post_transition_remediation_for_linux_and_windows_guest_operating_systems.html"
+    - title: Configuración recomendada para los hosts ESXi después de la corrección
+        de la transición
+      url: "/san-host/concept_configure_recommended_settings_for_esxi_hosts.html"
+  - title: Habilitar CAW en un almacén de datos mediante la interfaz de línea de comandos
+      de ESXi
+    url: "/san-host/task_enabling_caw_on_a_datastore_using_esxi_cli.html"
+- title: Corrección del host RHEL
+  url: "/san-host/concept_linux_host_remediation.html"
+  entries:
+  - title: Recopilación de información previa a la transición del libro de trabajo
+      de evaluación de inventario
+    url: "/san-host/task_gathering_pretransition_information_from_inventory_assessment_workbook.html"
+    entries:
+    - title: Qué es la herramienta de recopilación de inventario
+      url: "/san-host/concept_what_the_inventory_collect_tool_is.html"
+  - title: Transición de dispositivos DMMP RHEL sin sistemas de archivos
+    url: "/san-host/concept_transitioning_rhel_dmmp_devices_without_file_systems.html"
+    entries:
+    - title: Comprobación de que las LUN de RHEL están listas para la transición mediante
+        el manual de evaluación de inventario
+      url: "/san-host/task_verifying_that_rhel_luns_are_ready_for_transition_using_inventory_assessment_workbook.html"
+    - title: Comprobar que las LUN de RHEL 5 están listas para la transición mediante
+        la CLI
+      url: "/san-host/task_verifying_rhel_5_luns_are_ready_for_transition_using_cli.html"
+    - title: Comprobación de que los dispositivos RHEL 6 DDMP están listos para la
+        transición mediante la CLI
+      url: "/san-host/task_verifying_rhel_6_ddmp_devices_are_ready_for_transition_using_cli.html"
+    - title: Prueba de dispositivos DMMP sin sistemas de archivos en hosts RHEL antes
+        de la fase de transposición de transiciones basadas en copias
+      url: "/san-host/task_testing_dmmp_devices_on_rhel_before_cutover.html"
+    - title: Preparación de la transición al realizar la transición de un dispositivo
+        DMMP de host Linux sin un sistema de archivos
+      url: "/san-host/task_preparing_for_cutover_when_transitioning_linux_host_dmmp_device_without_file_system.html"
+    - title: Reemplazar los WWID de LUN de 7-Mode en hosts Linux después de la transición
+        de LUN
+      url: "/san-host/task_replacing_7_mode_wwids_on_linux_host_after_transition_of_luns.html"
+  - title: Transición de LUN con puntos de montaje mediante nombres de dispositivos
+      DMMP
+    url: "/san-host/concept_transitioning_luns_with_mount_points_using_dmmp_devices_names.html"
+    entries:
+    - title: Preparación de los LUN de RHEL con puntos de montaje mediante nombres
+        de dispositivos DMMP para la transición mediante el Libro de trabajo de evaluación
+        de inventario
+      url: "/san-host/task_preparing_rhel_luns_transition_using_inventory_assessment_workbook.html"
+    - title: Preparar los LUN de RHEL con puntos de montaje mediante nombres de alias
+        DMMP para la transición mediante la CLI
+      url: "/san-host/task_preparing_rhel_luns_for_transition_using_the_cli.html"
+    - title: Probar dispositivos DMMP con sistemas de archivos en hosts RHEL antes
+        de la fase de transposición de transiciones basadas en copias
+      url: "/san-host/task_testing_dmmp_devices_with_file_systems_on_rhel_hosts_before_cutover_phase.html"
+    - title: Preparación de la fase de transición al realizar la transición de las
+        LUN con puntos de montaje mediante nombres de dispositivos DMMP en hosts Linux
+      url: "/san-host/task_preparing_for_cutover_when_transitioning_luns_with_mounts_using_dmmp_aliases_on_linux_hosts.html"
+    - title: Montaje de dispositivos DMMP en hosts Linux después de la transición
+      url: "/san-host/task_remounting_dmmp_devices_on_linux_hosts_after_transition.html"
+  - title: Transición de LUN con puntos de montaje mediante nombres de alias DMMP
+    url: "/san-host/concept_transitioning_luns_with_mount_points_using_dmmp_alias_names.html"
+    entries:
+    - title: Preparar los LUN de RHEL con puntos de montaje mediante nombres de alias
+        DMMP para la transición mediante la CLI
+      url: "/san-host/task_preparing_rhel_luns_for_transition_using_the_cli.html"
+    - title: Prueba de las LUN con puntos de montaje mediante nombres de alias DMMP
+        en hosts de RHEL antes de la fase de transposición de las transiciones basadas
+        en copias
+      url: "/san-host/task_testing_luns_with_mounts_using_dmmp_aliases_on_rhel_hosts_before_cutover.html"
+    - title: Preparación de la fase de transición al realizar la transición de las
+        LUN con puntos de montaje mediante nombres de dispositivos DMMP en hosts Linux
+      url: "/san-host/task_preparing_for_cutover_when_transitioning_luns_with_mounts_using_dmmp_aliases_on_linux_hosts.html"
+    - title: Montaje de los LUN con puntos de montaje mediante nombres de alias DMMP
+        en hosts Linux después de la transición
+      url: "/san-host/task_remounting_luns_with_mount_point_using_dmmp_alias_name_on_linux_hosts_after_transition.html"
+  - title: Realizar la transición de los sistemas de archivos del host Linux en dispositivos
+      LVM
+    url: "/san-host/concept_transitioning_linux_host_file_systems_on_lvm_devices.html"
+    entries:
+    - title: Probar las LUN con sistemas de archivos en dispositivos LVM antes de
+        la fase de transición de las transiciones basadas en copias
+      url: "/san-host/task_testing_luns_with_file_systems_on_lvm_devices_before_cutover_phase.html"
+    - title: Preparación de la fase de transición cuando se realizan la transición
+        de los sistemas de archivos host Linux en dispositivos LVM
+      url: "/san-host/task_preparing_for_cutover_when_transitioning_linux_host_file_systems_on_lvm_devices.html"
+    - title: Montaje de volúmenes lógicos en hosts Linux después de la transición
+      url: "/san-host/task_mounting_logical_volumes_on_linux_host_after_transition.html"
+  - title: Transición de las LUN de arranque SAN
+    url: "/san-host/concept_transition_of_san_boot_luns.html"
+    entries:
+    - title: Tipos de LUN de arranque SAN compatibles para la transición
+      url: "/san-host/concept_types_of_san_boot_luns_supported_for_transition.html"
+    - title: Preparar la transición de LUN DE arranque SAN FC o FCoE en hosts RHEL
+      url: "/san-host/task_preparing_for_transition_of_fc_or_fcoe_san_boot_luns.html"
+    - title: Preparación para la transición de LUN DE arranque SAN iSCSI
+      url: "/san-host/task_preparing_for_transition_of_iscsi_san_boot_luns.html"
+    - title: Prueba de las LUN DE arranque SAN en hosts RHEL antes de la fase de transición
+        de las transiciones basadas en copias
+      url: "/san-host/task_testing_san_boot_luns_on_rhel_hosts_before_cutover.html"
+    - title: Preparación de la fase de transición al realizar la transición de las
+        LUN de arranque SAN
+      url: "/san-host/concept_preparing_for_cutover_when_transitioning_san_boot_luns.html"
+    - title: Detección de las LUN de arranque SAN después de la transición
+      url: "/san-host/task_discovering_san_boot_luns_after_transition.html"
+- title: Corrección de hosts Windows
+  url: "/san-host/concept_windows_host_remediation.html"
+  entries:
+  - title: Preparar hosts de Windows para la transición
+    url: "/san-host/task_preparing_windows_hosts_for_transition.html"
+    entries:
+    - title: Qué es la herramienta de recopilación de inventario
+      url: "/san-host/concept_what_the_inventory_collect_tool_is.html"
+  - title: Prueba de la transición de LUN en hosts Windows antes de la fase de transición
+    url: "/san-host/task_testing_transitioned_luns_on_windows_hosts_before_cutover.html"
+  - title: Preparación de la fase de transición al realizar la transición de hosts
+      de Windows
+    url: "/san-host/task_preparing_for_cutover_when_transitioning_windows_hosts.html"
+  - title: Conectar hosts de Windows después de la transición
+    url: "/san-host/task_bringing_windows_hosts_online_after_transition.html"
+  - title: Excepciones y problemas conocidos cuando se realiza la transición de hosts
+      SAN a ONTAP
+    url: "/san-host/concept_exceptions_and_known_issues_when_transitioning_san_hosts_to_clustered_ontap.html"
+- title: Reparación de host de HP-UX
+  url: "/san-host/concept_hp_ux_host_remediation.html"
+  entries:
+  - title: Transición de LUN de host de HP-UX con sistemas de archivos
+    url: "/san-host/concept_transitioning_hp_ux_host_luns_with_file_systems.html"
+    entries:
+    - title: Preparación para la transición de LUN de host HP-UX con sistemas de archivos
+      url: "/san-host/task_preparing_to_transition_hp_ux_host_luns_with_file_systems.html"
+    - title: Prueba de LUN de datos en hosts HP-UX antes de la fase de transición
+        de las transiciones basadas en copias
+      url: "/san-host/task_testing_data_luns_on_hp_ux_hosts_before_cutover.html"
+    - title: Preparación de la fase de transición al realizar la transición de LUN
+        de datos host de HP-UX con sistemas de archivos
+      url: "/san-host/task_preparing_for_cutover_when_transitioning_hp_ux_host_data_luns_with_file_systems.html"
+    - title: Montaje de LUN de host HP-UX con sistemas de archivos después de la transición
+      url: "/san-host/task_mounting_hp_ux_host_luns_with_file_systems_after_transition.html"
+  - title: Realizar la transición de LUN DE arranque SAN del host HP-UX con configuraciones
+      FC/FCoE
+    url: "/san-host/concept_transitioning_hp_ux_host_san_boot_luns_with_fc_fcoe_configurations.html"
+    entries:
+    - title: Preparar la transición de LUN de arranque SAN en hosts HP-UX con configuraciones
+        FC
+      url: "/san-host/task_preparing_to_transition_san_boot_luns_on_hp_ux_hosts_with_fc_configurations.html"
+    - title: Prueba de haber realizado la transición de LUN DE arranque SAN en hosts
+        HP-UX antes de la fase de transición de las transiciones basadas en copias
+      url: "/san-host/task_testing_transitioned_san_boot_luns_on_hp_ux_hosts_before_cutover.html"
+    - title: Preparación de la fase de transición al realizar la transición de las
+        LUN de arranque SAN
+      url: "/san-host/concept_preparing_for_cutover_when_transitioning_san_boot_luns.html"
+    - title: Realizar un LUN de arranque SAN como el LUN de arranque principal de
+        los HBA Emulex de HP-UX tras la transición
+      url: "/san-host/task_making_a_san_boot_lun_primary_for_hp_ux_emulex_hbas_after_transition.html"
+    - title: Creación de un LUN DE arranque SAN como el LUN de arranque principal
+        para los HBA QLogic HP-UX después de la transición
+      url: "/san-host/task_making_san_boot_lun_primary_boot_lun_for_hp_ux_qlogic_hbas_after_transition.html"
+- title: Reparación de host AIX
+  url: "/san-host/concept_aix_host_remediation.html"
+  entries:
+  - title: Transición de LUN de arranque SAN en hosts AIX con configuraciones FC/FCoE
+    url: "/san-host/concept_transition_of_san_boot_luns_on_aix_hosts_with_fc_fcoe_configurations.html"
+    entries:
+    - title: Preparar la transición de LUN de arranque SAN en hosts AIX con configuraciones
+        FC/FCoE
+      url: "/san-host/task_preparing_to_transition_san_boot_luns_on_aix_hosts_with_fc_fcoe_configurations.html"
+    - title: Prueba de LUN de arranque SAN convertidos en hosts AIX antes de la fase
+        de transición de las transiciones basadas en copias
+      url: "/san-host/task_testing_transitioned_san_boot_luns_on_aix_hosts_before_cutover.html"
+    - title: Preparar la fase de transición durante la transición de hosts AIX con
+        configuraciones FC/FCoE.
+      url: "/san-host/task_preparing_for_cutover_when_transitioning_aix_hosts_with_fc_fcoe_configurations.html"
+    - title: Arrancar desde el LUN de arranque SAN en hosts AIX con configuraciones
+        FC/FCoE tras la transición
+      url: "/san-host/task_booting_from_san_boot_lun_on_aix_hosts_with_fc_fcoe_configurations_after_transition.html"
+  - title: Realizar la transición de LUN de datos del host AIX con sistemas de archivos
+    url: "/san-host/concept_transitioning_aix_host_data_luns_with_file_systems.html"
+    entries:
+    - title: Preparar la transición de LUN de datos del host AIX con sistemas de archivos
+      url: "/san-host/task_preparing_to_transition_aix_data_host_luns_with_file_systems.html"
+    - title: Prueba de que ha realizado la transición de LUN en hosts AIX antes de
+        la fase de transición de las transiciones basadas en copias
+      url: "/san-host/task_testing_transitioned_luns_on_aix_hosts_before_cutover.html"
+    - title: Preparación de la fase de transición al realizar la transición de LUN
+        de datos de host de AIX con sistemas de archivos
+      url: "/san-host/task_preparing_for_cutover_when_transitioning_aix_data_luns_with_file_systems.html"
+    - title: Montaje de LUN de datos de host AIX con sistemas de archivos después
+        de la transición
+      url: "/san-host/task_mounting_aix_host_luns_with_file_systems_after_transition.html"
+- title: Corrección de hosts Solaris
+  url: "/san-host/concept_solaris_host_remediation.html"
+  entries:
+  - title: Transición de LUN de datos de host de Solaris con sistemas de archivos
+      ZFS
+    url: "/san-host/concept_transitioning_solaris_host_data_luns_with_zfs_file_systems.html"
+    entries:
+    - title: Preparación para la transición de LUN de datos host de Solaris con sistema
+        de archivos ZFS
+      url: "/san-host/task_preparing_to_transition_solaris_host_data_luns_with_zfs_file_system.html"
+    - title: Prueba de las LUN de datos en hosts Solaris con sistema de archivos ZFS
+        antes de la fase de transición de las transiciones basadas en copias
+      url: "/san-host/task_testing_data_luns_on_solaris_hosts_with_zfs_file_system_before_cutover.html"
+    - title: Preparación de la fase de transición al realizar la transición de LUN
+        de datos host de Solaris con sistemas de archivos ZFS
+      url: "/san-host/task_preparing_for_cutover_when_transitioning_solaris_host_data_luns_with_zfs_file_systems.html"
+    - title: Montaje de LUN de host Solaris con sistemas de archivos ZFS tras la transición
+      url: "/san-host/task_mounting_solaris_host_luns_with_zfs_file_systems_after_transition.html"
+  - title: Transición de LUN de datos de host de Solaris con Sun Volume Manager
+    url: "/san-host/concept_transitioning_solaris_host_data_luns_with_sun_volume_manager.html"
+    entries:
+    - title: Preparación para la transición de LUN de host Solaris con Sun Volume
+        Manager
+      url: "/san-host/task_preparing_to_transition_solaris_host_data_luns_with_sun_volume_manager.html"
+    - title: Prueba de las LUN de datos en hosts Solaris con Sun Volume Manager antes
+        de la fase de transición de las transiciones basadas en copias
+      url: "/san-host/task_testing_data_luns_on_solaris_hosts_with_sun_volume_manager_svm_before_cutover.html"
+    - title: Preparación de la fase de transición al realizar la transición de LUN
+        de datos de Sun Volume Manager host Solaris
+      url: "/san-host/task_preparing_for_cutover_when_transitioning_solaris_host_sun_volume_manager_data_luns.html"
+    - title: Montaje de LUN de host Solaris con Solaris Volume Manager después de
+        la transición
+      url: "/san-host/task_mounting_solaris_host_luns_with_sun_volume_manager_after_transition.html"
+- title: Revertir las LUN a 7-Mode después de la transición
+  url: "/san-host/concept_rolling_back_luns_to_7_mode_after_transition.html"
+  entries:
+  - title: Revertir las LUN de ONTAP a LUN de 7-Mode en hosts RHEL
+    url: "/san-host/task_rolling_back_clustered_ontap_luns_back_to_7_mode_on_rhel_hosts.html"
+  - title: Revertir LUN de ONTAP a LUN de 7-Mode en hosts Windows
+    url: "/san-host/task_rolling_back_clustered_ontap_luns_back_to_7_mode_on_windows_hosts.html"

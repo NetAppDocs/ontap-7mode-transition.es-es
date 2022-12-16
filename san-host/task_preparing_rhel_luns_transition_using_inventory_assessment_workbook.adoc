@@ -1,0 +1,59 @@
+---
+permalink: san-host/task_preparing_rhel_luns_transition_using_inventory_assessment_workbook.html 
+sidebar: sidebar 
+keywords: rhel, lun, mount, points, dmmp, device, names, inventory, assessment, workbook 
+summary: 'Antes de realizar la transición de un LUN con un punto de montaje utilizando un nombre de dispositivo DMMP, debe sustituir el nombre de dispositivo DMMP por su número de UUID de sistema de archivos correspondiente. Esto se aplica a Red Hat Enterprise Linux \(RHEL\) 5 y RHEL 6.' 
+---
+= Preparación de los LUN de RHEL con puntos de montaje mediante nombres de dispositivos DMMP para la transición mediante el Libro de trabajo de evaluación de inventario
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de realizar la transición de un LUN con un punto de montaje utilizando un nombre de dispositivo DMMP, debe sustituir el nombre de dispositivo DMMP por su número de UUID de sistema de archivos correspondiente. Esto se aplica a Red Hat Enterprise Linux (RHEL) 5 y RHEL 6.
+
+Este procedimiento se aplica a las transiciones basadas en copias y a las transiciones sin copias.
+
+.Pasos
+. Recopilar información de pretransición del _Libro de evaluación de inventario_.
++
+Específicamente, necesitará la siguiente información:
+
++
+** Sistema de archivos configurado en el dispositivo DMMP
+** Directorio en el que está montado el dispositivo DMMP
+** El UUID del sistema de archivos para el dispositivo DMMP
+
+
+
+
+.Pasos
+. Verifique que los puntos de montaje del dispositivo DMMP están definidos en el archivo '/etc/fstab '.
+. Cree una copia de seguridad del archivo:
++
+`*cp /etc/fstab /etc/fstab_pre_transition*`
+
+. Edite el `/etc/fstab` Archivo para reemplazar el nombre del dispositivo DMMP por su número de UUID del sistema de archivos correspondiente.
++
+En el siguiente ejemplo, el dispositivo DMMP /dev/mapper/360a9800037534562572b453855496b41 se sustituye por el UUID a073547e-00b6-4bf9-8e08-5eef08499a9c:
+
++
+[listing]
+----
+[root@IBMx3550M3-229-169 ~]# cat /etc/fstab
+/dev/VolGroup00/LogVol00 /  ext3  defaults   1 1
+LABEL=/boot /boot  ext3     defaults         1 2
+tmpfs  /dev/shm    tmpfs    defaults         0 0
+devpts /dev/pts    devpts   gid=5, mode=620  0 0
+sysfs  /sys	       sysfs           defaults  0 0
+proc   /proc       proc           defaults   0 0
+/dev/VolGroup00/LogVol01 swap	swap  defaults 0 0
+/dev/mapper/test_vg-test_lv /mnt/lvm_ext3 ext3 defaults,_netdev 0 0
+UUID=a073547e-00b6-4bf9-8e08-5eef08499a9c /mnt/dmmp_ext3 ext3 defaults,_netdev 0 0
+----
+
+
+*Información relacionada*
+
+xref:task_gathering_pretransition_information_from_inventory_assessment_workbook.adoc[Recopilación de información previa a la transición del libro de trabajo de evaluación de inventario]

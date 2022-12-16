@@ -1,0 +1,51 @@
+---
+permalink: san-host/task_remounting_vmfs_volumes_after_transition_using_esxi_cli_console.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, esxi, cli, vmfs, volumes 
+summary: Después de la transición, se puede utilizar la interfaz de línea de comandos de ESXi para volver a montar los volúmenes y llevar los almacenes de datos y las máquinas virtuales a sus estados de pretransición. 
+---
+= Volver a montar los volúmenes VMFS después de la transición mediante la interfaz de línea de comandos de ESXi
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de la transición, se puede utilizar la interfaz de línea de comandos de ESXi para volver a montar los volúmenes y llevar los almacenes de datos y las máquinas virtuales a sus estados de pretransición.
+
+La LUN original de 7-Mode debe estar quitada o desconectada.
+
+Estos pasos se aplican a volúmenes y volúmenes distribuidos.
+
+.Pasos
+. Inicie sesión en la consola ESXi mediante SSH.
+. Enumere las LUN recién añadidas con las firmas VMFS y las etiquetas de VMFS existentes:
++
+`*# esxcfg-volume -l*`
+
++
+A continuación se muestra un ejemplo de las LUN que se enumeran con firmas VMFS y etiquetas de VMFS.
+
++
+[listing]
+----
+# esxcfg-volume -l
+VMFS UUID/label: 53578567-5b5c363e-21bb-001ec9d631cb/datastore1
+Can mount: Yes
+Can resignature: Yes
+Extent name: naa.600a098054314c6c445d446f79716475:1 range: 0 - 409599
+(MB)
+----
+. Vuelva a montar los volúmenes VMFS de forma persistente con la misma firma:
++
+** Para volúmenes regulares: +
+`*esxcfg-volume -M|--persistent-mount _VMFS UUID|label_*`
+** Para volúmenes distribuidos: +
+`*# esxcfg-volume -M vmfs-span-ds*`
+
+
+
+
+*Información relacionada*
+
+http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=1011387["Base de conocimientos de VMware: Manejo de vSphere de LUN detectadas como LUN de snapshot"]

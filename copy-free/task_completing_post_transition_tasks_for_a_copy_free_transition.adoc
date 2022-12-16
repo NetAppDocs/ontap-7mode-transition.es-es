@@ -1,0 +1,14 @@
+---
+permalink: copy-free/task_completing_post_transition_tasks_for_a_copy_free_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, complete 
+summary: Para completar la transición, es necesario verificar manualmente los volúmenes y las configuraciones que se han realizado la transición, probar la carga de trabajo, iniciar la producción y, a continuación, comprometer el proyecto de transición sin copias. Debido a que no se permite la reversión después de la operación de confirmación, se deben verificar todas las cargas de trabajo y comenzar la producción durante una breve duración para evaluar si es necesaria la reversión. 
+---
+= Completar la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para completar la transición, es necesario verificar manualmente los volúmenes y las configuraciones que se han realizado la transición, probar la carga de trabajo, iniciar la producción y, a continuación, comprometer el proyecto de transición sin copias. Debido a que no se permite la reversión después de la operación de confirmación, se deben verificar todas las cargas de trabajo y comenzar la producción durante una breve duración para evaluar si es necesaria la reversión.

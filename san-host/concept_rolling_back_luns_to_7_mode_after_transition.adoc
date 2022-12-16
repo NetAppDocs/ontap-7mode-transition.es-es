@@ -1,0 +1,29 @@
+---
+permalink: san-host/concept_rolling_back_luns_to_7_mode_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, rolling, lun, 7, mode 
+summary: 'Si no está satisfecho con el rendimiento de sus LUN de Clustered Data ONTAP, puede revertir de Clustered Data ONTAP a Data ONTAP funcionando en 7-Mode para realizar transiciones sin copias \(CFF\). No se admite la reversión para transiciones basadas en copias \(CBTS\). Solo se admite la reversión en determinados hosts.' 
+---
+= Revertir las LUN a 7-Mode después de la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si no está satisfecho con el rendimiento de sus LUN de Clustered Data ONTAP, puede revertir de Clustered Data ONTAP a Data ONTAP operando en 7-Mode para realizar transiciones sin copias (CTR). No se admite la reversión para transiciones basadas en copias (CBTS). Solo se admite la reversión en determinados hosts.
+
+Puede revertir Clustered Data ONTAP a Data ONTAP operando en 7-Mode en cualquier momento antes de hacer clic en *commit* en la herramienta de transición de 7-Mode (7MTT). Después de hacer clic en *commit*, no puede revertir.
+
+Los siguientes hosts admiten reversión:
+
+* Windows
+* Red Hat Enterprise Linux (RHEL)
+* ESXi
+
+
+Los siguientes hosts no admiten la reversión:
+
+* HP-UX
+* AIX
+

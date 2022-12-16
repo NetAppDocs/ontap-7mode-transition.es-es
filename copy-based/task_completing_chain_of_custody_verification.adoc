@@ -1,0 +1,35 @@
+---
+permalink: copy-based/task_completing_chain_of_custody_verification.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, complete, chain, custody, verification 
+summary: Si se seleccionan uno o más volúmenes SnapLock para la verificación de la cadena de custodia, deberá realizar la operación cadena de custodia para generar un informe de cadena de custodia. 
+---
+= Finalización de la verificación de la cadena de custodia
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si se seleccionan uno o más volúmenes SnapLock para la verificación de la cadena de custodia, deberá realizar la operación cadena de custodia para generar un informe de cadena de custodia.
+
+Debe haber completado la transición del proyecto.
+
+La operación cadena de custodia SnapLock es compatible con volúmenes con archivos que tienen nombres de archivo con caracteres ASCII únicamente.
+
+. En el Panel de migración, haga clic en *Iniciar cadena de custodia*.
++
+Si desea mantener los volúmenes SnapLock de 7-Mode en línea después de la verificación cadena de custodia, debe desactivar la casilla de verificación * tomar volúmenes SnapLock de 7-Mode seleccionados para verificación de cadena de custodia fuera de línea después de que la operación de verificación de cadena de custodia se haya completado*.
+
+. Haga clic en *continuar*.
++
+Se inicia la operación de verificación de la cadena de custodia. Esta operación puede tardar una cantidad considerable de tiempo según la cantidad de archivos en los volúmenes SnapLock. Puede hacer clic en *Ejecutar en fondo* para realizar la operación en segundo plano.
+
++
+Puede realizar un seguimiento del progreso de la operación de verificación de la cadena de custodia haciendo clic en la pestaña cadena de custodia SnapLock de la ventana del Panel de migración. Esta pestaña muestra el progreso por volumen de la operación cadena de custodia.
+
+. Una vez que la operación de cadena de custodia haya finalizado, haga clic en *Informe de descarga* en la ficha cadena de custodia de SnapLock para descargar el informe de verificación de la cadena de custodia.
++
+El informe de verificación de la cadena de custodia contiene detalles sobre si la verificación de la cadena de custodia SnapLock se ha realizado correctamente. El informe muestra el número total de archivos y el número de archivos sin WORM en cada uno de los volúmenes SnapLock de 7-Mode seleccionados para la operación cadena de custodia. También puede verificar el número de archivos para los que coinciden y no coinciden las huellas digitales. El informe también muestra el número de archivos WORM para los que falló la verificación de la cadena de custodia y el motivo del fallo.
+
+

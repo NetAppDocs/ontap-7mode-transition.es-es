@@ -1,0 +1,77 @@
+---
+permalink: copy-based/task_managing_logical_interfaces.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, manage, logical, interfaces 
+summary: Puede agregar, editar o eliminar direcciones IP de 7-Mode de un proyecto. 
+---
+= Gestión de interfaces lógicas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede agregar, editar o eliminar direcciones IP de 7-Mode de un proyecto.
+
+Los LIF se configuran en la máquina virtual de almacenamiento (SVM) en la fase Apply Configuration (previa):
+
+* Las direcciones IP de 7-Mode existentes se crean en el estado administrativo «inactivo».
+* Las nuevas direcciones IP se crean en el estado «up» administrativo.
+
+
+
+IMPORTANT: La herramienta de transición de 7-Mode no realiza la transición de los LIF FC e iSCSI.
+
+.Pasos
+. Ejecute una de las siguientes acciones:
++
+|===
+| Si desea... | Realice lo siguiente... 
+
+
+ a| 
+Editar una LIF existente
+ a| 
+.. Haga clic en image:../media/edit_schedule.gif[""] .
+.. En el cuadro de diálogo Modificar LIF, realice los cambios necesarios y, a continuación, haga clic en *Guardar*.
+
+
+
+
+ a| 
+Quitar una LIF existente
+ a| 
+.. Haga clic en image:../media/delete_schedule.gif[""] en la tabla.
++
+
+NOTE: Solo puede quitar una LIF cuando el proyecto esté en estado de preparación, copia de datos base, pausa, copia previa o actualización. Sin embargo, no puede quitar una LIF si la operación de transición ha dado error.
+
+.. Haga clic en *Seleccionar LIF de 7-Mode*.
+.. Seleccione las direcciones IP de 7-Mode para la transición.
+.. Introduzca los detalles del nodo de destino y del puerto de destino.
+.. Haga clic en *Guardar*.
+
+
+
+
+ a| 
+Añada una dirección IP de 7-Mode
+ a| 
+** Haga clic en *Seleccionar LIF de 7-Mode*.
+** Seleccione las direcciones IP de 7-Mode para la transición.
+** Introduzca los detalles del nodo de destino y del puerto de destino.
+** Haga clic en *Guardar*.
+
+
+
+
+ a| 
+Añada una nueva LIF
+ a| 
+.. Haga clic en *Agregar una nueva LIF* debajo de la tabla.
+.. Introduzca los valores necesarios.
+.. Haga clic en *Guardar*.
+
+
+|===
+

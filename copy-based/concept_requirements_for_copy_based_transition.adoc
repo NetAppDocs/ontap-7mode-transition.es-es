@@ -1,0 +1,98 @@
+---
+permalink: copy-based/concept_requirements_for_copy_based_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, requirements 
+summary: Debe tener en cuenta los requisitos de versión de ONTAP, los requisitos de licencia y los requisitos de la herramienta de transición de 7-Mode para realizar la transición basada en copias. 
+---
+= Requisitos para la transición basada en copias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe tener en cuenta los requisitos de versión de ONTAP, los requisitos de licencia y los requisitos de la herramienta de transición de 7-Mode para realizar la transición basada en copias.
+
+* *Sistemas fuente Data ONTAP 7-Mode*
++
+Para obtener una lista de las versiones de 7-Mode compatibles con la migración de 7-Mode Transition Tool, consulte https://mysupport.netapp.com/matrix["Herramienta de matriz de interoperabilidad de NetApp"].
+
+* *Sistemas de destino ONTAP*
++
+Las transiciones basadas en copias son compatibles con estas versiones de destino de ONTAP.
+
++
+|===
+| Si el destino de la transición se está ejecutando ... | Debe utilizar esta versión de 7-Mode Transition Tool... 
+
+
+ a| 
+ONTAP 9.10.1, ONTAP 9.11.1 o una versión compatible con versiones anteriores
+ a| 
+3.5.0
+
+
+
+ a| 
+ONTAP 9.9.1 o una versión compatible anterior
+ a| 
+3.4.0
+
+
+
+ a| 
+ONTAP 9.8 o una versión compatible anterior
+ a| 
+3.3.3
+
+
+
+ a| 
+ONTAP 9.7P2 o posterior versión 9.7 P.
+
+
+NOTE: No se admiten versiones anteriores de 9.7.
+ a| 
+3.3.2
+
+
+
+ a| 
+Versión ONTAP 9.6P7 o posterior de 9.6 P.
+
+
+NOTE: No se admiten versiones anteriores de 9.6.
+ a| 
+3.3.2
+
+
+
+ a| 
+ONTAP 9.5 o una versión anterior de ONTAP 9
+ a| 
+3.3.2 o 3.3.1
+
+
+
+ a| 
+Clustered Data ONTAP 8.1.4P4 o versiones posteriores de 8.x.
+ a| 
+3.3.2 o 3.3.1
+
+|===
+* *Requisitos de licencia*
++
+SnapMirror debe tener una licencia en el sistema de almacenamiento 7-Mode. Si el sistema 7-Mode no tiene una licencia de SnapMirror, puede obtener una licencia temporal de SnapMirror para realizar la transición del representante de ventas.
+
++
+Si es necesario realizar una verificación de la cadena de custodia, debe tener licencia para SnapLock en el clúster de destino.
+
+* *Servicio 7-Mode Transition Tool*
++
+Para que los programas de copias de datos se apliquen, el servicio 7-Mode Transition Tool debe estar siempre activo y en ejecución en el sistema Windows o Linux en el que se ha instalado la herramienta. Sin embargo, no requiere que la interfaz web esté activa o abierta para que los horarios surtan efecto. Puede cerrar la interfaz web y volver a iniciar sesión cuando sea necesario.
+
+* *Requisitos de almacenamiento, host y versión de switch FC para la evaluación de transición*
++
+Para obtener una lista de las versiones de 7-Mode, los hosts y los switches FC que son compatibles para su evaluación con 7-Mode Transition Tool, consulte la https://mysupport.netapp.com/matrix["Herramienta de matriz de interoperabilidad de NetApp"].
+
+

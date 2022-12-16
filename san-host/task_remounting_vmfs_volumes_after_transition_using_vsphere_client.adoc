@@ -1,0 +1,37 @@
+---
+permalink: san-host/task_remounting_vmfs_volumes_after_transition_using_vsphere_client.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, remount, vmfs, volumes, vshpere, client 
+summary: 'Después de la transición, se deben volver a montar los volúmenes VMFS para trasladar los almacenes de datos y las máquinas virtuales \(VM\) a sus estados de pretransición. Si no está familiarizado con la CLI de ESXi o con ella es más conveniente en el entorno, puede usar vSphere Client para volver a montar los volúmenes.' 
+---
+= Volver a montar volúmenes VMFS después de la transición mediante vSphere Client
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de la transición, se deben volver a montar los volúmenes VMFS para llevar los almacenes de datos y las máquinas virtuales a sus estados de pretransición. Si no está familiarizado con la CLI de ESXi o con ella es más conveniente en el entorno, puede usar vSphere Client para volver a montar los volúmenes.
+
+Estos pasos se aplican a volúmenes y volúmenes distribuidos.
+
+.Pasos
+. Inicie sesión en el host ESXi o en vCenter Server que gestione el host ESXi.
+. En *hosts and Clusters*, seleccione el host ESXi.
+. Vaya a *Configuración* > *hardware* > *almacenamiento*.
+. En la esquina superior derecha, haga clic en *Agregar almacenamiento*.
+. Seleccione *disco/LUN*.
+. Haga clic en *Siguiente*.
+. En la lista de LUN, busque la columna *VMFS_label* que muestra el nombre del almacén de datos.
+. Seleccione la LUN para completar la operación de montaje.
++
+Si va a volver a montar un volumen VMFS distribuido, la primera LUN de la envergadura se Marca "'head'". Debe seleccionar la LUN "'head'" para completar la operación de montaje.
+
+. Haga clic en *Siguiente*.
+. En la ventana Seleccionar opciones de montaje VMFS, seleccione *mantener la firma existente*.
+. Complete el asistente.
+. Repita estos pasos para todas las LUN que muestran el nombre del almacén de datos en la columna VMFS_label.
++
+Los almacenes de datos se vuelven a montar y las máquinas virtuales están activas.
+
+

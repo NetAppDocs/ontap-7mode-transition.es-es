@@ -1,0 +1,78 @@
+---
+permalink: copy-free/task_svm_and_volume_mapping.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, map, svm, volumes 
+summary: Debe asignar cada controladora de 7-Mode del par de alta disponibilidad a una SVM de destino. Si tiene unidades vFiler, debería seleccionar una SVM de destino para cada unidad vFiler. Los volúmenes de la controladora 7-Mode o la unidad vFiler se trasladan a la SVM asignada. 
+---
+= Asignación de SVM y volúmenes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe asignar cada controladora de 7-Mode del par de alta disponibilidad a una SVM de destino. Si tiene unidades vFiler, debería seleccionar una SVM de destino para cada unidad vFiler. Los volúmenes de la controladora 7-Mode o la unidad vFiler se trasladan a la SVM asignada.
+
+Debe haber creado las SVM en el clúster de destino.
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.onc-sm-help/GUID-DF04A607-30B0-4B98-99C8-CB065C64E670.html["Gestión de clústeres mediante System Manager"]
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Administración del sistema"]
+
+Una unidad vFiler solo se puede asignar a una única SVM. Los volúmenes de cualquier otra controladora de 7-Mode o unidad vFiler no se pueden realizar la transición a una SVM asignada.
+
+.Pasos
+. En la pestaña SVM y Volume Mapping, seleccione la SVM de destino a la que desea transferir los volúmenes de cada controladora 7-Mode o unidad vFiler.
++
+La SVM de destino puede estar en el espacio IP predeterminado o en el espacio IP no predeterminado.
+
+. Según si desea aplicar la misma política de ruta de unión para los volúmenes de todas las SVM o una política de ruta de unión diferente para los volúmenes de cada SVM, elija una de las siguientes acciones:
++
+|===
+| Si desea... | Realice lo siguiente... 
+
+
+ a| 
+Aplique la misma política de ruta de unión a todas las SVM
+ a| 
+.. Haga clic en *aplicar*.
+.. Seleccione una opción para la política de ruta de unión.
+.. Haga clic en *Aceptar*.
+
+
+
+
+ a| 
+Especifique la política de ruta de unión para cada SVM
+ a| 
+Seleccione la política de ruta de unión en la lista desplegable para cada SVM de destino.
+
+|===
++
+La política de ruta de unión especifica la ruta con la que deben montarse los volúmenes de Clustered Data ONTAP de destino para acceder a los clientes. Puede añadir uno de los siguientes valores para la política de ruta de unión:
+
++
+** *Preserve las rutas de montaje de 7-Mode*
++
+Conserva las mismas rutas de unión que las que se usan en los volúmenes de 7-Mode de origen y los volúmenes se montan con rutas de unión en el formato `/vol/__source_volume_name__` después de la transición.
+
+** *Usar el nombre del volumen de Clustered Data ONTAP*
++
+Todos los volúmenes Clustered Data ONTAP de destino están montados con rutas de unión con el nombre del volumen Clustered Data ONTAP en formato `_/target_volume_name_` después de la transición.
+
+** *Utilice el nombre de volumen de 7-Mode*
++
+Todos los volúmenes Clustered Data ONTAP de destino están montados con rutas de unión con el nombre del volumen de 7-Mode en el formato `_/source_volume_name_` después de la transición.
+
+
+
+. Haga clic en image:../media/delete_me_edit_schedule.gif["Icono Editar"] Para modificar el nombre del volumen de Clustered Data ONTAP de destino.
++
+De forma predeterminada, el volumen de Clustered Data ONTAP objetivo tiene el mismo nombre que el volumen de 7-Mode. Si un volumen con el mismo nombre que el volumen de 7-Mode ya existe en la SVM, al volumen objetivo se le asigna automáticamente un nuevo nombre.
+
+. Haga clic en *Guardar asignación* para cada SVM asignada.
+. Haga clic en *Siguiente*.
++
+Aparecerá la pantalla Networking (redes).
+
+

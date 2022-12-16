@@ -1,0 +1,60 @@
+---
+permalink: snapmirror/task_transitioning_a_volume_snapmirror_relationship_in_parallel.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, snapmirror, volume, relationship, parallel 
+summary: Puede realizar la transición de los volúmenes primario y secundario de una relación de SnapMirror de 7-Mode en paralelo y en la misma ventana de transposición. A continuación, debe configurar manualmente la relación de SnapMirror para volúmenes en los clústeres de ONTAP después de la transición. Se debe usar este método para realizar la transición de los volúmenes de cumplimiento de SnapLock. 
+---
+= Realizar la transición de una relación de SnapMirror para volúmenes en paralelo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede realizar la transición de los volúmenes primario y secundario de una relación de SnapMirror de 7-Mode en paralelo y en la misma ventana de transposición. A continuación, debe configurar manualmente la relación de SnapMirror para volúmenes en los clústeres de ONTAP después de la transición. Se debe usar este método para realizar la transición de los volúmenes de cumplimiento de SnapLock.
+
+* Debe haber configurado los clústeres y las SVM primarios y secundarios.
+* Para establecer una relación entre iguales de una SVM durante la transición de una relación de SnapMirror de volumen, se deben cumplir las siguientes condiciones:
++
+** El clúster secundario no debe tener una SVM con el mismo nombre que la SVM principal.
+** El clúster principal no debe tener una SVM con el mismo nombre que la SVM secundaria.
+** Debe haber revisado la información sobre cómo prepararse para la transición.
++
+xref:task_preparing_for_transition.adoc[Preparación para la transición]
+
+
+
+
+
+Es necesario realizar la transición de una relación de SnapMirror de 7-Mode entre los volúmenes de cumplimiento de normativas de SnapLock en paralelo, ya que no se admite la resincronización de SnapMirror de una relación de protección de datos de transición (TDP) con los volúmenes de cumplimiento de normativas de SnapLock. Por lo tanto, no se puede establecer una relación de recuperación ante desastres (DR) de SnapMirror entre volúmenes primarios de 7-Mode y volúmenes secundarios de ONTAP con volúmenes de SnapLock Compliance.
+
+. Para realizar la transición de los volúmenes secundarios y primarios de la relación de SnapMirror, se deben seguir los pasos para migrar un volumen independiente.
++
+Antes de realizar la transición de los volúmenes secundarios de 7-Mode, no es necesaria ninguna intervención manual para las relaciones de SnapMirror de 7-Mode. Esto garantiza que los volúmenes secundarios 7-Mode se realice la transición como volúmenes de solo lectura a ONTAP.
+
++
+xref:task_transitioning_a_stand_alone_volume.adoc[Realizar la transición de un volumen independiente]
+
+. Cree una relación entre iguales de SVM que contenga los volúmenes primario y secundario convertidos.
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Administración del sistema"]
+
+. Cree una relación de SnapMirror para volúmenes entre los volúmenes primario y secundario convertidos.
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-sm-ic-cg/home.html["Preparación exprés para la recuperación ante desastres de volúmenes"]
+
+. En el volumen de destino, resincronice el volumen de origen y el volumen de destino de la relación de SnapMirror.
++
+
+IMPORTANT: Debe haber al menos una copia Snapshot común entre los volúmenes de origen y de destino.
+
+. Supervise el estado de las transferencias de datos de SnapMirror.
++
+
+IMPORTANT: No debe realizar ninguna operación, como mover volúmenes o interrumpir SnapMirror, en los volúmenes de origen y destino hasta que la resincronización se haya realizado correctamente. Debe asegurarse de que la resincronización no se cancele y se complete correctamente; de lo contrario, los volúmenes pueden cambiar a un estado incoherente.
+
+
+
+*Información relacionada*
+
+xref:concept_guidelines_for_transitioning_snaplock_volumes.adoc[Directrices para realizar la transición de volúmenes SnapLock]

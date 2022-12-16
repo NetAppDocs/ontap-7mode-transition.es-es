@@ -1,0 +1,37 @@
+---
+permalink: san-host/task_setting_up_esxi_hosts_configured_for_san_boot_after_transition.html 
+sidebar: sidebar 
+keywords: esxi, configured, boot, ontap, san, host, transition 
+summary: Si el host ESXi se configuró para arranque SAN antes de realizar la transición desde Data ONTAP que funciona en 7-Mode, debe realizar varios pasos antes de utilizar el host después de la transición. 
+---
+= Configurar los hosts ESXi configurados para el arranque SAN después de la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si el host ESXi se configuró para arranque SAN antes de realizar la transición desde Data ONTAP que funciona en 7-Mode, debe realizar varios pasos antes de utilizar el host después de la transición.
+
+* Para las transiciones basadas en copias, realice estos pasos antes de iniciar la operación de transición del almacenamiento en 7MTT.
+* Para las transiciones sin copias, realice estos pasos antes de iniciar la operación Exportar y detener los sistemas de 7-Mode en 7MTT.
+
+
+.Pasos
+. Reconfigure su BIOS de HBA FC y FCoE para arrancar desde la LUN de arranque SAN del sistema Clustered Data ONTAP.
+. Arranque el host ESXi.
+. Restablecer las configuraciones del host a la configuración de antes de la transición.
+. En el caso de los hosts iSCSI, consulte cómo volver a configurar el iniciador iSCSI de VMware.
++
+xref:concept_reconfiguration_of_vmware_software_iscsi_initiator.adoc[Vuelva a configurar el iniciador iSCSI de VMware]
+
+. Vuelva a montar los almacenes de datos VMFS creados desde la LUN de arranque en la instalación predeterminada.
+
+
+*Información relacionada*
+
+xref:task_remounting_vmfs_volumes_after_transition_using_vsphere_client.adoc[Volver a montar volúmenes VMFS después de la transición mediante vSphere Client]
+
+xref:task_remounting_vmfs_volumes_after_transition_using_esxi_cli_console.adoc[Volver a montar los volúmenes VMFS después de la transición mediante la interfaz de línea de comandos de ESXi]
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["Administración de SAN"]

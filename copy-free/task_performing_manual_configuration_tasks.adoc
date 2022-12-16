@@ -1,0 +1,33 @@
+---
+permalink: copy-free/task_performing_manual_configuration_tasks.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, performing, manual, configuration 
+summary: Se deben ejecutar manualmente algunas tareas de configuración necesarias para las cargas de trabajo y las aplicaciones que acceden a los volúmenes convertidos. Puede obtener la lista de tareas manuales de los resultados de las comprobaciones previas. 
+---
+= Realizar tareas de configuración manuales después de la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se deben ejecutar manualmente algunas tareas de configuración necesarias para las cargas de trabajo y las aplicaciones que acceden a los volúmenes convertidos. Puede obtener la lista de tareas manuales de los resultados de las comprobaciones previas.
+
+.Pasos
+. Realizar las tareas enumeradas en los resultados de las comprobaciones previas para configurar funciones que no hayan realizado la transición de la herramienta o que requieran personalización del entorno.
++
+xref:concept_supported_and_unsupported_name_services_configurations.adoc[Transición de servicios de nombres: Configuraciones compatibles y no compatibles y pasos manuales necesarios]
+
++
+xref:concept_nfs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.adoc[Transición a NFS: Configuraciones compatibles y no compatibles, así como pasos manuales necesarios]
+
++
+xref:concept_cifs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.adoc[Configuraciones CIFS compatibles y no compatibles para la transición a ONTAP]
+
++
+xref:concept_san_transition_supported_and_unsupported_configurations_and_required_manual_steps.adoc[Transición DE SAN: Configuraciones compatibles y no compatibles, así como pasos manuales necesarios]
+
++
+xref:task_transitioning_a_snapmirror_relationship.adoc[Realizar la transición de una relación de SnapMirror]
+
+

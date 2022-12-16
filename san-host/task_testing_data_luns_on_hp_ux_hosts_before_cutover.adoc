@@ -1,0 +1,57 @@
+---
+permalink: san-host/task_testing_data_luns_on_hp_ux_hosts_before_cutover.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, data, lun, hp, ux, citover, phase, copy, based 
+summary: 'Si utiliza la herramienta de transición de 7-Mode \(7MTT\) 2.2 o posterior y Data ONTAP 8.3.2 o posterior para realizar una transición basada en copias de sus LUN de datos de host HP-UX, Puede probar las LUN de Clustered Data ONTAP que ha realizado la transición para verificar que puede montar el dispositivo MPIO antes de la fase de transición. El host de origen puede seguir ejecutando I/o en sus LUN de 7-Mode de origen durante las pruebas.' 
+---
+= Prueba de LUN de datos en hosts HP-UX antes de la fase de transición de las transiciones basadas en copias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si utiliza la herramienta de transición de 7-Mode (7MTT) 2.2 o una versión posterior y Data ONTAP 8.3.2 o posterior para realizar una transición basada en copias de sus LUN de datos del host HP-UX, Puede probar las LUN de Clustered Data ONTAP que ha realizado la transición para verificar que puede montar el dispositivo MPIO antes de la fase de transición. El host de origen puede seguir ejecutando I/o en sus LUN de 7-Mode de origen durante las pruebas.
+
+Deben asignarse sus nuevos LUN de ONTAP a su host de prueba, y sus LUN deben estar listos para la transición
+
+Debe mantener la paridad del hardware entre el host de prueba y el host de origen, y debe realizar los siguientes pasos en el host de prueba.
+
+Sus LUN de ONTAP están en modo de lectura/escritura durante las pruebas. Cuando finaliza la prueba y se prepara para la fase de transposición, se convierten al modo de solo lectura.
+
+.Pasos
+. Una vez finalizada la copia de datos de referencia, seleccione *modo de prueba* en la interfaz de usuario (UI) de 7MTT.
+. En la interfaz de usuario de 7MTT, haga clic en *Apply Configuration*.
+. En el host de prueba, vuelva a analizar los LUN de ONTAP nuevos:
++
+`*ioscan -fnC disk*`
+
+. Compruebe que sus LUN de ONTAP están presentes:
++
+`*sanlun lun show*`
+
+. Copie el `/tmp/mapfile.vg01 mapfile` anteriormente se copió en el origen externo al nuevo host.
+. Use el archivo mapfile para importar el grupo de volúmenes:
++
+`*vgimport -s -m /tmp/mapfile/vg01 vg01*`
+
+. Compruebe que el `VG Status` se muestra como `available`:
++
+`*vgdisplay*`
+
+. Convierta el nombre de archivo especial del dispositivo heredado (DSF) a DSF persistente:
++
+`*vgdsf -c /dev/vg01*`
+
+. Utilice el comando Mount para montar manualmente cada uno de los volúmenes lógicos.
+. Ejecute el `fsck` si se le pide que lo haga.
+. Compruebe los puntos de montaje:
++
+`*bdf*`
+
+. Realice las pruebas según sea necesario.
+. Apague el host de prueba.
+. En la interfaz de usuario de 7MTT, haga clic en *Finalizar prueba*.
+
+
+Si debe volver a asignar las LUN de ONTAP al host de origen, debe preparar el host de origen para la fase de transposición. Si sus LUN de ONTAP deben seguir asignados al host de prueba, no se requieren más pasos en el host de prueba.

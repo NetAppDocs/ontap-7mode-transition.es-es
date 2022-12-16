@@ -1,0 +1,24 @@
+---
+permalink: copy-free/task_transitioning_a_snapmirror_relationship.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, snapmirror, relationship 
+summary: Puede realizar primero la transición del par de alta disponibilidad secundario, establecer una relación de SnapMirror escalonada entre los volúmenes primarios de 7-Mode y los volúmenes secundarios de Clustered Data ONTAP y, a continuación, realizar la transición del par de alta disponibilidad principal más adelante. En algunos casos, debe realizar la transición de las parejas de alta disponibilidad secundarias y primarias de una relación de SnapMirror de 7-Mode en paralelo. 
+---
+= Realizar la transición de una relación de SnapMirror
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede realizar primero la transición del par de alta disponibilidad secundario, establecer una relación de SnapMirror escalonada entre los volúmenes primarios de 7-Mode y los volúmenes secundarios de Clustered Data ONTAP y, a continuación, realizar la transición del par de alta disponibilidad principal más adelante. En algunos casos, debe realizar la transición de las parejas de alta disponibilidad secundarias y primarias de una relación de SnapMirror de 7-Mode en paralelo.
+
+Si todos los volúmenes primarios pertenecen a un par de alta disponibilidad y todos los volúmenes secundarios pertenecen al otro par de alta disponibilidad, puede realizar la transición mediante el método escalonado.
+
+Si una pareja de alta disponibilidad tiene una combinación de volúmenes primarios y secundarios, se debe realizar la transición mediante el método paralelo.
+
+Después de realizar la transición de los pares de alta disponibilidad primario y secundario, debe configurar manualmente la relación de SnapMirror para volúmenes en Clustered Data ONTAP después de la transición. Para que la resincronización se realice correctamente, al menos una copia de Snapshot común, que se crea en Data ONTAP 8.1 o una versión posterior, debe existir entre los volúmenes primario y secundario de la relación de SnapMirror.
+
+*Información relacionada*
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.onc-sm-help/GUID-DF04A607-30B0-4B98-99C8-CB065C64E670.html["Gestión de clústeres mediante System Manager"]

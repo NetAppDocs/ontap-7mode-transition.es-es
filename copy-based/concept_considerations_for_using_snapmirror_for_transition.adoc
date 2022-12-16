@@ -1,0 +1,59 @@
+---
+permalink: copy-based/concept_considerations_for_using_snapmirror_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, snapmirror 
+summary: Puede crear programas de copias de datos y personalizar las transferencias de datos de SnapMirror para operaciones de transición sin afectar a las operaciones existentes de 7-Mode a SnapMirror o SnapVault 7-Mode. 
+---
+= Consideraciones para usar SnapMirror para la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede crear programas de copias de datos y personalizar las transferencias de datos de SnapMirror para operaciones de transición sin afectar a las operaciones existentes de 7-Mode a SnapMirror o SnapVault 7-Mode.
+
+
+
+== El número máximo de transferencias de SnapMirror que simultáneamente
+
+Durante la transición, el número máximo de transferencias de SnapMirror que se admiten en los sistemas de 7-Mode y ONTAP depende de la cantidad de operaciones de replicación de SnapMirror para volúmenes permitidas para un modelo de sistema de almacenamiento específico.
+
+Para obtener más información sobre el número máximo de transferencias de SnapMirror para volúmenes simultáneas para su modelo de sistema, consulte link:https://library.netapp.com/ecm/ecm_get_file/ECMP1635994["Guía de recuperación y backup en línea de protección de datos de Data ONTAP para 7-Mode"].
+
+
+
+== Programas de copias de datos
+
+* El número de transferencias de SnapMirror simultáneas que la herramienta utiliza para ejecutar las operaciones de SnapMirror (línea de base, actualización o resincronización) se basa en las programaciones que configure al crear el proyecto.
+* Si hay diferentes proyectos que realizan la transición de volúmenes de la misma controladora de 7-Mode, debe asegurarse de que los programas de copia de datos no se superpongan en proyectos diferentes.
+* Puede asegurarse de que las operaciones de backup y recuperación ante desastres (DR) existentes no se vean afectadas por las operaciones de transición de 7-Mode Transition Tool de las siguientes maneras:
++
+** Debe crear programaciones de copia de datos de SnapMirror para un proyecto de modo que no se superponga con las programaciones existentes de SnapMirror o SnapVault en 7-Mode.
+** Debe configurar el número de transferencias de SnapMirror simultáneas para que se ejecute de manera que no se produzca un error en las programaciones de SnapMirror o SnapVault en 7-Mode existentes.
++
+También es posible lanzar algunas transferencias editando la programación activa y modificando la cantidad máxima de transferencias de SnapMirror para volúmenes simultáneas a cero.
+
+
+
+* Debe asegurarse de que el número de transferencias simultáneas de SnapMirror y el acelerador configurado para las operaciones (recuperación previa, transición y actualización bajo demanda) estén disponibles en el sistema de almacenamiento de 7-Mode durante toda la duración de la operación.
++
+La operación de transposición falla si la operación de actualización incremental final falla incluso en uno de los volúmenes del proyecto.
+
+* En el caso de proyectos secundarios, después de la transición, las actualizaciones incrementales de SnapMirror de la relación de SnapMirror entre los volúmenes primarios de 7-Mode y el volumen secundario de ONTAP se basan en la programación de relaciones de 7-Mode a 7-Mode SnapMirror.
++
+Asegúrese de que haya suficientes transferencias simultáneas de SnapMirror disponibles en la controladora primaria de 7-Mode para que se realicen estas actualizaciones.
+
+
+
+
+
+== Uso de varias rutas para la transición
+
+Puede especificar dos rutas de transición mediante una dirección IP de copia de datos y una dirección IP multivía. Sin embargo, ambas rutas pueden utilizarse únicamente para el equilibrio de carga, no para la conmutación por error.
+
+*Información relacionada*
+
+xref:concept_guidelines_for_creating_a_data_copy_schedule.adoc[Consideraciones que tener en cuenta para crear una programación de copia de datos]
+
+xref:task_creating_schedule_for_snapmirror_transfers.adoc[Crear una programación de copias de datos para transferencias de SnapMirror]

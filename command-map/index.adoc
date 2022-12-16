@@ -1,0 +1,14 @@
+---
+permalink: command-map/index.html 
+sidebar: sidebar 
+keywords: ontap, command, map, transition, index 
+summary: Asigna los comandos de 7-Mode a sus equivalentes en ONTAP 
+---
+= Asignación de comandos para administradores de 7-Mode
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+En esta guía se asignan los comandos de 7-Mode a sus equivalentes en ONTAP.

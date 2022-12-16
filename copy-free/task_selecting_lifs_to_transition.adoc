@@ -1,0 +1,62 @@
+---
+permalink: copy-free/task_selecting_lifs_to_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, select, lif 
+summary: Puede especificar las LIF que desea configurar en las SVM después de la transición. Estos LIF pueden tener direcciones IP existentes en los sistemas de 7-Mode o pueden ser nuevos LIF. Solo se realiza la transición de LIF NAS. Los LIF FC e iSCSI deben configurarse manualmente antes de la fase de aprovisionamiento de la SVM. 
+---
+= Selección de LIF para la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede especificar las LIF que desea configurar en las SVM después de la transición. Estos LIF pueden tener direcciones IP existentes en los sistemas de 7-Mode o pueden ser nuevos LIF. Solo se realiza la transición de LIF NAS. Los LIF FC e iSCSI deben configurarse manualmente antes de la fase de aprovisionamiento de la SVM.
+
+Los LIF seleccionados para la transición se configuran en las SVM durante la fase de aprovisionamiento de SVM de las siguientes formas:
+
+* Las direcciones IP de 7-Mode existentes seleccionadas para la transición se crean en estado administrativo inactivo.
++
+Estas direcciones IP pueden seguir sirviendo datos en 7-Mode hasta que se inicia la transposición. Durante la fase de importación, estas direcciones IP se configuran en el estado administrativo up.
+
+* Se crean nuevas direcciones IP en estado administrativo up.
++
+Puede usar estos LIF para probar la conectividad de las SVM a los servidores de nombres después de la fase de aprovisionamiento de la SVM.
+
+
+
+.Pasos
+. En la pestaña de configuración de LIF, elija una de las siguientes opciones:
++
+|===
+| Si desea realizar la transición... | Realice lo siguiente... 
+
+
+ a| 
+Una dirección IP existente en el sistema 7-Mode
+ a| 
+.. Haga clic en *Seleccionar LIF de 7-Mode*.
+.. Seleccione la dirección IP que desea realizar la transición y, a continuación, especifique la SVM de destino y otros parámetros de red.
+.. Haga clic en *Guardar*.
+
+
+
+
+ a| 
+Una nueva dirección IP
+ a| 
+.. Haga clic en *Agregar nuevo LIF*.
+.. Especifique la dirección IP que desea configurar, la SVM objetivo y otros parámetros de red.
+.. Haga clic en *Guardar*.
+
+
+|===
++
+
+NOTE: Los puertos de destino deben estar en el mismo espacio IP que la SVM de destino.
+
+. Haga clic en *Siguiente*.
++
+Se muestra la ficha Configuración del plan.
+
+

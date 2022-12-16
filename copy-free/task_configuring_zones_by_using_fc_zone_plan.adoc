@@ -1,0 +1,52 @@
+---
+permalink: copy-free/task_configuring_zones_by_using_fc_zone_plan.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, zones, fc, plans 
+summary: Antes de realizar la transición de un entorno SAN FC, debe configurar zonas mediante el planificador de zonas de FC para agrupar los hosts y los objetivos del iniciador. 
+---
+= Configuración de zonas mediante el plan de zona FC
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de realizar la transición de un entorno SAN FC, debe configurar zonas mediante el planificador de zonas de FC para agrupar los hosts y los objetivos del iniciador.
+
+* El planificador de zonas de FC debe generarse utilizando la función de recopilación y acceso de la herramienta 7-Mode Transition Tool
+* Debe ser posible acceder al archivo de script de la zona FC.
++
+.. Si hay algún cambio en la configuración de igroup en los sistemas de 7-Mode, modifique y vuelva a generar el plan de zona FC.
++
+xref:task_generating_an_assessment_report_by_adding_systems_to_7mtt.adoc[Para generar un informe de evaluación, se añaden sistemas a la herramienta de transición de 7-Mode]
+
+.. Inicie sesión en la CLI del switch.
+.. Copie y ejecute los comandos de zona requeridos de uno en uno.
++
+En el siguiente ejemplo se ejecutan los comandos de zona en el switch:
+
++
+[listing]
+----
+switch1:admin>config terminal
+# Enable NPIV feature
+feature npiv
+zone name auto_transition_igroup_d31_194bf3 vsan 10
+member pwwn 21:00:00:c0:dd:19:4b:f3
+member pwwn 20:07:00:a0:98:32:99:07
+member pwwn 20:09:00:a0:98:32:99:07
+.......
+.......
+.......
+copy running-config startup-config
+----
+.. Verifique el acceso a los datos desde el clúster mediante los hosts del iniciador de prueba.
+.. Una vez finalizada la verificación, realice los pasos siguientes:
++
+... Desconecte los hosts del iniciador de prueba.
+... Eliminar la configuración de zona.
+
+
+
+
+

@@ -1,0 +1,172 @@
+---
+permalink: copy-based/task_preparing_cluster_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, prepare, cluster 
+summary: Antes de la transición, debe asegurarse de que el clúster cumpla requisitos, como permitir HTTPS, configurar las LIF entre clústeres y verificar la conectividad de red para la transición. 
+---
+= Preparar el clúster para la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de la transición, debe asegurarse de que el clúster cumpla requisitos, como permitir HTTPS, configurar las LIF entre clústeres y verificar la conectividad de red para la transición.
+
+* El clúster y la SVM ya deben estar configurados.
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-ssg/home.html["Configuración de software"]
+
++
+La SVM de destino no debe estar en una relación de recuperación ante desastres de SVM.
+
+* El clúster debe estar en buen estado y ninguno de los nodos debe estar en modo de toma de control.
+* Los agregados objetivo que contendrán los volúmenes transferidos deben tener una política SFO.
+* Los agregados deben estar en nodos que no hayan alcanzado el límite máximo de volumen.
+* Si desea realizar la transición de los volúmenes de un agregado de 32 bits de un sistema 7-Mode a un agregado de 64 bits de un clúster de Data ONTAP 8.2.x, debe haber proporcionado un 5 % de espacio adicional en el agregado de destino.
++
+Se necesita espacio adicional para actualizar el volumen que ha realizado la transición a su formato de 64 bits.
+
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Gestión de discos y agregados"]
+
+* Para establecer una relación entre iguales de SVM durante la transición de una relación de SnapMirror de volumen, se deben cumplir las siguientes condiciones:
++
+** El clúster secundario no debe tener una SVM con el mismo nombre que la SVM principal.
+** El clúster principal no debe tener una SVM con el mismo nombre que la SVM secundaria.
+** El nombre del sistema 7-Mode de origen no debe entrar en conflicto con ninguna de las SVM o SVM locales que ya tienen una relación entre iguales.
+
+
+
+
+No debe actualizar el clúster a una versión de ONTAP diferente durante la transición.
+
+
+NOTE: Puede actualizar el clúster a una versión de revisión de la misma versión de ONTAP, si es necesario.
+
+.Pasos
+. Desde un host de administración, compruebe que es posible acceder al clúster mediante la LIF de gestión del clúster:
++
+`*ssh _username@cluster_mgmt_IP_*`
+
+. Habilite SSLv3 o FIPS en el clúster:
++
+|===
+| Si desea habilitar... | Introduzca... 
+
+
+ a| 
+SSLv3
+ a| 
+`*system services web modify -sslv3-enabled true*`
+
+
+
+ a| 
+Cumplimiento de la normativa FIPS 140-2-2
+ a| 
+`*system services web modify -ssl-fips-enabled true*`
+
+|===
++
+Cuando el cumplimiento de la normativa FIPS 140-2 está habilitado, SSLv3 está deshabilitado. ONTAP le impide habilitar SSLv3 cuando el cumplimiento de la normativa FIPS 140-2 está habilitado. Si habilita FIPS 140-2 y lo deshabilita posteriormente, SSLv3 permanecerá deshabilitado.
+
++
+
+IMPORTANT: La mejor práctica es habilitar FIPS debido a las vulnerabilidades de seguridad en SSLv3.
+
+. Compruebe que HTTPS está permitido en la LIF de gestión del clúster:
++
+.. Vea la política de firewall para la LIF de administración del clúster:
++
+`*network interface show -vserver _svm_name_ -lif _cluster_mgmt_lif_ -fields firewall-policy*`
+
++
+[listing]
+----
+cluster1::> network interface show -vserver cluster1 -lif cluster_mgmt -fields firewall-policy
+vserver lif          firewall-policy
+------- ------------ ---------------
+cluster1  cluster_mgmt mgmt
+----
+.. Compruebe que la política de firewall asociada con la LIF de gestión del clúster permite el acceso HTTPS:
++
+`*system services firewall policy show -policy mgmt*`
+
++
+[listing]
+----
+cluster1::> system services firewall policy show -policy mgmt
+Policy           Service    Action IP-List
+---------------- ---------- ------ --------------------
+mgmt
+                 dns        allow  0.0.0.0/0, ::/0
+                 http       allow  0.0.0.0/0, ::/0
+                 https      allow  0.0.0.0/0, ::/0
+                 ndmp       allow  0.0.0.0/0, ::/0
+                 ntp        allow  0.0.0.0/0, ::/0
+                 rsh        deny   0.0.0.0/0, ::/0
+                 snmp       allow  0.0.0.0/0, ::/0
+                 ssh        allow  0.0.0.0/0, ::/0
+                 telnet     deny   0.0.0.0/0, ::/0
+9 entries were displayed.
+----
+
+
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Administración del sistema"]
+
+. Cree una LIF de interconexión de clústeres en cada nodo del clúster para la comunicación entre el clúster y el sistema 7-Mode:
++
+.. `*network interface create -vserver _svm_name_ -lif _intercluster_lif_ -role intercluster -home-node _home_node_ -home-port _home_port_ -address _ip_address_ -netmask _netmask_*`
++
+[listing]
+----
+cluster1::> network interface create -vserver cluster1-01 -lif intercluster_lif -role intercluster -home-node cluster1-01 -home-port e0c -address 192.0.2.130 -netmask 255.255.255.0
+----
+.. Cree una ruta estática.
++
+|===
+| Si va a realizar la transición a... | Ejecute este comando... 
+
+
+ a| 
+ONTAP 9.5 o anterior o Clustered Data ONTAP 8.3.x
+ a| 
+crear ruta de red
+
+[listing]
+----
+cluster1::> network route create -vserver vs0 -destination 0.0.0.0/0 -gateway 10.61.208.1
+----
+
+
+ a| 
+Clustered Data ONTAP 8.2.x.
+ a| 
+creación de rutas de grupos de enrutamiento de red
+
+[listing]
+----
+cluster1::> network routing-groups route create -vserver cluster1-01 -routing-group i192.0.0.0/18 -destination 0.0.0.0/0 - gateway 192.0.2.129
+----
+|===
+.. Compruebe que puede usar la LIF entre clústeres para hacer ping al sistema 7-Mode:
++
+`*network ping -lif _intercluster_lif_ -vserver _svm_name_ -destination _remote_inetaddress_*`
+
++
+[listing]
+----
+cluster1::> network ping -lif intercluster_lif -vserver cluster1 -destination system7mode
+system7mode is alive
+----
++
+Para la multivía, debe tener dos LIF de interconexión de clústeres en cada nodo.
+
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/home.html["Gestión de redes y LIF"]
+
+
+
+

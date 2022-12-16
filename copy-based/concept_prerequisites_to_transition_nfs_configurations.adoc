@@ -1,0 +1,46 @@
+---
+permalink: copy-based/concept_prerequisites_to_transition_nfs_configurations.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, prerequisites, nfs, configurations 
+summary: La herramienta 7-Mode Transition Tool realiza la transición de las configuraciones de NFS solo cuando se cumplen ciertos requisitos previos en el sistema 7-Mode y el clúster. Si no se cumple alguna de las condiciones, la herramienta no realiza la transición de la configuración. 
+---
+= Requisitos previos para la transición de configuraciones de NFS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La herramienta 7-Mode Transition Tool realiza la transición de las configuraciones de NFS solo cuando se cumplen ciertos requisitos previos en el sistema 7-Mode y el clúster. Si no se cumple alguna de las condiciones, la herramienta no realiza la transición de la configuración.
+
+
+
+== Requisitos previos de 7-Mode
+
+* NFS debe tener licencia.
+* Si se dispone de licencia para MultiStore, debe habilitarse NFS en la unidad vFiler propietaria de los volúmenes en transición.
+* Para realizar la transición de un servidor Kerberos basado en Active Directory (AD) de Microsoft a una nueva SVM, debe haber una entrada DNS para el dominio de AD.
++
+
+NOTE: Para realizar la transición de la configuración de Kerberos, debe realizar la transición de al menos un LIF como parte del proyecto y el LIF debe poder resolverse con un nombre de host.
+
+* Si desea realizar la transición de reglas de exportación en memoria, debe agregarlas a `/etc/exports` archivar antes de la transición.
++
+La herramienta de transición de 7-Mode solo realiza una transición de las reglas de exportación persistentes que se definen en la `/etc/exports` archivo.
+
+
+
+
+
+== Requisitos previos del clúster
+
+* NFS debe tener licencia.
+* Para realizar la transición de un servidor Kerberos basado en Microsoft AD a una SVM existente con DNS configurado, debe haber una entrada DNS para el dominio de AD.
+* La desviación del reloj entre el centro de distribución de claves Kerberos (KDC) y el sistema ONTAP debe ser inferior o igual a 5 minutos.
+
+
+*Información relacionada*
+
+xref:concept_how_nfs_exports_are_transitioned.adoc[Cómo se realiza la transición de las exportaciones de NFS]
+
+http://docs.netapp.com/ontap-9/index.jsp["Documentación de NetApp: ONTAP 9"]

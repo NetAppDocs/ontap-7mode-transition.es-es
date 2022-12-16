@@ -1,0 +1,21 @@
+---
+permalink: copy-based/task_deleting_a_project.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, delete, project 
+summary: Si no desea un proyecto, puede eliminarlo del Panel. 
+---
+= Eliminar un proyecto
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si no desea un proyecto, puede eliminarlo del Panel.
+
+. En el panel grupos de DashboardProjects , haga clic en el grupo de proyecto al que pertenece el proyecto.
+. En el panel Resumen del grupo, haga clic en *Modificar* y, a continuación, haga clic en *Eliminar*.
++
+No puede eliminar un proyecto si el proyecto ha fallado durante la fase de transposición.
+
+

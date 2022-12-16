@@ -1,0 +1,60 @@
+---
+permalink: install-admin/task_installing_7_mode_transition_tool_on_linux.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, transition, linux 
+summary: Puede instalar la herramienta 7-Mode Transition Tool en el sistema Linux mediante la interfaz de la línea de comandos. 
+---
+= Instalación de 7-Mode Transition Tool en Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede instalar la herramienta 7-Mode Transition Tool en el sistema Linux mediante la interfaz de la línea de comandos.
+
+* Debe haber revisado los requisitos del sistema para la herramienta 7-Mode Transition Tool.
++
+xref:concept_system_requirements_for_7_mode_transition_tool_on_linux.adoc[Requisitos del sistema para instalar 7-Mode Transition Tool en Linux]
+
+* Debe tener privilegios de usuario raíz para instalar e iniciar la aplicación.
+
+
+.Pasos
+. Descargue el `tar.gz` Archivo del sitio de soporte de NetApp.
++
+http://mysupport.netapp.com/NOW/cgi-bin/software["Descargas de NetApp: Software"]
+
+. Extraiga el `tar.gz` Archivo a un directorio del sistema Linux:
++
+`*tar -xzvf NetApp_7ModeTransitionTool_Setup.tar.gz -C _directory_path_*`
+
+. Cambie el directorio al directorio de instalación:
++
+`*cd _directory_path/NetApp_7ModeTransitionTool_*`
+
+. Configure el servidor de 7-Mode Transition Tool:
++
+`*./configure*`
+
++
+Esto inicia el servicio 7-Mode Transition Tool en el sistema Linux.
+
+. Compruebe que el servicio 7-Mode Transition Tool se está ejecutando en el sistema Linux:
++
+`*service transition-service status*`
+
+
+
+
+
+== Ejemplo
+
+[listing]
+----
+bash-4.2# tar -xzvf NetApp_7ModeTransitionTool_Setup.tar.gz -C /root/Downloads/extracted_folder
+bash-4.2# cd /root/Downloads/extracted_folder/NetApp_7ModeTransitionTool
+bash-4.2# ./configure
+bash-4.2# service transition-service status
+The transition-service (NetApp 7-Mode Transition Tool server) is running. PID=38384.
+----

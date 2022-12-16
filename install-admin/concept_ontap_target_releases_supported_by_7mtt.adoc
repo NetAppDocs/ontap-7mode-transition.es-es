@@ -1,0 +1,85 @@
+---
+permalink: install-admin/concept_ontap_target_releases_supported_by_7mtt.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, target, release, support, transition, tool 
+summary: La compatibilidad de versiones para clústeres de destino de transición de ONTAP depende del método de transición que desee usar, basado en copias o sin copias, y de la versión de la herramienta 7-Mode Transition Tool. 
+---
+= Versiones de destino de ONTAP compatibles con la herramienta 7-Mode Transition Tool
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La compatibilidad de versiones para clústeres de destino de transición de ONTAP depende del método de transición que desee usar, basado en copias o sin copias, y de la versión de la herramienta 7-Mode Transition Tool.
+
+Asegúrese de consultar la herramienta de transición actual de 7-Mode link:http://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Notas de la versión"] para obtener la información más reciente sobre las versiones de destino compatibles y los problemas conocidos.
+
+Las transiciones basadas en copias son compatibles con estas versiones de destino de ONTAP.
+
+|===
+| Si el destino de la transición se está ejecutando ... | Debe utilizar esta versión de 7-Mode Transition Tool... 
+
+
+ a| 
+ONTAP 9.10.1, ONTAP 9.11.1 o una versión compatible con versiones anteriores
+ a| 
+3.5.0
+
+
+
+ a| 
+ONTAP 9.9.1 o una versión compatible anterior
+ a| 
+3.4.0
+
+
+
+ a| 
+ONTAP 9.8 o una versión compatible anterior
+ a| 
+3.3.3
+
+
+
+ a| 
+ONTAP 9.7P2 o posterior versión 9.7 P.
+
+
+NOTE: No se admiten versiones anteriores de 9.7.
+ a| 
+3.3.2
+
+
+
+ a| 
+Versión ONTAP 9.6P7 o posterior de 9.6 P.
+
+
+NOTE: No se admiten versiones anteriores de 9.6.
+ a| 
+3.3.2
+
+
+
+ a| 
+ONTAP 9.5 o una versión anterior de ONTAP 9
+ a| 
+3.3.2 o 3.3.1
+
+
+
+ a| 
+Clustered Data ONTAP 8.1.4P4 y versiones posteriores 8.x.
+ a| 
+3.3.2 o 3.3.1
+
+|===
+Las transiciones sin copias son compatibles con estas versiones de destino de ONTAP mediante 7-Mode Transition Tool 3.3.1.
+
+* ONTAP 9.4 y versiones anteriores de ONTAP 9.
+* Clustered Data ONTAP 8.3.2 y versiones posteriores 8.x.
+
+
+
+NOTE: No puede utilizar la herramienta 7-Mode Transition Tool para realizar una transición a ONTAP 9.5 o una versión posterior mediante el método sin copias. Para ello, primero debe realizar la transición a ONTAP 9.4 usando la herramienta de transición de 7-Mode 3.3.1 y, después, actualizar el clúster a ONTAP 9.5 o una versión posterior. 7-Mode Transition Tool 3.3.2 no admite transiciones sin copias.

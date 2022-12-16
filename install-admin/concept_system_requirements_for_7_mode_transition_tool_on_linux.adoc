@@ -1,0 +1,48 @@
+---
+permalink: install-admin/concept_system_requirements_for_7_mode_transition_tool_on_linux.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, system, requirements, transition, tool, linux 
+summary: Debe asegurarse de que el host Linux tenga la configuración necesaria para instalar y ejecutar la herramienta 7-Mode Transition Tool. 
+---
+= Requisitos del sistema para instalar 7-Mode Transition Tool en Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe asegurarse de que el host Linux tenga la configuración necesaria para instalar y ejecutar la herramienta 7-Mode Transition Tool.
+
+Asegúrese de consultar la herramienta de transición actual de 7-Mode link:http://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Notas de la versión"] para obtener la información más reciente sobre los hosts compatibles y los problemas conocidos.
+
+
+
+== Requisitos de hardware
+
+* Procesador x64 de doble núcleo, 1.0 GHz o más
+* 8 GB DE MEMORIA RAM
+* 40 GB de espacio libre en disco
+
+
+
+
+== Requisitos de software
+
+* Su sistema Linux debe ejecutar una de las siguientes opciones:
++
+** Red Hat Enterprise Linux 5.6
+** Red Hat Enterprise Linux 6.0
+** Red Hat Enterprise Linux 7.0 (7-Mode Transition Tool versión 3.3.2 y posterior)
+** CentOS versión 6.4
++
+
+NOTE: Puede utilizar una máquina virtual de Linux que cumpla los requisitos de software y hardware necesarios para instalar la herramienta 7-Mode Transition Tool.
+
+
+
+* Actualización 331 de Oracle JRE 1.8 de 64 bits
+* utilidad 7-zip (`rpmforge-release-0.3.6-1.el5.rf.x86_64.rpm`)
+
+
+
+NOTE: JRE 1.8 y la utilidad 7-zip deben estar instalados en el sistema Linux antes de configurar la herramienta 7-Mode Transition Tool.

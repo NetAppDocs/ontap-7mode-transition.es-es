@@ -1,0 +1,24 @@
+---
+permalink: san-host/concept_transitioning_luns_with_mount_points_using_dmmp_devices_names.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, lun, mount, points, dmmp, device, name 
+summary: 'Antes de realizar la transición de un LUN con un punto de montaje utilizando un nombre de dispositivo DMMP, debe sustituir el nombre de dispositivo DMMP por su número de UUID del sistema de archivos correspondiente. Debe realizar pasos específicos para preparar la fase de transposición y volver a montar los dispositivos DMMP en el host después de la transición. Realiza los mismos procedimientos para Red Hat Enterprise Linux \(RHEL\) 5 y RHEL 6.' 
+---
+= Transición de LUN con puntos de montaje mediante nombres de dispositivos DMMP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de realizar la transición de un LUN con un punto de montaje utilizando un nombre de dispositivo DMMP, debe sustituir el nombre de dispositivo DMMP por su número de UUID del sistema de archivos correspondiente. Debe realizar pasos específicos para preparar la fase de transposición y volver a montar los dispositivos DMMP en el host después de la transición. Realiza los mismos procedimientos para Red Hat Enterprise Linux (RHEL) 5 y RHEL 6.
+
+*Información relacionada*
+
+xref:task_preparing_rhel_luns_transition_using_inventory_assessment_workbook.adoc[Preparación de los LUN de RHEL con puntos de montaje mediante nombres de dispositivos DMMP para la transición mediante el Libro de trabajo de evaluación de inventario]
+
+xref:task_preparing_rhel_luns_for_transition_using_the_cli.adoc[Preparar los LUN de RHEL con puntos de montaje mediante nombres de alias DMMP para la transición mediante la CLI]
+
+xref:task_preparing_for_cutover_when_transitioning_luns_with_mounts_using_dmmp_aliases_on_linux_hosts.adoc[Preparación de la fase de transición al realizar la transición de las LUN con puntos de montaje mediante nombres de dispositivos DMMP en hosts Linux]
+
+xref:task_remounting_dmmp_devices_on_linux_hosts_after_transition.adoc[Montaje de dispositivos DMMP en hosts Linux después de la transición]

@@ -1,0 +1,126 @@
+---
+permalink: copy-based/task_applying_7_mode_configurations.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, apply, 7, mode, configuration 
+summary: 'Una vez finalizada la copia de datos base, puede copiar y aplicar todas las configuraciones del sistema 7-Mode \(incluidos los protocolos y la configuración de servicios\) a los volúmenes de ONTAP. Si el clúster de destino ejecuta cualquier versión de ONTAP 8.3.2 y las versiones compatibles con versiones posteriores, la configuración DE SAN se realiza la transición en esta fase.' 
+---
+= Aplicación de configuraciones de 7-Mode
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Una vez finalizada la copia de datos inicial, puede copiar y aplicar todas las configuraciones del sistema 7-Mode (incluida la configuración de protocolos y servicios) a los volúmenes de ONTAP. Si el clúster de destino ejecuta cualquier versión de ONTAP 8.3.2 y las versiones compatibles con versiones posteriores, la configuración DE SAN se realiza la transición en esta fase.
+
+Si va a realizar la transición de volúmenes SAN, debe haber creado al menos una LIF de datos del protocolo adecuado (iSCSI o FC) para cada nodo del clúster.
+
+* Las configuraciones se aplican en la fase aplicar configuración (método previo), que tiene dos modos: Modo de sólo lectura previa y modo de lectura/escritura previa.
+
+
+El modo de lectura/escritura previa no se admite cuando el proyecto contiene:
+
+* Los volúmenes SAN y el clúster de destino ejecutan Data ONTAP 8.3.1 o una versión anterior. En esta situación, las siguientes configuraciones no se aplican en la fase de transición previa, sino que se aplican durante la fase de transposición:
++
+** Configuraciones SAN
+** Configuraciones de la programación de snapshots
+
+
+* Volúmenes de cumplimiento de normativas de SnapLock
++
+Si el proyecto contiene volúmenes de cumplimiento SnapLock, las configuraciones de la programación Snapshot no se aplican en la fase de transición previa, en su lugar, estas configuraciones se aplican durante la fase de transposición.
+
++
+Consulte xref:concept_considerations_for_transitioning_of_snaplock_compliance_volumes.adoc[Consideraciones para la transición de volúmenes de cumplimiento de SnapLock].
+
+
+
+.Pasos
+. En el panel de control, seleccione el proyecto.
+. Aplique las configuraciones:
++
+|===
+| Si desea aplicar todas las configuraciones en... | Realice lo siguiente... 
+
+
+ a| 
+Modo de solo lectura
+ a| 
+Haga clic en *aplicar configuración*.
+
+
+
+ a| 
+Modo de lectura/escritura
+ a| 
+.. Seleccione la casilla de verificación *modo de prueba*.
+.. Haga clic en *aplicar configuración*.
++
+Los volúmenes ONTAP son de lectura/escritura y puede probar las configuraciones y las operaciones de acceso a los datos.
+
+.. Seleccione *aplicar configuración en modo de prueba* en el cuadro de diálogo aplicar configuración (Preajuste).
+
+
+|===
+. Active la casilla de verificación *Personalizar el número de transferencias simultáneas de SnapMirror y el límite del acelerador para esta operación* para especificar el número de operaciones de copia de datos de SnapMirror y el límite del acelerador:
++
+.. Introduzca el número máximo de transferencias de SnapMirror que se ejecutarán durante la transición.
+.. Introduzca el porcentaje de flujos disponibles que se pueden usar para transferencias de SnapMirror.
++
+De forma predeterminada, la herramienta utiliza el 50 % de las transferencias de SnapMirror para volúmenes disponibles.
+
+.. Introduzca un límite de aceleración o seleccione *máximo* para utilizar el ancho de banda máximo.
++
+De forma predeterminada, la herramienta utiliza el acelerador máximo para la transición de la configuración.
+
+
+
+. Active la casilla de verificación *Configuración de Kerberos de transición* para proporcionar detalles de configuración de servidores Kerberos basados en UNIX o Microsoft AD para la transición.
++
+
+NOTE: Esta opción solo se habilita cuando se configura Kerberos en el sistema de almacenamiento de origen 7-Mode.
+
++
+.. Introduzca los detalles del servidor Kerberos, como el nombre de host, la dirección IP, el nombre de usuario y la contraseña.
++
+
+NOTE: Para realizar la transición de la configuración de Kerberos, debe realizar la transición de al menos un LIF como parte del proyecto y el LIF debe poder resolverse con un nombre de host.
+
+
+
+. Haga clic en *continuar*.
++
+Se muestra el cuadro de diálogo progreso de la operación y se inicia la operación de configuración de copia.
+
+. Si la transición de configuración se realiza en modo de lectura/escritura, haga clic en *Finalizar prueba* después de finalizar la prueba y verificación de las configuraciones.
++
+Este modo se debe utilizar sólo para pruebas. Se pierden todos los datos que se escriben en el clúster en los volúmenes que se migran durante el modo de prueba.
+
++
+La herramienta vuelve a establecer la relación SnapMirror y a sincronizar (según la programación activa de ese proyecto en ese momento) los volúmenes ONTAP. Todos los datos escritos en 7-Mode se resincronizan con los volúmenes de ONTAP.
+
++
+
+NOTE: Para que una resincronización se realice correctamente, debe existir una copia Snapshot común entre los volúmenes de 7-Mode y Clustered Data ONTAP. No debe eliminar manualmente la copia Snapshot común; de lo contrario, la resincronización fallará.
+
+
+
+Las direcciones IP de 7-Mode permanecen operativas. Los LIF se configuran en la máquina virtual de almacenamiento (SVM) de las siguientes formas:
+
+* Las direcciones IP existentes de 7-Mode se crean en el estado administrativo inactivo.
++
+Durante la transición del almacenamiento, estas direcciones IP se quitan del sistema 7-Mode y los LIF de máquina virtual de almacenamiento correspondientes se configuran al estado administrativo. Si selecciona el modo de lectura/escritura previo, debe usar una LIF diferente para acceder a los volúmenes que se están migrando al clúster.
+
+* Se crean nuevas direcciones IP en estado administrativo up.
++
+Si selecciona el modo de lectura/escritura previo, estos LIF se pueden usar para probar el acceso a los volúmenes que se migran en el clúster.
+
+
+
+*Información relacionada*
+
+xref:task_managing_logical_interfaces.adoc[Gestión de interfaces lógicas]
+
+xref:concept_considerations_for_quotas.adoc[Consideraciones sobre cuotas]
+
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/7MTT_v2.0%2F%2FTransitioned_Data_ONTAP_features["Funciones de 7MTT v2.0/Data ONTAP convertido"]

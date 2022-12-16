@@ -1,0 +1,45 @@
+---
+permalink: copy-free/task_selecting_source_7_mode_systems_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, create, project 
+summary: El primer paso a la hora de planificar un proyecto de transición es seleccionar el par de alta disponibilidad 7-Mode de origen en el que desea realizar la transición de las bandejas de discos, agregados, volúmenes y configuraciones, y, a continuación, crear un proyecto de transición. 
+---
+= Creación de un proyecto de transición sin copias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El primer paso a la hora de planificar un proyecto de transición es seleccionar el par de alta disponibilidad 7-Mode de origen en el que desea realizar la transición de las bandejas de discos, agregados, volúmenes y configuraciones, y, a continuación, crear un proyecto de transición.
+
+* Las controladoras 7-Mode del par de alta disponibilidad deben ejecutar una versión de ONTAP compatible en una plataforma compatible para una transición sin copias.
++
+https://mysupport.netapp.com/matrix["Herramienta de matriz de interoperabilidad de NetApp"]
+
+* Las dos controladoras de la configuración de alta disponibilidad deben estar en buen estado.
++
+.. Seleccione el método de migración *transición sin copia* en la página de inicio y haga clic en *Iniciar planificación*.
++
+Si la controladora y el clúster necesarios para un nuevo proyecto no se agregan, puede introducir los detalles en el panel Enter Device Credentials.
+
+.. Seleccione el par de alta disponibilidad 7-Mode de origen que desea realizar la transición.
+.. Haga clic en *Crear proyecto*.
++
+... En la ventana Detalles del proyecto, proporcione un nombre para el proyecto.
+... Seleccione un grupo de proyecto al que se debe agregar el proyecto.
++
+Puede crear un nuevo grupo de proyectos o agregar el proyecto al grupo predeterminado.
+
++
+La creación de un grupo de proyectos le permite agrupar y supervisar proyectos relacionados.
+
+... Haga clic en *Guardar*.
++
+Aparecerá la pantalla Select Target Cluster (Seleccionar clúster de destino).
+
+
+
+
+
+

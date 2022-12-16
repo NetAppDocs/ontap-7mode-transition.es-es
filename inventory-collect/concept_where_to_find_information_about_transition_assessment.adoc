@@ -1,0 +1,14 @@
+---
+permalink: inventory-collect/concept_where_to_find_information_about_transition_assessment.html 
+sidebar: sidebar 
+keywords: 7, mode, ontap, transition, assessment, information 
+summary: Puede encontrar información sobre la evaluación de los sistemas de almacenamiento, los hosts y las aplicaciones host para verificar que están listos para la transición en la guía de transición basada en copias de 7-Mode Transition Tool. En la guía, se ofrecen detalles sobre cómo importar el informe de inventario que ha creado para las controladoras y los hosts, y cómo evaluar estas controladoras y los hosts para verificar que están listos para la transición. 
+---
+= Dónde encontrar información acerca de la evaluación de la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se ofrece información sobre la evaluación de los sistemas de almacenamiento, los hosts y las aplicaciones host para verificar que están listos para la transición en la link:http://docs.netapp.com/us-en/ontap-7mode-transition/copy-based/index.html["Guía de transición basada en copias de 7-Mode Transition Tool"]. En la guía, se ofrecen detalles sobre cómo importar el informe de inventario que ha creado para las controladoras y los hosts, y cómo evaluar estas controladoras y los hosts para verificar que están listos para la transición.

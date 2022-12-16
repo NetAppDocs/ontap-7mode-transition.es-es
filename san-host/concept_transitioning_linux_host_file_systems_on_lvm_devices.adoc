@@ -1,0 +1,20 @@
+---
+permalink: san-host/concept_transitioning_linux_host_file_systems_on_lvm_devices.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, linux, host, file, systems, lvm, devices 
+summary: 'Cuando realiza la transición de un sistema de archivos host Linux en un gestor de volúmenes lógicos \(LVM\), tiene que realizar pasos específicos para preparar la fase de transición y debe montar los volúmenes lógicos después de la transición.' 
+---
+= Realizar la transición de los sistemas de archivos del host Linux en dispositivos LVM
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando realiza la transición de un sistema de archivos host Linux en un LVM, tiene que realizar pasos específicos para preparar la fase de transposición y debe montar los volúmenes lógicos después de la transición.
+
+*Información relacionada*
+
+xref:task_preparing_for_cutover_when_transitioning_linux_host_file_systems_on_lvm_devices.adoc[Preparación de la fase de transición cuando se realizan la transición de los sistemas de archivos host Linux en dispositivos LVM]
+
+xref:task_mounting_logical_volumes_on_linux_host_after_transition.adoc[Montaje de volúmenes lógicos en hosts Linux después de la transición]

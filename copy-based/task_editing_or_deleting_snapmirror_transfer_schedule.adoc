@@ -1,0 +1,111 @@
+---
+permalink: copy-based/task_editing_or_deleting_snapmirror_transfer_schedule.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, edit, delete, data, copy, snapmirror, transfer 
+summary: Puede editar o eliminar programaciones de copia de datos que se usan para operaciones de copia de referencia, actualización y resincronización de SnapMirror, si tiene otras programaciones de recuperación ante desastres configuradas o modificadas que requieran la programación de copia de datos de transición. 
+---
+= Editar o eliminar una programación de copias de datos para transferencias de SnapMirror
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede editar o eliminar programaciones de copia de datos que se usan para operaciones de copia de referencia, actualización y resincronización de SnapMirror, si tiene otras programaciones de recuperación ante desastres configuradas o modificadas que requieran la programación de copia de datos de transición.
+
+El proyecto debe estar en la fase de preparación, copia de datos o aplicación de configuración (previa).
+
+* Después de editar una programación, tarda hasta 5 minutos en entrar en vigencia.
+* Si el límite del acelerador se modifica en el programa en el caso de las transferencias activas, el nuevo límite del acelerador no será aplicable a las transferencias de SnapMirror que estén en ejecución.
++
+Una vez finalizada la transferencia actual para una relación de SnapMirror concreta, se tiene en cuenta un nuevo límite de aceleración para las operaciones posteriores de esa relación de SnapMirror.
+
+* Si desea que el límite del acelerador sea efectivo inmediatamente en las transferencias actuales de SnapMirror, debe pausar y reanudar el proyecto.
+
+
+.Pasos
+. En el panel de control, seleccione un proyecto y, a continuación, haga clic en Configurar programación.
++
+Se muestran todos los horarios existentes para el proyecto.
+
++
+También es posible editar o eliminar programaciones desde la opción Configurar programación.
+
+. Editar o eliminar una programación:
++
+|===
+| Si desea... | Realice lo siguiente... 
+
+
+ a| 
+Editar una programación existente
+ a| 
+.. Haga clic en image:../media/edit_schedule.gif[""].
++
+Aparecerá el cuadro de diálogo Modify Schedule.
+
++
+
+NOTE: Es posible editar los parámetros schedule y SnapMirror para las operaciones de copia de datos.
+
+.. Realice los cambios necesarios y, a continuación, haga clic en *Guardar*.
+
+
+
+
+ a| 
+Eliminar una programación
+ a| 
+.. Haga clic en image:../media/delete_schedule.gif[""].
++
+La programación se elimina del panel.
+
++
+
+NOTE: Se requiere al menos una programación para las transferencias de datos. Por lo tanto, no debe eliminar todas las programaciones.
+
+
+
+|===
+
+
+
+
+== Ejemplo
+
+El siguiente ejemplo muestra cómo se aplica el límite de aceleración cuando hay transferencias activas de SnapMirror en el proyecto.
+
+|===
+| Programación | Número de volúmenes y estado de copia de datos | El número máximo de transferencias de SnapMirror que simultáneamente | Límite del acelerador | Acelerador utilizado por cada transferencia 
+
+
+ a| 
+Antes de modificar
+ a| 
+Cinco volúmenes esperando la configuración base
+ a| 
+Cinco
+ a| 
+500 Mbps
+ a| 
+100 Mbps
+
+
+
+ a| 
+Después de modificar
+ a| 
+* Para dos volúmenes, la línea base está en curso utilizando el acelerador de 100 Mbps
+* Para tres volúmenes, se completa la base y se esperan las actualizaciones
+
+ a| 
+Cinco
+ a| 
+250 Mbps
+ a| 
+* Dos volúmenes en la línea de base siguen utilizando el acelerador de 100 Mbps
+* Tres volúmenes para los que se ha completado la línea de base utilizan el acelerador de 50 Mbps modificado para las actualizaciones
+
+
+|===
+Una vez completada la copia de referencia de los dos volúmenes, se utilizará el nuevo límite de aceleración de 50 Mbps en estas relaciones de SnapMirror para volúmenes durante la programación de las siguientes operaciones de copia de datos.

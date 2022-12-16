@@ -1,0 +1,60 @@
+---
+permalink: copy-based/concept_limitations_with_snapshot_copies_and_luns_managed_by_snap_products.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, limitations, snapshot, lun, snapdrive, snapmanager 
+summary: 'Cuando se realiza la transición a Clustered Data ONTAP 8.3, las operaciones de verificación de backup y restauración de SnapDrive y SnapManager producen errores en las copias Snapshot de 7-Mode que se han realizado la transición. Cuando se realiza la transición a Clustered Data ONTAP 8.3.1, la verificación del backup de SnapManager para Microsoft Exchange Server \(SME\) y las operaciones de restauración de archivos de SnapManager para Hyper-V \(SMHV\) producen un error en las copias Snapshot de 7-Mode que se han realizado la transición.' 
+---
+= Limitaciones con copias Snapshot de 7-Mode de las LUN gestionadas por SnapDrive y SnapManager después de la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando se realiza la transición a Clustered Data ONTAP 8.3, las operaciones de verificación de backup y restauración de SnapDrive y SnapManager producen errores en las copias Snapshot de 7-Mode que se han realizado la transición. Cuando se realiza la transición a Clustered Data ONTAP 8.3.1, la verificación del backup de SnapManager para Microsoft Exchange Server (SME) y las operaciones de restauración de archivos de SnapManager para Hyper-V (SMHV) producen un error en las copias Snapshot de 7-Mode que se han realizado la transición.
+
+Según los SnapDrive o SnapManager que se utilizan en el host conectado al sistema 7-Mode y la versión de Data ONTAP que se ejecuta en el clúster, la herramienta 7-Mode Transition Tool muestra un mensaje de advertencia para esta limitación durante las comprobaciones previas.
+
+
+NOTE: Todas las operaciones de verificación y restauración de backup de SnapDrive y SnapManager son compatibles con las copias Snapshot recién creadas en Clustered Data ONTAP.
+
+
+
+== Solución para operaciones de backup y restauración con SnapDrive y SnapManager en Clustered Data ONTAP 8.3
+
+Ejecute una de las siguientes acciones:
+
+* Conserve los sistemas de 7-Mode hasta que caduquen las copias Snapshot de 7-Mode.
++
+Puede utilizar el sistema 7-Mode para restaurar un archivo desde una LUN en la copia Snapshot de 7-Mode y, después, migrarlo a Clustered Data ONTAP, si fuera necesario.
+
+* Utilice SnapRestore de archivo único en ONTAP para restaurar la LUN de una copia snapshot de 7-Mode al sistema de archivos activo y, a continuación, monte la LUN restaurada para la restauración de un solo archivo.
+
+
+
+
+== Solución para operaciones de backup y restauración con SME y SMHV en ONTAP 8.3.1 y versiones posteriores compatibles
+
+Ejecute una de las siguientes acciones:
+
+* Compruebe que los backups de SnapManager creados en 7-Mode son válidos antes de realizar una transición del almacenamiento a ONTAP.
+* Cree un clon del volumen en ONTAP desde las copias Snapshot de 7-Mode que realizó la transición y, a continuación, monte el LUN en el volumen clonado para las operaciones de verificación y restauración de backup.
+
+
+La mejor práctica es conservar los sistemas de 7-Mode hasta que venzan las copias Snapshot de 7-Mode.
+
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30034["Documentación de NetApp: SnapManager para Microsoft Exchange Server"]
+
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30055["Documentación de NetApp: SnapManager para Hyper-V."]
+
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30037["Documentación de NetApp: SnapManager para SAP"]
+
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30040["Documentación de NetApp: SnapManager para Oracle"]
+
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30050["Documentación de NetApp: SnapDrive para UNIX"]
+
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30049["Documentación de NetApp: SnapDrive para Windows (versiones actuales)"]
+
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30041["Documentación de NetApp: SnapManager para Microsoft SQL Server"]
+
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30036["Documentación de NetApp: SnapManager para Microsoft SharePoint"]

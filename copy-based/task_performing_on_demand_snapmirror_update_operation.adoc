@@ -1,0 +1,45 @@
+---
+permalink: copy-based/task_performing_on_demand_snapmirror_update_operation.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, perform, demand, snapmirror, updates 
+summary: Puede realizar actualizaciones incrementales de SnapMirror de todos los volúmenes antes de la operación de transposición para reducir el tiempo de transposición. 
+---
+= Realizar actualizaciones de SnapMirror bajo demanda
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede realizar actualizaciones incrementales de SnapMirror de todos los volúmenes antes de la operación de transposición para reducir el tiempo de transposición.
+
+* No puede realizar actualizaciones de SnapMirror bajo demanda cuando las transferencias de datos incrementales se programen tras la copia de datos básica y tras una operación previa.
+* Esta tarea es opcional.
++
+.. Haga clic en *Actualizar ahora* para realizar una actualización manual de SnapMirror.
++
+Se mostrará el cuadro de diálogo Transition Update, donde puede elegir personalizar el número de transferencias de SnapMirror y el límite de aceleración para esta operación.
+
+.. Active la casilla de verificación *Personalizar el número de transferencias simultáneas de SnapMirror y el límite del acelerador para esta operación* para especificar el número de operaciones de copia de datos de SnapMirror y el límite del acelerador.
++
+... Introduzca el número máximo de transferencias de SnapMirror que se ejecutarán durante la transición.
+... Introduzca el porcentaje de flujos disponibles que la herramienta puede utilizar para transferencias de SnapMirror.
++
+De forma predeterminada, la herramienta utiliza el 50 % de las transferencias de SnapMirror para volúmenes disponibles.
+
+... Introduzca el límite del acelerador para utilizar el ancho de banda máximo.
++
+De forma predeterminada, la herramienta utiliza el acelerador máximo para la transición de la configuración.
+
+
+
+.. Haga clic en *continuar*.
+
+
+
+
+*Información relacionada*
+
+xref:task_starting_baseline_data_copy.adoc[Iniciando copia de datos de referencia]
+
+xref:task_creating_schedule_for_snapmirror_transfers.adoc[Crear una programación de copias de datos para transferencias de SnapMirror]

@@ -1,0 +1,60 @@
+---
+permalink: snapmirror/task_recovering_from_a_failed_lun_transition.html 
+sidebar: sidebar 
+keywords: ontap, recover, failed, lun, transition, 7, mode, snapmirror 
+summary: Si la transición de volúmenes con LUN falla, puede utilizar el comando lun Transition 7-Mode show para comprobar qué LUN se han pasado a ONTAP y, a continuación, determinar una acción correctiva. 
+---
+= Recuperación de una transición de LUN en caso de error
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si la transición de volúmenes con LUN falla, puede utilizar la `lun transition 7-mode show` Comando para comprobar qué LUN no se han realizado la transición a ONTAP y, a continuación, determinar una acción correctiva.
+
+.Pasos
+. Cambie al nivel de privilegio avanzado:
++
+`*set -privilege advanced*`
+
+. Compruebe qué LUN han fallado:
++
+`*lun transition 7-mode show*`
+
+. Revise los registros de EMS y determine la acción correctiva que debe realizar.
+. Realice los pasos necesarios que se muestran en el mensaje de EMS para corregir el fallo.
+. Si alguna LUN compatible ha fallado la transición, realice la siguiente transición:
++
+`*lun transition start*`
+
+. Vea el estado de transición de los volúmenes:
++
+`*lun transition show*`
+
++
+El estado de transición puede ser uno de los siguientes valores:
+
++
+** `active`: El volumen se encuentra en una relación de transición de SnapMirror activa y aún no se ha realizado la transición.
+** `complete`: Se realiza la transición de todas las LUN admitidas para este volumen.
+** `failed`: La transición de LUN falló para el volumen.
+** `none`: El volumen no contenía LUN para realizar la transición desde sistemas 7-Mode.
+
+
++
+[listing]
+----
+cluster1::*> lun transition show
+Vserver              Volume             Transition Status
+-------------------- ------------------ -----------------
+vs1                  vol0               none
+                     vol1               complete
+                     vol2               failed
+                     vol3               active
+----
+
+
+*Información relacionada*
+
+xref:concept_considerations_for_space_when_transitioning_san_volumes.adoc[Consideraciones de espacio cuando se realiza la transición de volúmenes SAN]

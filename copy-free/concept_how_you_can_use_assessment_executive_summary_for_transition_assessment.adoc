@@ -1,0 +1,65 @@
+---
+permalink: copy-free/concept_how_you_can_use_assessment_executive_summary_for_transition_assessment.html 
+sidebar: sidebar 
+keywords: assessment, ontap, transition, copy, free, executive, summary 
+summary: El resumen ejecutivo de la transición proporciona un resumen de las controladoras de 7-Mode, los hosts y los switches FC del entorno. Proporciona un informe de evaluación de las características y las funciones actuales, y recomienda la metodología de transición para cada volumen de su entorno de almacenamiento. Puede usar el resumen para planificar la transición. 
+---
+= Cómo utilizar el resumen ejecutivo de evaluación para la evaluación de la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El resumen ejecutivo de la transición proporciona un resumen de las controladoras de 7-Mode, los hosts y los switches FC del entorno. Proporciona un informe de evaluación de las características y las funciones actuales, y recomienda la metodología de transición para cada volumen de su entorno de almacenamiento. Puede usar el resumen para planificar la transición.
+
+El resumen ejecutivo tiene las siguientes secciones principales:
+
+
+
+== Clúster de destino
+
+En esta sección se enumera la versión de ONTAP del clúster de destino que seleccionó durante la evaluación.
+
+
+
+== Resumen de la recopilación de datos
+
+Puede ver la lista de controladoras, hosts y switches de 7-Mode de los cuales ha recopilado información. Puede ver la versión ONTAP y los detalles del modelo de la controladora 7-Mode. También puede ver el tipo de sistema operativo, la versión y el modelo de los hosts.
+
+
+
+== Viabilidad de la transición y metodología de transición recomendada
+
+Esta sección ofrece un resumen de las comprobaciones previas que se ejecutan en cada controladora y la viabilidad de la transición a nivel de controladora y de volumen. Los volúmenes que pertenecen a las unidades vFiler que se encuentran en la `stopped` o. `inconsistent` el estado o los volúmenes que están fuera de línea o restringidos no se incluyen para su evaluación. El informe muestra el número de errores y advertencias registrados en las comprobaciones previas contra cada controladora. Debe revisar estos errores y advertencias y resolver cualquier problema antes de la transición. Los detalles de estas comprobaciones previas están disponibles en la pestaña Resumen de la comprobación previa de configuración del libro de trabajo de evaluación.
+
+*Viabilidad de la transición sin copia*: En esta sección se enumera el número de comprobaciones previas a nivel de controlador que dieron lugar a errores y advertencias para la transición sin copia. Si las comprobaciones previas fallan en una de las controladoras del par de alta disponibilidad, no podrá realizar la transición del par de alta disponibilidad mediante una transición sin copias. Debe resolver todos los errores y advertencias antes de pasar el par de alta disponibilidad. Los detalles de estas comprobaciones previas están disponibles en la pestaña Resumen de comprobaciones previas al CFT del libro de evaluación.
+
+Según las configuraciones de volumen y controladora y el resumen de las comprobaciones previas, el resumen ejecutivo proporciona una recomendación sobre la mejor metodología de transición para cada volumen evaluado. Por ejemplo, no puede llevar a cabo la transición de los volúmenes tradicionales de 7-Mode o los volúmenes FlexCache porque estas funciones no son compatibles con ONTAP.
+
+Para la mayoría de las configuraciones, 7-Mode Transition Tool es la herramienta recomendada para la transición. Sin embargo, existen algunas cargas de trabajo que no se pueden realizar mediante la herramienta de transición de 7-Mode, y en aquellas que debería utilizar un método de migración basado en aplicaciones o en host.
+
+http://www.netapp.com/us/media/tr-4052.pdf["Informe técnico de NetApp 4052: Transición correcta a Clustered Data ONTAP (Data ONTAP 8.2.x y 8.3)"]
+
+
+
+== Inventario de almacenamiento
+
+Esta sección proporciona la siguiente información:
+
+* Objetos de almacenamiento: Proporciona información sobre el número de objetos de almacenamiento, como volúmenes, qtrees, LUN, unidades vFiler, Relaciones SnapMirror, recursos compartidos y exportaciones en cada controladora.
+* Aprovechamiento del almacenamiento: Proporciona información sobre el espacio usado, el espacio disponible y el espacio utilizado por las controladoras 7-Mode.
+* Licencias: Proporciona la lista de licencias de funciones habilitadas en cada controladora.
+* Configuración de protocolos: Proporciona detalles sobre los protocolos configurados en las controladoras, como los protocolos CIFS, NFS y SAN, y las versiones.
+* Interconexión de SnapMirror: Proporciona información sobre las controladoras o los volúmenes que son el origen o el destino de una relación de SnapMirror.
++
+Esta información puede utilizar para identificar las controladoras que están en relaciones de SnapMirror con las controladoras indicadas en el informe, pero no se incluyen para su evaluación.
+
+* SnapVault interconectividad: Proporciona información sobre las controladoras, los volúmenes o los qtrees que son el origen o el destino de una relación de SnapVault con la controladora, los volúmenes o los qtrees especificados en la controladora.
+
+
+
+
+== Errores de recopilación de datos
+
+En esta sección, se proporcionan detalles sobre la información de la controladora y el host que no pudo recopilar 7-Mode Transition Tool y el motivo del error. Los detalles de los errores de recopilación de datos están disponibles en la ficha errores de recopilación de datos del libro de evaluación. Puede resolver estos errores y evaluar los sistemas de nuevo.

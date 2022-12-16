@@ -1,0 +1,53 @@
+---
+permalink: copy-free/concept_severity_levels_for_precheck_messages.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, severity, levels, precheck, messsages 
+summary: Puede verificar si los volúmenes de 7-Mode pueden realizar la transición mediante la operación de transición previas. Las comprobaciones previas de la transición informan de todos los problemas relacionados con la transición. A los problemas de transición se les asignan niveles de gravedad diferentes, según el impacto del problema en el proceso de transición. 
+---
+= Niveles de gravedad para los mensajes de comprobaciones previas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede verificar si los volúmenes de 7-Mode pueden realizar la transición mediante la operación de transición previas. Las comprobaciones previas de la transición informan de todos los problemas relacionados con la transición. A los problemas de transición se les asignan niveles de gravedad diferentes, según el impacto del problema en el proceso de transición.
+
+Los problemas detectados por las comprobaciones previas se clasifican en las siguientes categorías:
+
+* *Error*
++
+Configuraciones que no se pueden realizar.
+
++
+No puede continuar la transición si hay ni siquiera un error. A continuación, se muestran algunas configuraciones de ejemplo en el sistema 7-Mode que causan un error:
+
++
+** Volúmenes tradicionales
+** Volúmenes de SnapLock
+** Volúmenes sin conexión
+
+
+* *Advertencia*
++
+Configuraciones que pueden causar problemas menores tras la transición.
+
++
+Las funciones compatibles con ONTAP, pero que no han realizado la transición con la herramienta de transición de 7-Mode, también generan un mensaje de advertencia. Puede continuar la transición con estas advertencias. No obstante, después de la transición, es posible que pierda algunas de estas configuraciones o pueda tener que completar algunas tareas manuales para habilitar estas configuraciones en ONTAP.
+
++
+A continuación se muestran algunas configuraciones de ejemplo en el sistema 7-Mode que generan una advertencia:
+
++
+** IPv6
+** NFSv2
+** Configuraciones NDMP
+** Grupos de interfaces y VLAN
+** Protocolo de información de enrutamiento (RIP)
+
+
+* *Información*
++
+Configuraciones que se han realizado correctamente la transición.
+
+

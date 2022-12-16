@@ -1,0 +1,66 @@
+---
+permalink: copy-free/task_importing_7_mode_data_to_clustered_ontap.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, import, data 
+summary: Después de verificar el cableado y resolver cualquier problema, puede ejecutar la operación de importación. En esta fase, la propiedad del disco se asigna a los nodos del clúster asignados y los agregados, los volúmenes y las LUN de 7-Mode se convierten al formato ONTAP. También se aplican todas las configuraciones a nivel de volumen y LUN. 
+---
+= Importación de datos de 7-Mode a ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de verificar el cableado y resolver cualquier problema, puede ejecutar la operación de importación. En esta fase, la propiedad del disco se asigna a los nodos del clúster asignados y los agregados, los volúmenes y las LUN de 7-Mode se convierten al formato ONTAP. También se aplican todas las configuraciones a nivel de volumen y LUN.
+
+La herramienta realiza las siguientes operaciones en esta fase:
+
+* Los discos de 7-Mode se asignan a los nodos del clúster de destino asignados.
+* Todos los agregados, volúmenes y LUN de 7-Mode se convierten al formato ONTAP.
+* Las direcciones IP de 7-Mode que se seleccionaron para la transición se configuran en las SVM en estado administrativo.
+* Se aplican las siguientes configuraciones:
++
+** Reglas de exportación NFS
+** Recursos compartidos CIFS
+** Configuración de ACL de CIFS
+** Configuración de directorios iniciales CIFS
+** Enlaces simbólicos CIFS
+** Configuración de cuotas
+** Programas de copias snapshot
+** LUN maps e iGroups
+
+
+
+
+.Pasos
+. Haga clic en *Importar*.
++
+*Solución de problemas:* Si faltan discos en un agregado, el agregado se degrada y la operación de importación falla. Si el número de discos que faltan está dentro de un límite permitido, puede continuar la transición con los agregados degradados ejecutando el siguiente comando desde la CLI de 7-Mode Transition Tool:
+
++
+`*transition cft aggregate degraded-transition -p _project-name_ -n _7-mode-host-name_ -a _7-mode-aggregate-name_ -i acknowledge*`
+
++
+De este modo, puede volver a ejecutar la operación de verificación del cableado y continuar con la transición. Debe asegurarse de que haya suficientes discos de repuesto en el nodo del clúster de destino para reconstruir estos grupos RAID después de haber pasado los agregados.
+
++
+Aparecerá un mensaje de advertencia en el que se enumeran las consideraciones importantes para esta operación.
+
+. Haga clic en *Sí* para continuar.
++
+Se muestran los resultados de la operación.
+
+. Espere a que la operación finalice y haga lo siguiente:
++
+.. Haga clic en *Guardar como CSV* para guardar los resultados de la operación en un archivo.
+.. Haga clic en *recopilar registros de la herramienta* para realizar una copia de seguridad de todos los archivos de registro de transición.
++
+Se recomienda guardar los archivos de registro después de cada operación de transición.
+
+.. Haga clic en *Cerrar* para cerrar la ventana resultados de la operación.
+
+
++
+Si la operación tarda mucho tiempo en completarse, puede hacer clic en *Ejecutar en fondo* para salir de la ventana de resultados de la operación. No debe editar el proyecto ni realizar ninguna otra tarea cuando la operación se esté ejecutando en segundo plano. A continuación, puede ver los resultados de las operaciones en la pestaña Historial de operaciones.
+
+

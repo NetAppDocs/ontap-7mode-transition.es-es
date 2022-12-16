@@ -1,0 +1,32 @@
+---
+permalink: install-admin/reference_installation_or_uninstallation_of_7mtt_is_blocked.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, uninstall, transition, tool, blocked 
+summary: 'Cuando utilice el instalador de 7-Mode Transition Tool o el desinstalador para realizar cualquier operación \(como instalación, reparación, reinstalación, actualización, desinstalación\), Se mostrará el siguiente mensaje de error: Se está ejecutando otra instancia de NetApp 7-Mode Transition Tool Setup o Uninstall. Sólo se puede ejecutar una instancia a la vez.' 
+---
+= La instalación o desinstalación de 7-Mode Transition Tool está bloqueada
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando utilice el instalador de 7-Mode Transition Tool o el desinstalador para realizar cualquier operación (como instalación, reparación, reinstalación, actualización, desinstalación), se muestra el siguiente mensaje de error: `Another instance of NetApp 7-Mode Transition Tool Setup or Uninstall is running. Only one instance can run at a time`.
+
+
+
+== Solución alternativa
+
+Antes de empezar, asegúrese de que no haya instancias abiertas ni cuadros de diálogo de la herramienta 7-Mode Transition Tool. De lo contrario, es posible que tenga que volver a realizar los pasos.
+
+. Abra *Registro* haciendo clic en *Inicio*.
+. En *Buscar programas y archivos*, introduzca `*RegEdit*`.
+. Cuando el Editor del Registro esté abierto, busque el subárbol del Registro HKEY_LOCAL_MACHINE.
+. Expanda el subárbol HKEY_LOCAL_MACHINE haciendo clic en el icono de expandir situado a la izquierda del icono de carpeta.
+. Continúe expandiendo las claves del Registro y las subclaves hasta que encuentre `HKEY_LOCAL_MACHINE\ SOFTWARE \NetApp \7-Mode Transition Tool`.
+. Haga clic en *herramienta de transición de 7-Mode*.
+. Haga clic con el botón derecho del ratón en INSTALLATION_STATUS y seleccione *Modificar*.
+. Cambie el valor de INSTALLER_RUNNING a INSTALADO y haga clic en *Aceptar*.
+
+
+Ahora debe poder realizar cualquier operación con el instalador de 7-Mode Transition Tool o con el desinstalador.

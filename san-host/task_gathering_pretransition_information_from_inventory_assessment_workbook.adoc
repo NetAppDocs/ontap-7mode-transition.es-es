@@ -1,0 +1,46 @@
+---
+permalink: san-host/task_gathering_pretransition_information_from_inventory_assessment_workbook.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, pretransition, information, inventory, assessment, workbook 
+summary: Hay información en el libro de trabajo de evaluación de inventario que necesita en varias fases de la transición. Debe recopilar y registrar esta información antes de comenzar la transición para poder referirla según sea necesario a lo largo del proceso. 
+---
+= Recopilación de información previa a la transición del libro de trabajo de evaluación de inventario
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Hay información en el _Inventory Assessment Workbook_ que usted necesita en varias fases de la transición. Debe recopilar y registrar esta información antes de comenzar la transición para poder referirla según sea necesario a lo largo del proceso.
+
+.Pasos
+. Utilice la herramienta de recopilación de inventario (ICT) para generar el _libro de trabajo de evaluación de inventario_.
+. Abra _Inventory Assessment Workbook_.
+. Vaya a la ficha *LUN*.
+. En la columna *LUN name*, identifique y registre el nombre de la LUN que se va a realizar la transición.
+. Vaya a la ficha *LUN de host SAN*.
+. En la columna *SCSI Device ID*, identifique y registre el nombre del dispositivo SCSI.
+. En la columna *ID de dispositivo del sistema operativo*, identifique y registre el nombre del dispositivo DMMP para la transición del LUN.
+. En la columna *sistemas de archivos*, identifique y registre el sistema de archivos configurado en el dispositivo DMMP.
+. En la columna *UUID*, identifique y registre el número de UUID de la LUN.
+. En la columna *Mount*, identifique y registre el directorio en el que está montado el dispositivo DMMP.
+. Vaya a la ficha *LVMs*.
+. En la columna *Nombre de volumen físico*, identifique y registre los dispositivos DMMP que utiliza el volumen lógico.
+. Vaya a la ficha *LVMs de host SAN*.
+. En la columna *Nombre del grupo de volúmenes*, identifique y registre el grupo de volúmenes.
+. En la columna *Ruta de volumen lógico*, identifique y registre el volumen lógico.
+. Vaya a la pestaña *sistemas de archivos de host SAN*.
+. En la columna *sistema de archivos*, identifique y registre el sistema de archivos configurado en el volumen lógico.
+. En la columna *Mount*, identifique y registre el directorio en el que se montan los volúmenes lógicos.
+. Vaya a la ficha *Configuración de GRUB*.
+. En la columna *initrd*, identifique y registre la imagen initrd que se va a modificar.
+. Vaya a la ficha *HBA de host SAN*.
++
+También puede ver la ficha *interfaces SAN iSCSI* para identificar el número IQN iSCSI y las direcciones IP configuradas en los controladores 7-Mode.
+
+. En la columna *IP de destino (iSCSI)* identifique y registre las sesiones iSCSI para los controladores de 7-Mode.
+
+
+*Información relacionada*
+
+xref:concept_what_the_inventory_collect_tool_is.adoc[Qué es la herramienta de recopilación de inventario]

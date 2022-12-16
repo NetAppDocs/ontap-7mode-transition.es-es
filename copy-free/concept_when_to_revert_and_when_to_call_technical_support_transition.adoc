@@ -1,0 +1,33 @@
+---
+permalink: copy-free/concept_when_to_revert_and_when_to_call_technical_support_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, roll, back, transition, technical, support 
+summary: Es posible revertir sin ayuda cuando se realiza una reversión en clústeres de prueba o laboratorio, pero debe llamar al soporte técnico si se encuentran problemas durante o después de la transición o si desea revertir una transición realizada en un clúster de producción. 
+---
+= Cuándo revertir una transición y cuándo llamar al soporte técnico
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible revertir sin ayuda cuando se realiza una reversión en clústeres de prueba o laboratorio, pero debe llamar al soporte técnico si se encuentran problemas durante o después de la transición o si desea revertir una transición realizada en un clúster de producción.
+
+
+IMPORTANT: No debe intentar revertir una transición en un entorno de producción sin la ayuda del soporte técnico.
+
+Si encuentra alguna de las siguientes circunstancias, póngase en contacto con el soporte técnico de inmediato:
+
+* El proceso de transición falla y no puede terminar, y no está seguro de qué hacer a continuación.
+* El proceso de transición finaliza, pero el clúster no se puede utilizar en un entorno de producción.
+* El proceso de transición se finaliza y el clúster entra en producción, pero no está satisfecho con su comportamiento.
+* El proceso de transición finaliza con algunos de los datos y la configuración, pero no con todos, y decide revertir la transición.
+* Tiene un problema en el proceso de transición y no puede resolver el problema con los mensajes de respuesta de error en la herramienta 7-Mode Transition Tool, los mensajes de eventos EMS de Data ONTAP y la base de conocimientos de NetApp.
++
+https://kb.netapp.com/["Base de conocimientos de NetApp"]
+
+
+
+*Información relacionada*
+
+xref:task_collecting_tool_logs.adoc[Descargando archivos de registro de transición]

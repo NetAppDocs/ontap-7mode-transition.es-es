@@ -1,0 +1,35 @@
+---
+permalink: san-host/task_preparing_to_transition_aix_data_host_luns_with_file_systems.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, transition, aix, host, data, lun, file, system 
+summary: Antes de realizar la transición de las LUN de datos del host de AIX con sistemas de archivos de Data ONTAP en 7-Mode a Clustered Data ONTAP, debe recopilar la información que necesita para el proceso de transición. 
+---
+= Preparar la transición de LUN de datos del host AIX con sistemas de archivos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de realizar la transición de las LUN de datos del host de AIX con sistemas de archivos de Data ONTAP en 7-Mode a Clustered Data ONTAP, debe recopilar la información que necesita para el proceso de transición.
+
+. En la controladora de 7-Mode, identifique el nombre del LUN que se va a realizar la transición:
++
+`*lun show*`
+
+. En el host, busque el nombre del dispositivo SCSI para el LUN:
++
+`*sanlun lun show*`
+
++
+El nombre del dispositivo SCSI se encuentra en la columna nombre de archivo del dispositivo.
+
+. Enumere y registre los volúmenes físicos que ha utilizado el grupo de volúmenes configurados en los LUN de datos que se van a realizar la transición:
++
+`*lsvg -p _vg_name_*`
+
+. Enumere y registre los volúmenes lógicos que utiliza el grupo de volúmenes:
++
+`*lsvg -l _vg_name_*`
+
+

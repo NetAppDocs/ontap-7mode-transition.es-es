@@ -1,0 +1,49 @@
+---
+permalink: copy-based/task_customizing_configurations_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, customize, 7, mode, configurations 
+summary: Cuando se planifica la transición de configuraciones de 7-Mode a ONTAP, puede personalizar la transición de la configuración de dos maneras. Puede ignorar o omitir la transición de una o varias configuraciones. Puede consolidar las reglas de exportación de NFS 7-Mode y, a continuación, reutilizar una política de exportación NFS existente y una política de Snapshot en la SVM de destino. 
+---
+= Personalización de la transición de configuraciones de 7-Mode
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando se planifica la transición de configuraciones de 7-Mode a ONTAP, puede personalizar la transición de la configuración de dos maneras. Puede ignorar o omitir la transición de una o varias configuraciones. Puede consolidar las reglas de exportación de NFS 7-Mode y, a continuación, reutilizar una política de exportación NFS existente y una política de Snapshot en la SVM de destino.
+
+Debe realizar esta tarea antes de aplicar la fase de configuración (previa). Esto se debe a que después de esta fase, el panel Configuración del plan está desactivado para cualquier modificación. La interfaz de línea de comandos (CLI) de la herramienta de transición de 7-Mode se utiliza para excluir las configuraciones que se aplican durante la fase de transposición.
+
+La herramienta de transición de 7-Mode no realiza comprobaciones previas para la configuración que se excluye.
+
+De forma predeterminada, todas las configuraciones de 7-Mode se seleccionan para la transición.
+
+Es recomendable ejecutar primero las comprobaciones previas con todas las configuraciones y, a continuación, excluir una o más configuraciones en la ejecución posterior de las comprobaciones previas. Esto le ayuda a comprender qué configuraciones se excluyen de la transición y qué comprobaciones previas se omiten posteriormente.
+
+.Pasos
+. En la página Configuración del plan, seleccione las siguientes opciones en el panel *Configuración de SVM*:
++
+** Para excluir la transición de configuraciones, desactive la casilla de verificación de dichas configuraciones.
+** Para consolidar reglas de exportación similares de NFS de 7-Mode a una única política de exportación en ONTAP, que se pueden aplicar al volumen o qtree que se ha realizado la transición, active la casilla de comprobación *consolidar directivas de exportación NFS en 7-Mode*.
+** Para volver a utilizar una política de exportación de NFS existente en la SVM que coincida con la política de exportación que creará la herramienta; a continuación, se podrá aplicar a los volúmenes o qtrees convertidos, seleccione la casilla de comprobación *Reuse Export Policies of SVM*.
+** Para consolidar programaciones de Snapshot de 7-Mode similares en una única política de Snapshot en ONTAP, que luego se puede aplicar al volumen que ha realizado la transición, active la casilla de comprobación *consolidar políticas de Snapshot de 7-Mode*.
+** Para volver a utilizar una política de Snapshot existente en la SVM que coincida con la política de Snapshot que se creará con la herramienta, que luego se podrá aplicar a los volúmenes convertidos, seleccione la casilla de comprobación *Reuse Snapshot Policies of SVM*.
+
+
+. Haga clic en *Guardar y vaya a Panel*.
+
+
+*Información relacionada*
+
+xref:concept_cifs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.adoc[Configuraciones CIFS compatibles y no compatibles para la transición a ONTAP]
+
+xref:concept_nfs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.adoc[Transición a NFS: Configuraciones compatibles y no compatibles, así como pasos manuales necesarios]
+
+xref:concept_supported_and_unsupported_name_services_configurations.adoc[Transición de servicios de nombres: Configuraciones compatibles y no compatibles y pasos manuales necesarios]
+
+xref:concept_san_transition_supported_and_unsupported_configurations_and_required_manual_steps.adoc[Transición DE SAN: Configuraciones compatibles y no compatibles, así como pasos manuales necesarios]
+
+xref:reference_example_consolidating_nfs_export_rules_for_transition.adoc[Ejemplos de consolidación de reglas de exportación de NFS y planificaciones de Snapshot para la transición]
+
+xref:reference_configurations_that_can_be_excluded.adoc[Configuraciones que pueden excluirse de la transición]

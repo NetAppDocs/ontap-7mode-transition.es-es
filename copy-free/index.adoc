@@ -1,0 +1,14 @@
+---
+permalink: copy-free/index.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, index 
+summary: Explica cómo realizar la transición de una pareja de ha de 7-Mode a un clúster de ONTAP usando la herramienta 7-Mode Transition Tool y sin tener que copiar ningún dato de los discos, ya que las bandejas de discos existentes se conectan al nuevo clúster. 
+---
+= Guía de transición sin copia
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+En esta guía se describe cómo realizar la transición de una pareja de ha de 7-Mode a un clúster de ONTAP usando la herramienta 7-Mode Transition Tool y sin tener que copiar ningún dato de los discos, ya que las bandejas de discos existentes se conectan al nuevo clúster.

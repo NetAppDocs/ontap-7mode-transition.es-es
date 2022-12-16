@@ -1,0 +1,75 @@
+---
+permalink: copy-free/concept_restrictions_for_copy_free_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, aggregates, volumes, restrictions 
+summary: Debe estar al tanto de ciertas restricciones para la transición de agregados y volúmenes de 7-Mode. Algunas de las restricciones se deben a funciones que no son compatibles con ONTAP. En algunas restricciones, puede realizar una acción correctiva que le permite continuar con la transición. 
+---
+= Restricciones para la transición de agregados y volúmenes de 7-Mode
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe estar al tanto de ciertas restricciones para la transición de agregados y volúmenes de 7-Mode. Algunas de las restricciones se deben a funciones que no son compatibles con ONTAP. En algunas restricciones, puede realizar una acción correctiva que le permite continuar con la transición.
+
+
+
+== Tipos de volúmenes
+
+Los siguientes tipos de volúmenes no son compatibles para la transición:
+
+* Volúmenes tradicionales
++
+Se pueden utilizar métodos de transición basados en hosts para realizar la transición de volúmenes tradicionales.
+
++
+http://www.netapp.com/us/media/tr-4052.pdf["Informe técnico de NetApp 4052: Transición correcta a Clustered Data ONTAP (Data ONTAP 8.2.x y 8.3)"]
+
+* Volúmenes de SnapLock
++
+Se admite la transición de volúmenes de SnapLock en todas las versiones más recientes de ONTAP.
+
+* Volúmenes de FlexCache
+
+
+
+
+== estados de volumen y agregado
+
+La transición se bloquea si alguno de los agregados y volúmenes de 7-Mode seleccionados para la transición se encuentra en uno de los siguientes estados:
+
+* Sin conexión
+* Restringida
+* Incoherente (`wafl inconsistent`)
+
+
+
+
+== Volúmenes FlexClone
+
+La jerarquía de clones y la eficiencia del almacenamiento se conservan durante la transición sin copias. Sin embargo, debe asegurarse de que el volumen FlexVol principal y todos sus volúmenes FlexClone pertenecen a la misma unidad vFiler. Si los volúmenes FlexClone se encuentran en diferentes unidades vFiler del volumen principal, debe seleccionar una de las siguientes acciones:
+
+* Mueva los volúmenes FlexClone a la unidad vFiler a la que pertenece el volumen FlexVol principal.
+* Divida los clones del volumen FlexClone principal y, a continuación, realice la transición de estos volúmenes como volúmenes FlexVol.
+
+
+
+
+== Volumen con qtrees que pertenecen a una unidad vFiler diferente
+
+No puede realizar la transición de volúmenes con qtrees, donde los qtrees son propiedad de una unidad vFiler diferente a la del volumen. Antes de la transición, debe asegurarse de que cada volumen y todos sus qtrees pertenecen a la misma unidad vFiler realizando una de las siguientes acciones:
+
+* Mueva los qtrees a la unidad vFiler a la que pertenece el volumen.
+* Elimine los qtrees.
+
+
+
+
+== Configuración de traducción de inodo a ruta principal
+
+Las traducciones del nombre de ruta del nodo de información al principal deben estar habilitadas en cada volumen. Puede activar las traducciones de ruta principal desactivando la opción no_i2p:
+
+`*vol options _vol_name_ no_i2p off*`
+
+No tiene que esperar a que termine la exploración i2p y puede continuar con la preparación para la transición.

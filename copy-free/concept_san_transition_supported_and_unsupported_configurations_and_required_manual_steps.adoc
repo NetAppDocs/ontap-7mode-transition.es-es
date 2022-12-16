@@ -1,0 +1,92 @@
+---
+permalink: copy-free/concept_san_transition_supported_and_unsupported_configurations_and_required_manual_steps.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, san, transition, supported, unsupported, required, manual, steps 
+summary: Debe conocer las configuraciones DE SAN que han realizado la transición desde la herramienta 7-Mode Transition Tool. También debe conocer las funciones DE SAN de 7-Mode que no son compatibles con ONTAP, de manera que pueda realizar cualquier acción necesaria antes de la transición. 
+---
+= Transición DE SAN: Configuraciones compatibles y no compatibles, así como pasos manuales necesarios
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe conocer las configuraciones DE SAN que han realizado la transición desde la herramienta 7-Mode Transition Tool. También debe conocer las funciones DE SAN de 7-Mode que no son compatibles con ONTAP, de manera que pueda realizar cualquier acción necesaria antes de la transición.
+
+Debe verificar todos los mensajes de error y advertencia de las comprobaciones previas para evaluar el impacto de dichas configuraciones en la transición.
+
+
+
+== Configuraciones que se han realizado la transición
+
+La herramienta 7-Mode Transition Tool realiza la transición de las siguientes configuraciones SAN:
+
+* Servicios FC e iSCSI
+* igroups y mapas de LUN
++
+[NOTE]
+====
+** Los iGroups de 7-Mode que no se asignan a ninguna LUN no se realizan la transición a las SVM de destino.
+** Para Clustered Data ONTAP 8.3.0 y 8.3.1, la transición de iGroups y configuraciones de asignación de LUN no se admite durante la operación de transición previa.
++
+En su lugar, los iGroups necesarios se crean durante la operación de transposición. En los volúmenes primario y independiente, las LUN se asignan a iGroups durante la operación de transposición. Sin embargo, para los volúmenes secundarios, la asignación de LUN a iGroups no se admite durante la operación de transposición. Debe asignar manualmente los LUN secundarios después de completar la transición de los volúmenes primarios.
+
+** En las versiones compatibles con ONTAP 8.3.2 y versiones posteriores, se aplican configuraciones de asignación de iGroups y LUN durante la operación previa.
+
+
+====
+
+
+
+
+== Configuraciones no compatibles en ONTAP
+
+Las configuraciones no admitidas en ONTAP son los siguientes:
+
+* Clones de LUN respaldados por copias Snapshot de 7-Mode
++
+Los clones de LUN respaldados por copia de Snapshot presentes en las copias de Snapshot no son compatibles con ninguna operación de restauración. No se puede acceder a estos LUN en ONTAP. Debe dividir o eliminar los clones de LUN respaldados por copias de Snapshot de 7-Mode antes de la transición.
+
+* LUN con un valor de parámetro ostype de vld, imagen o cualquier cadena definida por el usuario
++
+Debe cambiar el valor del parámetro ostype para dichas LUN o eliminar las LUN antes de la transición.
+
+* División de clones de LUN
++
+Debe esperar a que las operaciones de división de clones de la LUN activa finalicen o anular la división del clon de la LUN y eliminar la LUN antes de realizar la transición.
+
+
+
+Las siguientes funciones 7-Mode permiten continuar con el proceso de transición, pero no son compatibles con ONTAP:
+
+* La `lun share` comando
++
+Compartir una LUN en protocolos NAS
+
+* SnapValidator
+
+
+
+
+== Configuraciones que se deben realizar la transición manualmente
+
+Las siguientes configuraciones deben realizar la transición de forma manual:
+
+* LIF SAN
++
+Debe crear las LIF manualmente antes de la transición.
+
+* Conjuntos de puertos
++
+Debe configurar manualmente los iGroups vinculados a un conjunto de puertos después de la transición.
+
+* Información de la lista de acceso iSCSI
+* Configuración de iSNS
+* Configuraciones CHAP y RADIUS iSCSI
+
+
+*Información relacionada*
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-nfs/home.html["Gestión de NFS"]
+
+https://docs.netapp.com/us-en/ontap/networking/index.html["Gestión de redes y LIF"]

@@ -1,0 +1,49 @@
+---
+permalink: san-host/task_preparing_for_cutover_when_transitioning_hp_ux_host_data_luns_with_file_systems.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, cutover, phase, hp, ux, host, data, lun, file, system 
+summary: Si va a realizar la transición de un LUN de datos del host de HP con un sistema de archivos de Data ONTAP que funciona en 7-Mode a Clustered Data ONTAP, debe realizar determinados pasos antes de entrar en la fase de transposición. 
+---
+= Preparación de la fase de transición al realizar la transición de LUN de datos host de HP-UX con sistemas de archivos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si va a realizar la transición de un LUN de datos del host de HP con un sistema de archivos de Data ONTAP que funciona en 7-Mode a Clustered Data ONTAP, debe realizar determinados pasos antes de entrar en la fase de transposición.
+
+Si utiliza una configuración FC, debe establecerse la conectividad estructural y la división en zonas en los nodos de Clustered Data ONTAP.
+
+Si utiliza una configuración iSCSI, deben detectarse las sesiones iSCSI a los nodos de Clustered Data ONTAP y haberse iniciado sesión.
+
+Para las transiciones basadas en copias, realice estos pasos después de completar el funcionamiento de transición del almacenamiento en la herramienta de transición de 7-Mode (7MTT). Los hosts HP-UX no admiten las transiciones sin copia.
+
+.Pasos
+. Detenga la I/o en todos los puntos de montaje.
+. Apague cada aplicación que acceda a las LUN de acuerdo con las recomendaciones del proveedor de aplicaciones.
+. Desmonte todos los puntos de montaje:
++
+`*umount _mount_point_*`
+
+. Exporte el grupo de volúmenes y escriba los volúmenes VGID y lógicos del grupo de volúmenes en un archivo mapfile:
++
+`*vgexport -p -s -m /tmp/mapfile.vg01 vg01*`
+
+. Haga una copia de seguridad del archivo mapfile.vg01 en un origen externo.
+. Deshabilite el grupo de volúmenes:
++
+`*vgchange -a n _vg_name_*`
+
+. Exporte el grupo de volúmenes:
++
+`*vgexport _vg_name_*`
+
+. Compruebe que el grupo de volúmenes se haya exportado:
++
+`*vgdisplay*`
+
++
+La información del grupo de volúmenes exportado no debe mostrarse en la salida.
+
+

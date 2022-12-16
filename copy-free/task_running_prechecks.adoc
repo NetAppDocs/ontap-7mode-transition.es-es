@@ -1,0 +1,44 @@
+---
+permalink: copy-free/task_running_prechecks.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, runn, prechecks 
+summary: Puede realizar comprobaciones previas para identificar cualquier problema antes de iniciar la transición. Las comprobaciones previas verifican que los orígenes de 7-Mode, los destinos de ONTAP y las configuraciones son válidas para su transición. Puede realizar comprobaciones previas cualquier número de veces. 
+---
+= Realizar comprobaciones previas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede realizar comprobaciones previas para identificar cualquier problema antes de iniciar la transición. Las comprobaciones previas verifican que los orígenes de 7-Mode, los destinos de ONTAP y las configuraciones son válidas para su transición. Puede realizar comprobaciones previas cualquier número de veces.
+
+Las comprobaciones previas realizan más de 200 comprobaciones diferentes. Por ejemplo, la herramienta comprueba si hay volúmenes en línea y si existe acceso a la red entre los sistemas.
+
+. En Dashboard, seleccione el proyecto para el que desea realizar las comprobaciones previas.
+. Haga clic en *Ejecutar comprobaciones previas*.
++
+Cuando las comprobaciones previas hayan finalizado, se mostrará el resumen de resultados en el cuadro de diálogo.
+
++
+
+NOTE: Las comprobaciones previas suelen tardar solo unos minutos en realizarse, pero la duración de la fase de comprobaciones previas depende del número y tipo de errores o advertencias que haya resuelto.
+
+
+
+.Pasos
+. Elija una opción en *aplicar filtro de tipo* para filtrar los resultados:
++
+** Para ver todos los mensajes relacionados con la seguridad, seleccione *error*, *Advertencia*, *Informativo* y *sólo seguridad*.
+** Para ver todos los mensajes de error relacionados con la seguridad, seleccione *error* y *sólo seguridad*.
+** Para ver todos los mensajes de advertencia relacionados con la seguridad, seleccione **Warning**y *Security Only*.
+** Para ver todos los mensajes informativos relacionados con la seguridad, seleccione *Informativo* y *sólo seguridad*.
+
+
+. Para guardar los resultados sin procesar en formato de valores separados por comas (CSV) y exportar los resultados, haga clic en *Guardar como CSV*.
++
+Puede ver las operaciones de transición que se han llevado a cabo durante la transición junto con el tipo de operación, el estado, la hora de inicio, la hora de finalización y los resultados en la pestaña Historial de operaciones del panel Consola.
+
+
+
+Debe resolver todos los errores detectados por las comprobaciones previas antes de iniciar la copia de datos. También se recomienda resolver todas las advertencias antes de continuar con el proceso de migración. La resolución puede ser resolver el problema de origen del mensaje de advertencia, implementar una solución alternativa o aceptar el resultado del problema.

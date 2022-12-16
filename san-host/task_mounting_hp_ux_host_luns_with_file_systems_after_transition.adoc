@@ -1,0 +1,65 @@
+---
+permalink: san-host/task_mounting_hp_ux_host_luns_with_file_systems_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, mount, hp, ux, host, lun, file, system 
+summary: Después de realizar la transición de los LUN de host de HP-UX con sistemas de archivos de Data ONTAP en 7-Mode a Clustered Data ONTAP, debe montar las LUN. 
+---
+= Montaje de LUN de host HP-UX con sistemas de archivos después de la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de realizar la transición de los LUN de host de HP-UX con sistemas de archivos de Data ONTAP en 7-Mode a Clustered Data ONTAP, debe montar las LUN.
+
+Para las transiciones basadas en copias, realice estos pasos después de completar el funcionamiento de transición del almacenamiento en la herramienta de transición de 7-Mode (7MTT). Los hosts HP-UX no admiten las transiciones sin copia.
+
+.Pasos
+. Descubra nuevas LUN de Clustered Data ONTAP:
++
+`*ioscan -fnC disk*`
+
+. Compruebe que se han detectado las LUN de Clustered Data ONTAP:
++
+`*sanlun lun show*`
+
+. Compruebe que el `lun-pathname` Para las LUN de Clustered Data ONTAP es lo mismo que para `lun-pathname` Para las LUN de 7-Mode antes de la transición.
+. Compruebe que la salida de la columna de modo ha cambiado de `7` para `C`.
+. Utilice la `mapfile` archivo para importar el grupo de volúmenes:
++
+`*vgimport -s -v -m /tmp/mapfile.vg01 /dev/vg01"*`
+
+. Active los volúmenes lógicos:
++
+`*vgchange -a y _vg_name_*`
+
+. Convierta el nombre de archivo especial del dispositivo heredado (DSF) a DSF persistente:
++
+`*vgdsf -c /dev/vg01*`
+
+. Compruebe que el estado del VG se muestra como disponible:
++
+`*vgdisplay*`
+
+. Monte manualmente cada uno de los dispositivos:
++
+`*mount -F vxfs -o largefiles _device_name mount_point_*`
+
+. Ejecute el comando fsck si se le pide que lo haga.
+. Compruebe los puntos de montaje:
++
+`*bdf*`
+
++
+El siguiente ejemplo muestra cómo deben mostrarse los puntos de montaje:
+
++
+[listing]
+----
+bash-2.05# bdf
+Filesystem          kbytes     used     avail     used   Mounted on
+/dev/vg01/lvol1   23592960   1050952   22189796    5%   /mnt/qa/vg01
+/dev/vg01/lvol2   23592960    588480   22645044    3%   /mnt/qa/vg02
+----
+

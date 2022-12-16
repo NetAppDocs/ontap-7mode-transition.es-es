@@ -1,0 +1,151 @@
+---
+permalink: copy-free/task_setting_up_sp_or_rlm_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, sp, rlm, system, set, up 
+summary: 'Si el Service Processor \(SP\) o el módulo de LAN remota \(RLM\) no están configurados ya en los sistemas de almacenamiento de 7-Mode o si ha configurado el SP o RLM con una dirección IPv6, debe configurar el SP o RLM con una dirección IPv4.' 
+---
+= Configuración del SP o RLM en los sistemas de 7-Mode para realizar una transición sin copias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si el procesador de servicio (SP) o el módulo de LAN remoto (RLM) no están configurados ya en los sistemas de almacenamiento de 7-Mode o si ha configurado el SP o RLM con una dirección IPv6, debe configurar el SP o RLM con una dirección IPv4.
+
+* SSHv2 debe ser compatible con el host en el que está instalada la herramienta de transición de 7-Mode.
+* Debe disponer de acceso a la cuenta de SP o RLM "'naroot'" o a una cuenta de usuario de Data ONTAP con las credenciales del rol «admin» o un rol con la capacidad «'login-sp».
+
+
+La herramienta de transición de 7-Mode accede a los sistemas de 7-Mode cuando se detienen durante la transición utilizando un dispositivo de gestión remota que puede ser el SP o RLM, el cual esté disponible en el sistema según el modelo de plataforma. Debe configurar el SP o RLM con una dirección IPv4. La configuración IPv6 no es compatible para la transición.
+
+.Pasos
+* Configurar el SP y proporcionar acceso al SP al host en el que está instalada la herramienta 7-Mode Transition Tool.
++
+.. Configure y habilite la red del SP con una dirección IPv4: +
+`*sp setup*`
++
+[listing]
+----
+system1> sp setup
+   The Service Processor (SP) provides remote management capabilities
+   including console redirection, logging and power control.
+   It also extends autosupport by sending
+   additional system event alerts. Your autosupport settings are use
+   for sending these alerts via email over the SP LAN interface.
+Would you like to configure the SP? y
+Would you like to enable DHCP on the SP LAN interface? n
+Please enter the IP address of the SP []: 192.168.123.98
+Please enter the netmask of the SP []: 255.255.255.0
+Please enter the IP address for the SP gateway []: 192.168.123.1
+Do you want to enable IPv6 on the SP ? n
+Verifying mailhost settings for SP use...
+----
+.. Compruebe los ajustes de configuración de red del SP:
++
+`*sp status*`
+
++
+[listing]
+----
+system1> sp status
+        Service Processor      Status: Online
+             Firmware Version:   1.2
+             Mgmt MAC Address:   00:A0:98:01:7D:5B
+             Ethernet Link:      up
+             Using DHCP:         no
+    IPv4 configuration:
+             IP Address:         192.168.123.98
+             Netmask:            255.255.255.0
+             Gateway:            192.168.123.1
+----
+.. Proporcionar acceso al SP al host en el que está instalado la herramienta 7-Mode Transition Tool:
++
+`*options sp.ssh.access host=__7mtt_host__*`
+
++
+`_7mtt_host_` Es el nombre de host o la dirección IP del host en el que se ha instalado 7-Mode Transition Tool.
+
++
+
+NOTE: Al configurar el SP, de forma predeterminada, se concede acceso a todos los hosts. Debe realizar este paso si desea restringir el acceso a hosts específicos.
+
+.. Desde el host en el que está instalado la herramienta 7-Mode Transition Tool, inicie sesión en el SP: +
+`*ssh _username@SP_IP_address_*`
++
+Cuando se le solicite, introduzca la contraseña del nombre de usuario.
+
++
+Aparece el aviso del SP, lo que indica que tiene acceso a la CLI del SP.
+
+
+
+* Configurar RLM y proporcionar acceso a RLM al host en el que se instala la herramienta de transición de 7-Mode.
++
+.. Configure la red RLM con una dirección IPv4: +
+`*rlm setup*`
++
+En el asistente de la CLI de RLM, debe introducir la dirección IP, la máscara de red y la puerta de enlace de la tarjeta RLM.
+
++
+[listing]
+----
+system> rlm setup
+	  The Remote LAN Module (RLM) provides remote management capabilities
+ 	 including console redirection, logging and power control.
+ 	 It also extends autosupport by sending
+ 	 additional system event alerts. Your autosupport settings are used
+ 	 for sending these alerts via email over the RLM LAN interface.
+Would you like to configure the RLM? y
+Would you like to enable DHCP on the RLM LAN interface? n
+Please enter the IP address for the RLM []:192.168.123.98
+Please enter the netmask for the RLM []:255.255.255.0
+Please enter the IP address for the RLM gateway []:192.168.123.1
+Do you want to enable IPv6 on the RLM ? n
+Verifying mailhost settings for RLM use...
+----
+.. Compruebe que la configuración de red RLM es correcta:
++
+`*rlm status*`
+
++
+[listing]
+----
+system> rlm status
+	Remote LAN Module    Status: Online
+		Part Number:        110-00030
+		Revision:           A0
+		Serial Number:      123456
+		Firmware Version:   4.0
+		Mgmt MAC Address:   00:A0:98:01:7D:5B
+		Ethernet Link:      up, 100Mb, full duplex, auto-neg complete
+		Using DHCP:         no
+	IPv4 configuration:
+		IP Address:         192.168.123.98
+		Netmask:            255.255.255.0
+		Gateway:            192.168.123.1
+----
+.. Proporcionar acceso RLM al host en el que está instalada la herramienta de transición de 7-Mode:
++
+`+options rlm.ssh.access host=__7mtt_host__*`
+
++
+7mtt_host es el nombre de host o la dirección IP del host en el que está instalada la herramienta 7-Mode Transition Tool.
+
++
+
+NOTE: Cuando configura la tarjeta RLM, se concede acceso de forma predeterminada a todos los hosts. Debe realizar este paso si desea restringir el acceso a hosts específicos.
+
+.. Desde el host en el que está instalada la herramienta 7-Mode Transition Tool, inicie sesión en RLM:
++
+`*ssh _username@RLM_IP_address_*`
+
++
+Cuando se le solicite, debe introducir la contraseña del nombre de usuario.
+
++
+Aparece el aviso de RLM que indica que dispone de acceso a la CLI de RLM.
+
+
+
+

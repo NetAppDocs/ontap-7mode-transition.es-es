@@ -1,0 +1,103 @@
+---
+permalink: copy-free/task_gathering_cabling_information_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, gather, cabling, information 
+summary: Antes de iniciar la transición sin copias, debe recopilar información sobre los adaptadores, los puertos, las bandejas de discos y la conectividad de almacenamiento de las controladoras de 7-Mode y, a continuación, planificar la conexión de las bandejas de discos de 7-Mode a los nodos del clúster de destino. 
+---
+= Recopilación de información de cableado para la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de iniciar la transición sin copias, debe recopilar información sobre los adaptadores, los puertos, las bandejas de discos y la conectividad de almacenamiento de las controladoras de 7-Mode y, a continuación, planificar la conexión de las bandejas de discos de 7-Mode a los nodos del clúster de destino.
+
+Debe haber impreso la hoja de trabajo para el cableado de transición sin copias.
+
+xref:reference_copy_free_transition_cabling_worksheet.adoc[Hoja de trabajo relativa al cableado de transición sin copia]
+
+. Utilice Config Advisor para realizar una comprobación del estado de los datos de cableado y almacenamiento de 7-Mode y recoger los datos del cableado.
++
+Debe utilizar el `7-Mode Install Checks` Opción del perfil de ejecución «'Data ONTAP 7 y 8 (7-Mode)».
+
+. Recopile la información necesaria sobre cada controladora 7-Mode mediante el siguiente comando:
++
+`*sysconfig _slot_number_*`
+
++
+Es posible utilizar el resultado de este comando para identificar qué puertos se usan para la conectividad de la bandeja de discos.
+
++
+[listing]
+----
+host1> sysconfig 3
+        slot 3: SAS Host Adapter 3a
+                24 Disks:            13440.0GB
+                1 shelf with IOM3
+        slot 3: SAS Host Adapter 3b
+                24 Disks:            13440.0GB
+                1 shelf with IOM3
+        slot 3: SAS Host Adapter 3c
+                24 Disks:            13440.0GB
+                1 shelf with IOM3
+        slot 3: SAS Host Adapter 3d
+                24 Disks:            13440.0GB
+                1 shelf with IOM3
+----
+. Desde el clúster, ejecute el siguiente comando nodesinfierno en cada nodo:
++
+`*system node run -node _node_name_ -command sysconfig -a*`
+
++
+Se puede utilizar el resultado de este comando para obtener información acerca de los puertos y las ranuras de tarjeta de expansión disponibles.
+
+. En los nodos del clúster de destino, planifique los puertos que se usarán para conectar las bandejas de discos de 7-Mode:
++
+.. Revise los puertos disponibles (abiertos).
+.. Revise las ranuras para tarjetas de expansión.
+.. Planifique la configuración de la tarjeta de expansión.
++
+Puede planificar el traslado de las tarjetas de expansión desde los sistemas de 7-Mode si también son compatibles con la plataforma de destino y la versión de ONTAP. También puede planificar tarjetas PAM si es necesario.
+
++
+https://hwu.netapp.com["Hardware Universe de NetApp"]
+
+.. Planifique los puertos de destino que deben usar para cableado de la bandeja de discos.
++
+La selección de los puertos de destino depende de algunos de los factores siguientes:
+
++
+*** Pila de bandejas de discos independiente o existente
+*** Disponibilidad de puertos
+*** Conexiones SAS o FC
+*** Disponibilidad de puertos integrados o tarjetas de expansión
+
+
+
+
+. Vaya al centro de datos para registrar físicamente las conexiones de puerto en las controladoras de 7-Mode y los nodos de clúster de destino en la hoja de datos de cableado:
++
+.. Registre los puertos utilizados en las controladoras de 7-Mode en la hoja de datos de cableado.
+.. Registre los puertos utilizados en los nodos del clúster de destino en la hoja de datos de cableado.
+.. Registre los puertos de destino que se van a utilizar para conectar las bandejas de discos de 7-Mode, como se ha planificado en el paso <<STEP_D0CFE719A0384F7FA5D9E73C8EA6C2E7,#STEP_D0CFE719A0384F7FA5D9E73C8EA6C2E7>>.
+.. Asegúrese de que dispone de los cables adecuados para conectar las bandejas de discos.
++
+Debe identificar cualquier problema con el cableado según la nueva ubicación de pila de la bandeja de discos.
+
+.. Planifique longitudes de cable más largas debido a los requisitos de montaje en rack de escalera o centro de datos.
+.. Etiquete cada pila de bandeja de discos y cada cable en las controladoras de 7-Mode.
++
+La práctica recomendada es etiquetar las pilas de bandejas de discos de 7-Mode en caso de que desee revertir la transición y tenga que volver a conectar las bandejas de discos a las controladoras de 7-Mode.
+
+
+
+
+
+*Información relacionada*
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP1119629["Guía de instalación y servicio de bandejas de discos SAS para DS4243, DS2246, DS4486 y DS4246"]
+
+https://library.netapp.com/ecm/ecm_download_file/ECMM1280273["Guía de servicio de hardware de DiskShelf14mk2 AT"]
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP1112854["Guía de servicio de hardware DS14mk2 FC y DS14mk4 FC"]

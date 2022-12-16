@@ -1,0 +1,52 @@
+---
+permalink: copy-free/task_preparing_7_mode_system_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, prepare, ha, pair 
+summary: Antes de iniciar una transición, debe completar ciertas tareas en el sistema 7-Mode, como habilitar el sistema 7-Mode para comunicarse con el clúster de destino y habilitar HTTPS y TLS. 
+---
+= Preparar la pareja de alta disponibilidad de 7-Mode para la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de iniciar una transición, debe completar ciertas tareas en el sistema 7-Mode, como habilitar el sistema 7-Mode para comunicarse con el clúster de destino y habilitar HTTPS y TLS.
+
+El par de alta disponibilidad debe estar en buen estado y ninguno de los nodos debe estar en modo de toma de control, lo cual se puede verificar mediante el comando cf status. También puede utilizar la herramienta NetApp AutoSupport para detectar errores o situaciones de riesgo.
+
+. Si la función HTTPS no está habilitada en el sistema de almacenamiento, habilite HTTPS:
++
+`*options httpd.admin.ssl.enable on*`
+
++
+De forma predeterminada, HTTPS está habilitado.
+
+. Habilite TLS en los sistemas de almacenamiento de 7-Mode para permitir que la herramienta de transición de 7-Mode se comunique con los sistemas de 7-Mode:
++
+.. Si SSL no está activado en el sistema de almacenamiento, configure e inicie SSL: +
+`*secureadmin setup ssl*`
++
+De manera predeterminada, SSL se configura para los sistemas de almacenamiento. Si anteriormente se ha configurado SSL para el sistema de almacenamiento, se le preguntará si desea continuar. Puede salir de la configuración SSL si no desea realizar ningún cambio.
+
+.. Activar SSL: +
+`*options ssl.enable on*`
++
+Esta opción debe estar habilitada para permitir la comunicación con TLS.
+
+.. Habilitar TLS: +
+`*options tls.enable on*`
+.. Desactive SSLv2 y SSLv3 en el sistema de 7-Mode: +
+`*options ssl.v2.enable off*`
++
+`*options ssl.v3.enable off*`
+
+
+
++
+La herramienta de transición de 7-Mode utiliza los protocolos TLS o SSL para la comunicación con los sistemas de almacenamiento de 7-Mode. La herramienta se comunica con el sistema de almacenamiento mediante el protocolo TLS si TLS está habilitado en el sistema de almacenamiento. Si TLS está desactivado y SSLv3 está activado en un sistema de almacenamiento, la herramienta utiliza SSLv3 para comunicarse con el sistema de almacenamiento.
+
++
++ IMPORTANTE: La mejor práctica es habilitar TLS y deshabilitar SSLv2 y SSLv3 para evitar vulnerabilidades de seguridad.
+
+

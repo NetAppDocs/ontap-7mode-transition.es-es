@@ -1,0 +1,53 @@
+---
+permalink: copy-based/task_starting_baseline_data_copy.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, start, baseline, copy 
+summary: Después de crear un proyecto y completar la operación comprobaciones previas, debe iniciar la copia de datos de los volúmenes de 7-Mode a ONTAP. Puede iniciar la operación de copia de datos de línea de base para proyectos individuales. Durante la copia de datos, debe detener los procesos innecesarios del sistema y la actividad de la red. 
+---
+= Iniciando copia de datos de referencia
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de crear un proyecto y completar la operación comprobaciones previas, debe iniciar la copia de datos de los volúmenes de 7-Mode a ONTAP. Puede iniciar la operación de copia de datos de línea de base para proyectos individuales. Durante la copia de datos, debe detener los procesos innecesarios del sistema y la actividad de la red.
+
+Debe haber creado al menos una programación de copia de datos.
+
+Puede calcular el tiempo que tarda en completar las transferencias de referencia y evaluar el rendimiento que logran las transferencias de SnapMirror para volúmenes en su entorno realizando una migración de pruebas. A continuación se enumeran algunos factores que pueden afectar al rendimiento:
+
+* Opciones de programación de copia de datos de transición seleccionadas
++
+Esta programación controla tanto el número máximo de transferencias simultáneas de SnapMirror como el ancho de banda máximo que debe utilizarse para las transferencias.
+
+* Número máximo de transferencias de SnapMirror para volúmenes simultáneas que admiten las controladoras de origen 7-Mode
+* Ancho de banda de red entre las controladoras de origen 7-Mode y de destino ONTAP
++
+El tráfico de red que no esté relacionado con la actividad de migración se debe minimizar de modo que el rendimiento se maximice y el tiempo de respuesta se minimice entre los sistemas de origen y destino.
+
+* Funcionalidades de rendimiento de las controladoras de origen y destino
++
+Los sistemas de origen y destino deben disponer de una utilización óptima de la CPU y de la memoria disponible.
+
+* Número de transferencias de SnapMirror para volúmenes de 7-Mode que se producen durante la copia de datos
+
+
+.Pasos
+. En el panel de control, seleccione el proyecto para el que desea iniciar la copia de datos de referencia.
+. Haga clic en *Iniciar línea base*.
++
+Las comprobaciones previas se realizan una vez más en segundo plano y, si no se detectan errores, la transferencia básica se inicia según la programación de la copia de datos. El cuadro de diálogo progreso de operación muestra la información acerca del estado de las operaciones previas realizadas durante la copia de datos base.
+
+. Haga clic en la ficha *Volumes* para ver el estado y el progreso de la transferencia de línea de base.
++
+Para ver los detalles detallados de SnapMirror de cada volumen, puede hacer clic en *Ver detalles de la transición*. El número de transferencias de SnapMirror simultáneas se basa en la información proporcionada en la programación que está activa actualmente. Puede realizar un seguimiento de la programación activa desde la ficha Programación de copia de datos del Panel de control.
+
++
+Una vez finalizada la operación de copia de datos básica, las actualizaciones incrementales de SnapMirror comienzan según la programación proporcionada durante la creación del proyecto.
+
+
+
+*Información relacionada*
+
+xref:task_creating_schedule_for_snapmirror_transfers.adoc[Crear una programación de copias de datos para transferencias de SnapMirror]

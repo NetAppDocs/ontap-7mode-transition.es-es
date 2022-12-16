@@ -1,0 +1,155 @@
+---
+permalink: san-host/task_testing_data_luns_on_solaris_hosts_with_sun_volume_manager_svm_before_cutover.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, testing, data, solaris, sun, volume, manager, cutover, copy, based 
+summary: 'Si utiliza la herramienta de transición de 7-Mode \(7MTT\) 2.2 o posterior y Data ONTAP 8.3.2 o posterior para realizar la transición de las LUN de datos de ZFS del host Solaris, puede probar las LUN de Data ONTAP en clúster que se han trasladado para verificar que puede montar el dispositivo MPIO antes de la fase de transición. El host de origen puede seguir ejecutando I/o en sus LUN de 7-Mode de origen durante las pruebas.' 
+---
+= Prueba de las LUN de datos en hosts Solaris con Sun Volume Manager antes de la fase de transición de las transiciones basadas en copias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si está utilizando la herramienta 7-Mode Transition Tool (7MTT) 2.2 o posterior y Data ONTAP 8.3.2 o posterior para realizar la transición de las LUN de datos ZFS del host de Solaris, puede probar las LUN de Data ONTAP en clúster que han pasado para verificar que puede montar el dispositivo MPIO antes de la fase de transición. El host de origen puede seguir ejecutando I/o en sus LUN de 7-Mode de origen durante las pruebas.
+
+El host de origen con las LUN de datos de Sun Volume Manager debe estar desconectado antes de iniciar la transición de la fase de prueba.
+
+Sus nuevas LUN de Clustered Data ONTAP deben asignarse a su host de prueba y sus LUN deben estar listos para la transición
+
+Debe mantener la paridad del hardware entre el host de prueba y el host de origen, y debe realizar los siguientes pasos en el host de prueba.
+
+Sus LUN de Clustered Data ONTAP se encuentran en modo de lectura/escritura durante las pruebas. Cuando finaliza la prueba y se prepara para la fase de transposición, se convierten al modo de solo lectura.
+
+.Pasos
+. En el host de producción, desactive los conjuntos de discos:
++
+`*metaset -s svm -t*`
+
++
+`*metaset -s svm -A disable*`
+
++
+`*metaset -s svm -r*`
+
++
+`*metaset -s svm -P*`
+
++
+`*metaset*`
+
+. Una vez finalizada la copia de datos de referencia, seleccione *modo de prueba* en la interfaz de usuario (UI) de 7MTT.
+. En la interfaz de usuario de 7MTT, haga clic en *Apply Configuration*.
+. En el host de producción, importe los conjuntos de discos:
++
+`*metaimport –s _set-name_*`
+
++
+[listing]
+----
+# metaimport -s svm
+Drives in regular diskset including disk c0t60A98000383035356C2447384D39654Ad0:
+  c0t60A98000383035356C2447384D39654Ad0
+  c0t60A98000383035356C2447384D396548d0
+More info:
+  metaimport -r -v c0t60A98000383035356C2447384D39654Ad0
+
+
+[22] 04:51:29 (root@sunx2-shu04) /
+# metastat -s svm
+svm/d2: Concat/Stripe
+    Size: 10452992 blocks (5.0 GB)
+    Stripe 0:
+        Device                                             Start Block  Dbase   Reloc
+        /dev/dsk/c0t60A98000383035356C2447384D396548d0s0          0     No      Yes
+
+svm/d1: Concat/Stripe
+    Size: 10452992 blocks (5.0 GB)
+    Stripe 0:
+        Device                                             Start Block  Dbase   Reloc
+        /dev/dsk/c0t60A98000383035356C2447384D39654Ad0s0          0     No      Yes
+
+Device Relocation Information:
+Device                                           Reloc  Device ID
+/dev/dsk/c0t60A98000383035356C2447384D396548d0   Yes    id1,sd@n60a98000383035356c2447384d396548
+/dev/dsk/c0t60A98000383035356C2447384D39654Ad0   Yes    id1,sd@n60a98000383035356c2447384d39654a
+----
+. En el host de prueba, vuelva a analizar las nuevas LUN de Data ONTAP en clúster:
++
+.. Identifique los puertos de host FC (tipo fc-Fabric): +
+`*#cfgadm –l*`
+.. Desconfigure el primer puerto de estructura fc: +
+`*#cfgadm –c unconfigure c1*`
+.. Configure el primer puerto de estructura fc: +
+`*#cfgadm –c unconfigure c2*`
+.. Repita los pasos para los otros puertos de estructura fc.
+.. Muestra información acerca de los puertos de host y sus dispositivos conectados: +
+`*# cfgadm –al*`
+.. Vuelva a cargar el conductor: +
+`*# devfsadm –Cv*`
++
+`*# devfsadm –i iscsi*`
+
+
+
+. Compruebe que sus LUN de Clustered Data ONTAP están presentes:
++
+`*sanlun lun show*`
+
++
+[listing]
+----
+# sanlun lun show
+controller(7mode)/                    device                                            host                  lun
+vserver(Cmode)       lun-pathname     filename                                          adapter    protocol   size    mode
+--------------------------------------------------------------------------------------------------------------------------
+vs_5           /vol/zfs/zfs2    /dev/rdsk/c5t600A0980383030444D2B466542485935d0s2 scsi_vhci0 FCP        6g      C
+vs_5           /vol/zfs/zfs1    /dev/rdsk/c5t600A0980383030444D2B466542485934d0s2 scsi_vhci0 FCP        6g      C
+vs_5           /vol/ufs/ufs2    /dev/rdsk/c5t600A0980383030444D2B466542485937d0s2 scsi_vhci0 FCP        5g      C
+vs_5           /vol/ufs/ufs1    /dev/rdsk/c5t600A0980383030444D2B466542485936d0s2 scsi_vhci0 FCP        5g      C
+----
+. Compruebe que Sun Volume Manager está disponible para la importación:
++
+`*metaimport –r –v*`
+
++
+[listing]
+----
+# metaimport -r -v
+Import: metaimport -s <newsetname> c5t600A0980383030444D2B466542485937d0
+Device                                      offset       length replica flags
+c5t600A0980383030444D2B466542485937d0           16         8192      a m     luo
+c5t600A0980383030444D2B466542485936d0           16         8192      a       luo
+----
+. Importe el metaset con un nuevo nombre:
++
+`*metaimport –s _set-name disk-id_*`
+
++
+Disk-id se obtiene de `metaimport --r --v` comando.
+
++
+[listing]
+----
+# metaimport -s svm c5t600A0980383030444D2B466542485937d0
+Drives in regular diskset including disk c5t600A0980383030444D2B466542485937d0:
+  c5t600A0980383030444D2B466542485937d0
+  c5t600A0980383030444D2B466542485936d0
+More info:
+  metaimport -r -v c5t600A0980383030444D2B466542485937d0
+----
+. Compruebe si el metaset está disponible:
++
+`*metaset*`
+
+. Ejecute la comprobación del sistema de archivos:
++
+`*fsck -F ufs /dev/md/svm/rdsk/d1*`
+
+. Utilice el comando Mount para realizar el montaje manualmente.
+. Realizar las pruebas según sea necesario.
+. Apague el host de prueba.
+. En la interfaz de usuario de 7MTT, haga clic en *Finalizar prueba*.
+
+
+Si va a volver a asignar las LUN de Clustered Data ONTAP al host de origen, debe preparar el host de origen para la fase de transposición. Si van a seguir asignando sus LUN de Clustered Data ONTAP al host de prueba, no será necesario realizar otros pasos en el host de prueba.

@@ -1,0 +1,18 @@
+---
+permalink: san-host/concept_preparing_windows_guest_operating_systems_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, windows, guest, operating, systems 
+summary: 'Si las máquinas virtuales de Windows utilizan dispositivos RDM \(PTRDM\) físicos compatibles, debe desconectar los discos en la máquina virtual de Windows antes de la transición. Puede usar Disk Manager para desconectar los discos.' 
+---
+= Preparación de sistemas operativos invitados de Windows para la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si las máquinas virtuales de Windows utilizan dispositivos RDM compatibles físicos, debe desconectar los discos en la máquina virtual de Windows antes de la transición. Puede usar Disk Manager para desconectar los discos.
+
+* Para las transiciones basadas en copias, realice estos pasos antes de iniciar la operación de transición del almacenamiento en la herramienta de transición de 7-Mode (7MTT).
+* Para las transiciones sin copias, realice estos pasos antes de iniciar la operación Exportar y detener los sistemas de 7-Mode en 7MTT.
+

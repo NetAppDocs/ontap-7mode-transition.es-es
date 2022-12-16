@@ -1,0 +1,27 @@
+---
+permalink: copy-free/task_collecting_tool_logs.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, download, log, files 
+summary: La herramienta 7-Mode Transition Tool crea archivos de registro que proporcionan detalles de procesamiento de las operaciones de evaluación de transición y migración que se ejecutan en el sistema. 
+---
+= Descargando archivos de registro de transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La herramienta 7-Mode Transition Tool crea archivos de registro que proporcionan detalles de procesamiento de las operaciones de evaluación de transición y migración que se ejecutan en el sistema.
+
+.Pasos
+. Haga clic en *registros* en el menú superior.
+. Haga clic en *recopilar registros de proyecto* para recopilar registros relacionados con todos los proyectos.
+. Para recopilar registros de un proyecto determinado, busque los proyectos en la lista de proyectos y, a continuación, haga clic en *Descargar*.
++
+Los registros se descargan como un `.zip` y el nombre de la carpeta es la marca de hora.
+
+
+
+*Información relacionada*
+
+https://kb.netapp.com/Advice_and_Troubleshooting/Miscellaneous/How_to_upload_a_file_to_NetApp["Cómo cargar un archivo en NetApp"]

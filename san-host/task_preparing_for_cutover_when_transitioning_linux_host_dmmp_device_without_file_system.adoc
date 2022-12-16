@@ -1,0 +1,34 @@
+---
+permalink: san-host/task_preparing_for_cutover_when_transitioning_linux_host_dmmp_device_without_file_system.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, cutover, linux, dmmp, device, host 
+summary: Si está realizando la transición de un dispositivo DMMP sin un sistema de archivos desde un host Linux, debe realizar varios pasos antes de entrar en la fase de transposición. 
+---
+= Preparación de la transición al realizar la transición de un dispositivo DMMP de host Linux sin un sistema de archivos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si está realizando la transición de un dispositivo DMMP sin un sistema de archivos desde un host Linux, debe realizar varios pasos antes de entrar en la fase de transposición.
+
+Para las configuraciones de FC, debe tener conectividad estructural y división en zonas en las controladoras de Clustered Data ONTAP.
+
+Para configuraciones iSCSI, es necesario detectar y iniciar sesión en las controladoras de Data ONTAP en clúster.
+
+* Para las transiciones basadas en copias, realice estos pasos antes de iniciar la operación de transición del almacenamiento en la herramienta de transición de 7-Mode (7MTT).
+* Para las transiciones sin copias, realice estos pasos antes de iniciar la operación Exportar y detener 7-Mode en 7MTT.
+
+
+.Pasos
+. Detenga la actividad de I/o en los puntos de montaje.
+. Apague las aplicaciones que acceden a las LUN de acuerdo con las recomendaciones del proveedor de aplicaciones.
+. Enjuague el dispositivo o alias DMMP de LUN de 7-Mode:
++
+`*multipath -f _device_name_*`
+
++
+Si es necesario, puede obtener el nombre del dispositivo DMMP en la columna *ID de dispositivo del SO* de la ficha LUN de host SAN del _Libro de evaluación de inventario_.
+
+

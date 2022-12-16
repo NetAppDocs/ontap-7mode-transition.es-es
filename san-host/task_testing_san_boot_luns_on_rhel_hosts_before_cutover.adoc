@@ -1,0 +1,57 @@
+---
+permalink: san-host/task_testing_san_boot_luns_on_rhel_hosts_before_cutover.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, boot, lun, rhel, cutover, copy, based 
+summary: 'Si utiliza 7-Mode Transition Tool \(7MTT\) 2.2 o posterior y Data ONTAP 8.3.2 o posterior para realizar una transición basada en copias del host Red Hat Enterprise Linux \(RHEL\), puede probar los LUN de arranque SAN de ONTAP convertidos antes de la fase de la transición. El host de origen puede seguir ejecutando I/o en sus LUN de 7-Mode de origen durante las pruebas.' 
+---
+= Prueba de las LUN DE arranque SAN en hosts RHEL antes de la fase de transición de las transiciones basadas en copias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si utiliza 7-Mode Transition Tool (7MTT) 2.2 o posterior y Data ONTAP 8.3.2 o posterior para realizar una transición basada en copias del host Red Hat Enterprise Linux (RHEL), puede probar los LUN de arranque SAN de ONTAP convertidos antes de la fase de la transición. El host de origen puede seguir ejecutando I/o en sus LUN de 7-Mode de origen durante las pruebas.
+
+Deben asignarse sus nuevos LUN de ONTAP a su host de prueba, y sus LUN deben estar listos para la transición.
+
+Debe mantener la paridad del hardware entre el host de prueba y el host de origen.
+
+* Para las transiciones basadas en copias, debe realizar estos pasos después de completar la operación de transición del almacenamiento en la herramienta de transición de 7-Mode.
+* Para las transiciones sin copias, debe realizar estos pasos después de la operación Importar datos y la configuración en la herramienta 7-Mode Transition Tool.
+
+
+.Pasos
+. Solo para configuraciones FC y FCoE:
++
+.. Entre en el modo de configuración del BIOS del HBA.
+.. Elija *Rescan* para descubrir los LUN DE arranque SAN de ONTAP en el host.
+.. Quite el ID de LUN de arranque de 7-Mode.
+.. Añada el ID de LUN de arranque ONTAP en la BIOS del HBA.
+.. Salga del modo de configuración del BIOS de HBA y reinicie el host.
+
+
+. Después de reiniciar el host, cambie la dirección IP y el nombre de host en el host de prueba.
+. Compruebe que se han detectado sus nuevas LUN de ONTAP:
++
+`*sanlun lun show*`
+
+. Configure los dispositivos DMMP para sus LUN de ONTAP:
++
+`*multipath -ll*`
+
+. Realice las pruebas según sea necesario.
+. Apague el host de prueba:
++
+`*shutdown -h -t0 now*`
+
+. En la interfaz de usuario (UI) de 7-Mode Transition Tool, haga clic en *Finalizar prueba*.
+
+
+Si se van a volver a asignar las LUN de ONTAP al host de origen, debe preparar el host de origen para la fase de transposición. Si sus LUN de ONTAP se van a seguir asignando al host de prueba, no se requieren más pasos en el host de prueba.
+
+*Información relacionada*
+
+xref:task_gathering_pretransition_information_from_inventory_assessment_workbook.adoc[Recopilación de información previa a la transición del libro de trabajo de evaluación de inventario]
+
+xref:concept_preparing_for_cutover_when_transitioning_san_boot_luns.adoc[Preparación de la fase de transición al realizar la transición de las LUN de arranque SAN]

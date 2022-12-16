@@ -1,0 +1,24 @@
+---
+permalink: copy-based/reference_cannot_select_a_secondary_volume_from_volume_selection_pane.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, select, secondary, volume, pan, selection 
+summary: No puede seleccionar un volumen secundario en el panel de selección Volume y efectuar una transición como una relación de SnapMirror para volúmenes si el volumen no está en línea o si la relación de SnapMirror se rompe. 
+---
+= No se puede seleccionar un volumen secundario en el panel de selección Volume
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+No puede seleccionar un volumen secundario en el panel de selección Volume y efectuar una transición como una relación de SnapMirror para volúmenes si el volumen no está en línea o si la relación de SnapMirror se rompe.
+
+
+
+== Solución alternativa
+
+Utilice la línea de comandos de ONTAP para realizar cualquiera de las siguientes soluciones alternativas:
+
+* Coloque el volumen secundario en línea si está sin conexión.
+* Reparar la relación de SnapMirror si está rota.
+

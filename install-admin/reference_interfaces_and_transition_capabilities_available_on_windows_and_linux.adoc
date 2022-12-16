@@ -1,0 +1,78 @@
+---
+permalink: install-admin/reference_interfaces_and_transition_capabilities_available_on_windows_and_linux.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, interfaces, transition, capabilities, windows, linux 
+summary: Puede instalar la herramienta 7-Mode Transition Tool en Windows o Linux. Debe tener en cuenta las funciones y las interfaces de usuario compatibles antes de instalar la herramienta 7-Mode Transition Tool. 
+---
+= Interfaces y funciones de transición disponibles en Windows y Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede instalar la herramienta 7-Mode Transition Tool en Windows o Linux. Debe tener en cuenta las funciones y las interfaces de usuario compatibles antes de instalar la herramienta 7-Mode Transition Tool.
+
+|===
+| Método de migración | Función | Compatible con Windows | Compatible con Linux 
+
+
+ a| 
+*Transición sin copia*
+ a| 
+Interfaz gráfica de usuario (GUI)
+ a| 
+Sí
+ a| 
+No
+
+
+
+ a| 
+Interfaz de línea de comandos (CLI)
+ a| 
+No
+
+No puede utilizar la CLI para crear y gestionar proyectos; sin embargo, debe ejecutar ciertos comandos, como comandos para ignorar los errores de bloqueo, durante la transición desde la CLI de Windows.
+ a| 
+No
+
+
+
+ a| 
+Recopilación y evaluación
+ a| 
+Sí
+ a| 
+No
+
+
+
+ a| 
+*Transición basada en copias*
+ a| 
+GUI
+ a| 
+Sí
+ a| 
+No
+
+
+
+ a| 
+CLI
+ a| 
+Sí
+ a| 
+Sí
+
+
+
+ a| 
+Recopilación y evaluación
+ a| 
+Sí
+ a| 
+No
+
+|===

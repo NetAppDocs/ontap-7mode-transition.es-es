@@ -1,0 +1,40 @@
+---
+permalink: san-host/task_determining_whether_vmfs_volumes_need_to_be_remounted_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, vmfs, volumes, remounted 
+summary: Después de pasar de un sistema operativo Data ONTAP en 7-Mode a Clustered Data ONTAP, es posible que tenga volúmenes VMFS que deban montarse de modo que traiga almacenes de datos VMFS y máquinas virtuales a sus estados de pretransición. 
+---
+= Determinar si es necesario volver a montar los volúmenes VMFS después de la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de pasar de un sistema operativo Data ONTAP en 7-Mode a Clustered Data ONTAP, es posible que tenga volúmenes VMFS que deban montarse de modo que traiga almacenes de datos VMFS y máquinas virtuales a sus estados de pretransición.
+
+* Para las transiciones basadas en copias, realice estos pasos antes de iniciar la operación de transición del almacenamiento en la herramienta de transición de 7-Mode (7MTT).
+* Para las transiciones sin copias, realice estos pasos antes de iniciar la operación Exportar y detener los sistemas de 7-Mode en 7MTT.
+
+
+.Pasos
+. Abra _Inventory Assessment Workbook_ generado por la herramienta de recopilación de inventario (ICT).
+. Haga clic en la ficha *sistemas de archivos de host SAN*.
+. Compruebe la columna *Drive / Mount / Datastore Name* para los sistemas de archivos y almacenes de datos montados en el host antes de la transición.
+. Anote los ID de naa de LUN correspondientes en la columna *ID de dispositivo SCSI/Nombre de dispositivo* para el almacén de datos.
+. Compruebe si los ID de naa que se señalan para el almacén de datos en el archivo de asignación de 7MTT que se generó después de la transición.
++
+** Si no hay ninguno de los ID de naa en el archivo de asignación de 7MTT, el almacén de datos y sus LUN subyacentes no formaban parte de la transición de 7MTT y no es necesaria ninguna corrección.
+** Si solo hay parte de los ID de naa en el archivo de asignación de 7MTT, la transición será incompleta y no podrá continuar.
+** Si existen todos los ID de naa, es necesario volver a montar los volúmenes VMFS.
+
+
+
+
+*Información relacionada*
+
+xref:task_remounting_vmfs_volumes_after_transition_using_vsphere_client.adoc[Volver a montar volúmenes VMFS después de la transición mediante vSphere Client]
+
+xref:task_remounting_vmfs_volumes_after_transition_using_esxi_cli_console.adoc[Volver a montar los volúmenes VMFS después de la transición mediante la interfaz de línea de comandos de ESXi]
+
+xref:concept_what_the_inventory_collect_tool_is.adoc[Qué es la herramienta de recopilación de inventario]

@@ -1,0 +1,69 @@
+---
+permalink: copy-based/concept_supported_and_unsupported_name_services_configurations.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, name, services, required, manual, steps, supported, unsupported 
+summary: Debe conocer las configuraciones de servicios de nombres que han realizado la transición con la herramienta 7-Mode Transition Tool. Algunas configuraciones de servicios de nombres no se realizan la transición a ONTAP porque no son compatibles con ONTAP o estas se deben realizar de forma manual. 
+---
+= Transición de servicios de nombres: Configuraciones compatibles y no compatibles y pasos manuales necesarios
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe conocer las configuraciones de servicios de nombres que han realizado la transición con la herramienta 7-Mode Transition Tool. Algunas configuraciones de servicios de nombres no se realizan la transición a ONTAP porque no son compatibles con ONTAP o estas se deben realizar de forma manual.
+
+Debe verificar todos los mensajes de error y advertencia de las comprobaciones previas para evaluar el impacto de dichas configuraciones en la transición.
+
+
+
+== Configuraciones que se han realizado la transición
+
+En líneas generales, la herramienta de transición de 7-Mode realiza la transición de las siguientes configuraciones de servicios de nombres:
+
+* Configuración de DNS (`/etc/resolv.conf`)
+* Configuración de LDAP
+* Configuración de NIS
+* Asigne un nombre a la configuración del switch de servicio (`/etc/nsswitch.conf` y.. `/etc/resolv.conf`)
+* Configuración de hosts (`/etc/hosts`)
+* Usuarios y grupos UNIX (`/etc/passwd` y.. `/etc/group`)
+* Configuración de netgroups (`/etc/netgroup`)
+
+
+Consulte los resultados de las comprobaciones previas para obtener detalles sobre estas configuraciones de servicios de nombres.
+
+
+
+== Configuraciones no compatibles en ONTAP
+
+* NIS esclavo
+* Emisión NIS
+* Caché de grupos NIS
+* DNS dinámico
+* Caché DNS
+* Base de datos redundante
+* Orígenes de la base de datos del host distintos de DNS o archivo
++
+ONTAP solo admite archivos y DNS para la búsqueda de hosts; no se admiten otros orígenes de bases de datos. Orden de búsqueda de host en la `/etc/nsswitch.conf` se ignora durante la transición.
+
+
+
+
+
+== Configuraciones que deben configurarse manualmente
+
+Debe configurar manualmente las siguientes opciones LDAP en las SVM:
+
+* `ldap.usermap.attribute.unixaccount`
+* `ldap.password`
+* `ldap.usermap.base`
+* `ldap.ssl.enable`
+
+
+*Información relacionada*
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-nfs/home.html["Gestión de NFS"]
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/home.html["Gestión de redes y LIF/ONTAP 9.7 y versiones anteriores"]
+
+https://docs.netapp.com/us-en/ontap/networking/index.html["Gestión de redes y LIF/ONTAP 9.8 y versiones posteriores"]

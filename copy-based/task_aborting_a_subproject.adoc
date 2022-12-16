@@ -1,0 +1,48 @@
+---
+permalink: copy-based/task_aborting_a_subproject.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, abort, project 
+summary: Quizás quiera anular un proyecto en ejecución, por ejemplo, cuando afecta al rendimiento de la controladora o del clúster. Puede anular un proyecto en ejecución desde el Panel de control. 
+---
+= Cancelar un proyecto
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Quizás quiera anular un proyecto en ejecución, por ejemplo, cuando afecta al rendimiento de la controladora o del clúster. Puede anular un proyecto en ejecución desde el Panel de control.
+
+Debe tener en cuenta lo siguiente antes de cancelar los proyectos que realizan la transición de volúmenes con relaciones de SnapMirror:
+
+* Si ambos proyectos se han iniciado, al cancelar un proyecto se anula el proyecto asociado.
++
+Por ejemplo, si cancela un proyecto principal, el proyecto secundario también se abortará.
+
+* Si la operación de anulación falla en el proyecto actual, el proyecto asociado no se cancelará.
+* Si sólo se cancela un proyecto activo, se produce un error en la operación de inicio del proyecto asociado.
+* Cuando se cancela un proyecto principal, no se cancelará la operación de copia del volumen primario de 7-Mode al volumen secundario de ONTAP.
++
+Solo se cancela la operación de copia del volumen primario de 7-Mode al volumen primario de ONTAP correspondiente.
+
+
+
+
+NOTE: Si se cancela el proyecto 7-Mode, la única opción es eliminar el proyecto. No es posible reanudar o reiniciar el proyecto una vez que se ha anulado.
+
+.Pasos
+. En el panel de control, seleccione el proyecto que desea cancelar.
+. Haga clic en *Anular*.
+. En el clúster, elimine los volúmenes de ONTAP que se crearon como parte de la transición.
+. Desde el sistema 7-Mode, lance las relaciones de SnapMirror a los volúmenes de ONTAP.
+. Si cancela una relación de SnapMirror para volúmenes, debe hacer lo siguiente:
++
+.. Rompa y elimine la relación de SnapMirror entre los volúmenes primarios de 7-Mode y los volúmenes secundarios de ONTAP.
+.. Desde el sistema principal de 7-Mode, libere las relaciones de SnapMirror a los volúmenes secundarios de ONTAP.
+
+
+
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr/GUID-5CB10C70-AC11-41C0-8C16-B4D0DF916E9B.html["Comandos de ONTAP 9"]
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP1511537["Data ONTAP 8. 2 comandos: Referencia de páginas del manual para 7-Mode, volumen 1"]

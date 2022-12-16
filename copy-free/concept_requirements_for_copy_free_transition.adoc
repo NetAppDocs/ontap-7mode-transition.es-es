@@ -1,0 +1,83 @@
+---
+permalink: copy-free/concept_requirements_for_copy_free_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, requirements 
+summary: Debe tener en cuenta los requisitos de los sistemas de 7-Mode, los clústeres, las versiones de ONTAP y las bandejas de discos para la transición sin copias. 
+---
+= Requisitos para la transición sin copias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe tener en cuenta los requisitos de los sistemas de 7-Mode, los clústeres, las versiones de ONTAP y las bandejas de discos para la transición sin copias.
+
+Asegúrese de consultar la herramienta 7-Mode Transition Tool _Notas de la versión_ para obtener la información más reciente sobre las versiones de destino compatibles y los problemas conocidos.
+
+link:https://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Notas de la versión de 7-Mode Transition Tool"]
+
+* *Modelos de plataforma*
++
+La transición sin copia solo es compatible con sistemas FAS de gama media y alta y sistemas de serie N de IBM. La https://mysupport.netapp.com/matrix["Herramienta de matriz de interoperabilidad de NetApp"] Tiene la información más reciente sobre las plataformas compatibles para sistemas 7-Mode y los nodos de clúster de destino.
+
+* *Data ONTAP en sistemas fuente 7-Mode*
++
+Para obtener una lista de las versiones de 7-Mode compatibles con la migración de 7-Mode Transition Tool, consulte https://mysupport.netapp.com/matrix["Herramienta de matriz de interoperabilidad de NetApp"]
+
+* *Sistemas de destino ONTAP*
++
+La versión 3.3.1 de 7-Mode Transition Tool permite realizar la transición a las siguientes versiones de ONTAP mediante el método sin copias:
+
++
+** ONTAP 9.4 y versiones anteriores de ONTAP 9
+** Versiones de Clustered Data ONTAP 8.3.2 y posteriores 8.x *Nota:* no puede utilizar la herramienta de transición de 7-Mode para realizar la transición a ONTAP 9.5 o posterior mediante el método sin copia. Para ello, primero debe realizar la transición a ONTAP 9.4 usando la herramienta de transición de 7-Mode 3.3.1 y, después, actualizar el clúster a ONTAP 9.5 o una versión posterior. 7-Mode Transition Tool 3.3.2 no admite transiciones sin copias.
+
+
+* *Configuración de alta disponibilidad*
++
+Las controladoras de 7-Mode y los nodos de clúster de destino deben tener una configuración de alta disponibilidad. Las parejas de alta disponibilidad deben estar en buen estado y ninguno de los nodos puede estar en modo de toma de control. No se admiten las controladoras independientes para realizar la transición sin copias.
+
+* *Modelos de bandejas de discos*
++
+Se admiten los siguientes modelos de bandeja de discos:
+
++
+** DS4486
+** DS4246
+** DS4243
++
+
+NOTE: El modelo de bandeja de discos DS4243 no es compatible con ONTAP 9.2 y ONTAP 9.4. Este modelo es compatible con todas las versiones de parches ONTAP 9.2, a partir de ONTAP 9.2P1 y ONTAP 9.3. 7-Mode Transition Tool 3.3.1 admite la transición con el modelo de bandeja de discos DS4243 para la transición sin copias a ONTAP 9.2P1 a ONTAP 9.3.
+
+** DS2246
+** DS14mk4 FC (no se admite en ONTAP 9.0 y versiones posteriores)
+** DS14mk2 AT (no compatible con ONTAP 9.0 y posterior)
+
+
+
+
+
+NOTE: El modelo de bandeja de discos DS14mk2 FC no es compatible.
+
+* *Firmware de disco*
++
+Debe descargar e instalar el paquete de cualificación de disco, el firmware de disco y la bandeja de discos más recientes, y el firmware ACP en los sistemas 7-Mode y los nodos de clúster de destino.
+
++
+https://mysupport.netapp.com/NOW/download/tools/diskqual/["Descargas de NetApp: Paquete de cualificación de disco"]
+
++
+https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware["Descargas de NetApp: Firmware de la unidad de disco"]
+
++
+https://mysupport.netapp.com/site/downloads/firmware/disk-shelf-firmware["Descargas de NetApp: Firmware de bandeja de discos"]
+
+* *Herramienta para verificar el cableado*
++
+Después de conectar las bandejas de discos de 7-Mode a los nodos del clúster de destino durante la transición, debe utilizar Config Advisor para verificar el cableado.
+
++
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["Descargas de NetApp: Config Advisor"]
+
+

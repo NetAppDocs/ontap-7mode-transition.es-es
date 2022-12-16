@@ -1,0 +1,36 @@
+---
+permalink: install-admin/task_enabling_login_for_users_not_part_of_administrator_group.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, enable, login, user, administrator, group 
+summary: De forma predeterminada, los usuarios deben ser miembros del grupo Administrador en el sistema Windows en el que se instala la herramienta 7-Mode Transition Tool. En cualquier momento, puede habilitar el inicio de sesión para los usuarios que no son miembros del grupo Administradores y que no pueden instalar la herramienta pero que están autenticados para utilizar el sistema Windows en el que está instalada la herramienta. 
+---
+= Habilitar el inicio de sesión para usuarios que no forman parte del grupo Administrador
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+De forma predeterminada, los usuarios deben ser miembros del grupo Administrador en el sistema Windows en el que se instala la herramienta 7-Mode Transition Tool. En cualquier momento, puede habilitar el inicio de sesión para los usuarios que no son miembros del grupo Administradores y que no pueden instalar la herramienta pero que están autenticados para utilizar el sistema Windows en el que está instalada la herramienta.
+
+.Pasos
+. Inicie sesión en el host de Windows con privilegios de administrador.
+. Modifique el archivo de configuración de la herramienta para permitir que los usuarios que no forman parte del grupo Administrador inicien sesión en la herramienta:
++
+.. Abra el `\etc\conf\transition-tool.conf` desde el directorio de instalación.
+.. Configure el valor de `tool.login.non.admin.enabled` en la `transition-tool.conf` archivo en true.
+.. Guarde el archivo.
+
+
+. Reiniciar el servicio de transición.
++
+.. Haga clic en *Inicio* > *Panel de control* > *sistema y servicios* > *Herramientas administrativas* > *Servicios*.
+.. Haga clic con el botón derecho en el servicio *NetApp 7-Mode Transition Tool* y haga clic en *Detener*.
+.. Haga clic con el botón derecho del ratón en el servicio *NetApp 7-Mode Transition Tool* de nuevo y haga clic en *Inicio*.
+
+
+
+
+*Información relacionada*
+
+xref:task_modifying_default_configuration_settings_of_7mtt.adoc[Modificación de las opciones de configuración de 7-Mode Transition Tool]

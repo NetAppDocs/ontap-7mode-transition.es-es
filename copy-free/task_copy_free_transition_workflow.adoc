@@ -1,0 +1,16 @@
+---
+permalink: copy-free/task_copy_free_transition_workflow.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, workflow 
+summary: El flujo de trabajo de la transición sin copias incluye prepararse para la transición, realizar la transición y completar la transición. Algunas de estas tareas deben realizarse de forma manual en los sistemas de 7-Mode y en el clúster. 
+---
+= Flujo de trabajo de transición sin copias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El flujo de trabajo de la transición sin copias incluye prepararse para la transición, realizar la transición y completar la transición. Algunas de estas tareas deben realizarse de forma manual en los sistemas de 7-Mode y en el clúster.
+
+image::../media/cft_highlevel_workflow.gif[flujo de trabajo de alto nivel cft]

@@ -1,0 +1,25 @@
+---
+permalink: copy-based/task_transitioning_to_clustered_ontap_8_3_from_a_7_mode_version_with_32_bit_data.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, prepare, supported, released, 8.3 
+summary: ONTAP 8.3 y versiones posteriores no admiten agregados, volúmenes y copias Snapshot de 32 bits. Por tanto, debe ampliar los agregados de 32 bits a 64 bits y, a continuación, buscar y eliminar cualquier volumen de 32 bits y las copias Snapshot del sistema 7-Mode antes de la transición. Dado que todas las versiones de 7-Mode no admiten la capacidad de expandir los agregados de 32 bits y eliminar volúmenes de 32 bits y copias Snapshot, puede que tenga que actualizar el sistema de 7-Mode antes de la transición. 
+---
+= Preparar la transición a ONTAP 8.3 y versiones compatibles con versiones posteriores
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+ONTAP 8.3 y versiones posteriores no admiten agregados, volúmenes y copias Snapshot de 32 bits. Por tanto, debe ampliar los agregados de 32 bits a 64 bits y, a continuación, buscar y eliminar cualquier volumen de 32 bits y las copias Snapshot del sistema 7-Mode antes de la transición. Dado que todas las versiones de 7-Mode no admiten la capacidad de expandir los agregados de 32 bits y eliminar volúmenes de 32 bits y copias Snapshot, puede que tenga que actualizar el sistema de 7-Mode antes de la transición.
+
+
+NOTE: Clustered Data ONTAP 8.2.x admite agregados, volúmenes y copias Snapshot de 32 bits. Por lo tanto, es posible realizar la transición de datos de 32 bits del sistema 7-Mode a un clúster de destino que ejecute Data ONTAP 8.2.x. Sin embargo, después de la transición, si el clúster de destino debe actualizarse a ONTAP 8.3 o una versión posterior , debe actualizar todos los datos de 32 bits existentes en el clúster de destino al formato de 64 bits antes de actualizar la versión ONTAP del clúster de destino.
+
+Debe usar el siguiente flujo de trabajo para decidir si es necesario realizar una actualización antes de la transición.
+
+image::../media/32bit_upgrade_path_updated.gif[ruta de actualización de 32 bits actualizada]
+
+*Información relacionada*
+
+http://www.netapp.com/us/media/tr-3978.pdf["Informe técnico de NetApp 3978: Ampliación in situ de agregados de 32 bits a información general y prácticas recomendadas de 64 bits"]

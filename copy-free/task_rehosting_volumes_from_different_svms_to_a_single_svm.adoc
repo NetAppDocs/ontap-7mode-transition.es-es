@@ -1,0 +1,165 @@
+---
+permalink: copy-free/task_rehosting_volumes_from_different_svms_to_a_single_svm.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, rehost, volumes, svm 
+summary: 'El rehost de volúmenes le permite migrar un volumen pasado de una SVM a otra SVM sin copia de datos. La operación de volver a host le permite consolidar todos los volúmenes que tienen LUN de FC en una única SVM, conservando la semántica de imagen de sistema único de 7-Mode \(SSI\). También puede volver a alojar volúmenes NAS convertidos.' 
+---
+= Vuelva a alojar volúmenes convertidos a una SVM diferente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El rehost de volúmenes le permite migrar un volumen pasado de una SVM a otra SVM sin copia de datos. La operación de volver a host le permite consolidar todos los volúmenes que tienen LUN de FC en una única SVM, conservando la semántica de imagen de sistema único (SSI) de 7-Mode. También puede volver a alojar volúmenes NAS convertidos.
+
+* El volumen que desea volver a alojar debe estar en línea.
+* No se deben ejecutar las operaciones de gestión de volúmenes, como el movimiento de volúmenes o el movimiento de LUN.
+* Se debe detener el acceso a los datos al volumen que se está realojando.
++
+El realojamiento es una operación disruptiva.
+
+
+
+Las siguientes políticas de volumen, reglas de política y configuraciones se pierden del volumen de origen y se deben volver a configurar manualmente en el volumen realojado después de la operación de realojamiento:
+
+* Políticas de exportación de volúmenes y qtrees
+* Directivas de antivirus
+* Política de eficiencia de volúmenes
+* Políticas de calidad de servicio (QoS)
+* Políticas de Snapshot
+* Reglas de cuotas
+* Recursos compartidos CIFS
+* igroups asociados a un conjunto de puertos
+
+
+.Pasos
+* *Rehosting de volúmenes FC e iSCSI*
++
+.. Cambie al nivel de privilegio avanzado: +
+`*set -privilege advanced*`
+.. Vuelva a alojar el volumen en la SVM de destino:
++
+|===
+| Si desea... | Ejecute el siguiente comando... 
+
+
+ a| 
+Desasigne las LUN después de volver a alojar
+ a| 
+`*volume rehost -vserver _source_svm_ -volume _vol_name_ -destination-vserver _destination_svm_ -force–unmap-luns true*`
+
+
+
+ a| 
+Reasigne las LUN a los mismos iGroups después de realojar
+ a| 
+`*volume rehost -vserver _source_svm_ -volume _vol_name_ -destination-vserver _destination_svm_ -auto-remap-luns true*`
+
+|===
+
+
+* *Rehosting de volúmenes NFS*
++
+.. Registre la información acerca de las políticas de exportación de NFS.
+.. Desmonte el volumen del volumen principal: +
+`*volume unmount*`
+.. Cambie al nivel de privilegio avanzado:
+`*set -privilege advanced*`
+.. Vuelva a alojar el volumen en la SVM de destino: +
+`*volume rehost -vserver _source_svm_ -volume _vol_name_ -destination-vserver _destination_svm_*`
++
+La política de exportación predeterminada de la SVM de destino se aplica al volumen realojado.
+
+.. Cree la política de exportación: +
+`*vserver export-policy create*`
+.. Actualice la política de exportación del volumen realojado a una política de exportación definida por el usuario: +
+`*volume modify*`
+.. Monte el volumen en la ruta de unión adecuada en la SVM de destino: +
+`*volume mount*`
+.. Compruebe que el servicio NFS está en ejecución en la SVM de destino: +
+`*vserver nfs status*`
+.. Reanude el acceso NFS al volumen que se realoja.
++
+Dado que la ruta de acceso al volumen (LIF y ruta de unión) se ha sometido a cambios, debe actualizar las credenciales del cliente NFS y las configuraciones de LIF para reflejar las LIF de SVM de destino.
+
+
+
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-nfs/home.html["Gestión de NFS"]
+
+* *Volver a alojar volúmenes CIFS*
++
+.. Registrar información acerca de los recursos compartidos CIFS.
+.. Desmonte el volumen del volumen principal: +
+`*volume unmount*`
+.. Cambie al nivel de privilegio avanzado: +
+`*set -privilege advanced*`
+.. Vuelva a alojar el volumen en la SVM de destino: +
+`*volume rehost -vserver _source_svm_ -volume _vol_name_ -destination-vserver _destination_svm_*`
+.. Monte el volumen en la ruta de unión adecuada en la SVM de destino: +
+`*volume mount*`
+.. Cree recursos compartidos CIFS para el volumen realojado: +
+`*vserver cifs share create*`
+.. Si los dominios DNS difieren entre las SVM de origen y de destino, cree nuevos usuarios y grupos.
+.. Actualice el cliente CIFS con las nuevas LIF de SVM de destino y la ruta de unión al volumen realojado.
+
+
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-cifs/home.html["Gestión de SMB/CIFS"]
+
+* *Volver a alojar volúmenes en relaciones de SnapMirror*
++
+.. Registre el tipo de relación de SnapMirror: +
+`*snapmirror show*`
+.. En el clúster de destino, elimine la relación SnapMirror: +
+`*snapmirror delete*`
++
+
+IMPORTANT: No debe interrumpir la relación de SnapMirror; de lo contrario, la funcionalidad de protección de datos del volumen de destino se pierde y la relación no se puede restablecer después de la operación de realojamiento.
+
+.. En el clúster de origen, publique la información sobre relaciones de SnapMirror: +
+`*snapmirror release*`
++
+Puede establecer el parámetro -Relationship-info-only en TRUE para que las copias Snapshot no se eliminen y solo se elimine la información de relación de origen.
+
+.. Cambie al nivel de privilegio avanzado: +
+`*set -privilege advanced*`
+.. Vuelva a alojar el volumen en la SVM de destino: +
+`*volume rehost -vserver _source_svm_ -volume _vol_name_ -destination-vserver _destination_svm_*`
+.. Cree la relación entre iguales de SVM entre las SVM de origen y de destino: +
+`*vserver peer create*`
+.. Cree la relación de SnapMirror entre los volúmenes de origen y de destino: +
+`*snapmirror create*`
++
+El volumen realojado puede ser el origen o el destino de la relación de SnapMirror.
+
+.. Resincronice la relación de protección de datos: +
+`*snapmirror resync*`
+
+
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-dap/home.html["Protección de datos"]
+
+
+
+Para los volúmenes realojados, debe crear manualmente las cargas de trabajo de autovolumen. Para ello, siga los siguientes pasos:
+
+. Cree un grupo de políticas definido por el usuario para la SVM:
++
+`*qos policy-group create -vserver _destination-vserver_ -policy-group _policy-group-name_*`
+
+. Asigne el grupo de políticas de calidad de servicio al volumen realojado:
++
+`*volume modify -vserver _destination-vserver_ -volume _rehosted-volume_ -qos-policy-_group policy-group-name_*`
+
+
+
+Es necesario volver a configurar manualmente las políticas y las reglas asociadas en el volumen realojado.
+
+
+NOTE: Si la operación de realojamiento falla, es posible que deba volver a configurar las políticas de volumen y las reglas asociadas en el volumen de origen.
+
+*Información relacionada*
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr/GUID-5CB10C70-AC11-41C0-8C16-B4D0DF916E9B.html["Comandos de ONTAP 9"]

@@ -1,0 +1,598 @@
+---
+permalink: copy-free/reference_copy_free_transition_project_planning_worksheet.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, project, planning, worksheet 
+summary: Puede utilizar las hojas de trabajo de planificación de transición sin copias para registrar información sobre la asignación de nodos, la asignación de SVM, la asignación de volúmenes y las LIF para realizar la transición. Las hojas de trabajo son útiles para crear un proyecto de transición utilizando la herramienta de transición de 7-Mode. Debe conocer las directrices para completar las hojas de cálculo. 
+---
+= Hojas de trabajo para la planificación de proyectos de transición sin copia
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar las hojas de trabajo de planificación de transición sin copias para registrar información sobre la asignación de nodos, la asignación de SVM, la asignación de volúmenes y las LIF para realizar la transición. Las hojas de trabajo son útiles para crear un proyecto de transición utilizando la herramienta de transición de 7-Mode. Debe conocer las directrices para completar las hojas de cálculo.
+
+Puede seguir estas directrices para completar las hojas de cálculo:
+
+* Asigne cada unidad vFiler a una SVM.
++
+Si no hay unidades vFiler en la controladora de 7-Mode, asigne la controladora a una única SVM.
+
+* Registre el nombre del volumen 7-Mode y el nombre del volumen Data ONTAP correspondiente.
++
+El nombre del volumen ONTAP puede ser diferente del nombre del volumen de 7-Mode.
+
+* Identificar los LIF que se van a configurar en cada SVM.
++
+Las direcciones IP de las LIF pueden existir en el sistema 7-Mode o pueden ser nuevas LIF.
+
+
+
+
+
+== Asignación de nodos
+
+|===
+| Controladora 7-Mode | Nodo de clúster asignado 
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+|===
+
+
+== Asignación de SVM y volúmenes
+
+|===
+| Controladora 7-Mode | Unidad vFiler o controladora | SVM asignada | Volumen de 7-Mode | Volumen de SVM 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+|===
+
+
+== Asignación de LIF (direcciones IP de 7-Mode)
+
+|===
+| Controladora 7-Mode | Unidad vFiler o controladora | SVM asignada | Dirección IP de 7-Mode | Máscara de red | Pasarela predeterminada | Nodo de inicio | Puerto de inicio 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+
+
+== Asignación de LIF (nuevos LIF)
+
+|===
+| SVM | Nueva dirección IP | Máscara de red | Pasarela predeterminada | Nodo de inicio | Puerto de inicio 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+
+
+== Ejemplo
+
+En la siguiente tabla se muestra un ejemplo de hojas de cálculo completadas para un par ha de 7-Mode con las controladoras Hosta_7mode y HostB_7mode.
+
+*Asignación de nodos*
+
+|===
+| Controladora 7-Mode | Nodo de clúster asignado 
+
+
+ a| 
+Hosta_7mode
+ a| 
+cluster1_01
+
+
+
+ a| 
+HostB_7mode
+ a| 
+cluster1_02
+
+|===
+*SVM y asignación de volúmenes*
+
+|===
+| Controladora 7-Mode | Nodo de clúster asignado | Unidad vFiler o controladora | SVM asignada | Volumen de 7-Mode | Volumen de SVM 
+
+
+ a| 
+Hosta_7mode
+ a| 
+cluster1_01
+ a| 
+VfilerA
+ a| 
+svm1
+ a| 
+Vola
+ a| 
+Vola
+
+
+
+ a| 
+VolB
+ a| 
+VolB
+
+
+
+ a| 
+VfilerB
+ a| 
+svm2
+ a| 
+vol1
+ a| 
+vol_nfs
+
+
+
+ a| 
+vol2
+ a| 
+vol_cifs
+
+
+
+ a| 
+HostB_7mode
+ a| 
+cluster1_02
+ a| 
+No aplicable
+ a| 
+vm3
+ a| 
+vol3
+ a| 
+vol3
+
+
+
+ a| 
+vol4
+ a| 
+vol4
+
+
+
+ a| 
+vol5
+ a| 
+vol5
+
+
+
+ a| 
+vol6
+ a| 
+vol6
+
+|===
+*Asignación de LIF (direcciones IP de 7-Mode)*
+
+|===
+| Controladora 7-Mode | Unidad vFiler o controladora | SVM asignada | IP de 7-Mode existente | Máscara de red | Pasarela predeterminada | Nodo de inicio | Puerto de inicio 
+
+
+ a| 
+Hosta_7mode
+ a| 
+VfilerA
+ a| 
+svm1
+ a| 
+192.0.2.129
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+cluster1_01
+ a| 
+e0a
+
+
+
+ a| 
+192.0.2.135
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+cluster1_02
+ a| 
+e0b
+
+
+
+ a| 
+VfilerB
+ a| 
+svm2
+ a| 
+-
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+-
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+HostB_7mode
+ a| 
+No aplicable
+ a| 
+vm3
+ a| 
+192.0.2.110
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+cluster1_01
+ a| 
+e0c
+
+
+
+ a| 
+192.0.2.111
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+cluster1_02
+ a| 
+e0d
+
+|===
+*Asignación de LIF (nuevos LIF)*
+
+|===
+| SVM | Nueva dirección IP | Máscara de red | Pasarela predeterminada | Nodo de inicio | Puerto de inicio 
+
+
+ a| 
+svm1
+ a| 
+-
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+-
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+svm2
+ a| 
+192.0.2.130
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+cluster1_01
+ a| 
+e1c
+
+
+
+ a| 
+192.0.2.131
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+cluster1_02
+ a| 
+e1d
+
+
+
+ a| 
+vm3
+ a| 
+192.0.2.136
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+cluster1_01
+ a| 
+e0c
+
+
+
+ a| 
+192.0.2.137
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+cluster1_02
+ a| 
+e0d
+
+|===

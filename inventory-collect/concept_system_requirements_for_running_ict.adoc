@@ -1,0 +1,31 @@
+---
+permalink: inventory-collect/concept_system_requirements_for_running_ict.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, system, requirements, inventory, collect, tool 
+summary: Puede descargar y ejecutar la herramienta de recopilación de inventario en un sistema Windows. El sistema Windows debe tener la configuración necesaria para ejecutar la herramienta de recopilación de inventario. 
+---
+= Requisitos del sistema para ejecutar la herramienta de recopilación de inventario
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede descargar y ejecutar la herramienta de recopilación de inventario en un sistema Windows. El sistema Windows debe tener la configuración necesaria para ejecutar la herramienta de recopilación de inventario.
+
+* El sistema Windows debe ser uno de los siguientes:
++
+** Windows 7 Enterprise de 64 bits
+** Windows Server 2008 R2 Enterprise con SP1 o posterior
+** Windows Server 2012 R2 Standard
+
+
+
+
+
+NOTE: Puede usar una máquina virtual de Windows que cumpla los requisitos de software y hardware necesarios para instalar la herramienta de recopilación de inventario.
+
+* Procesador x64 de doble núcleo (1.0 GHz o más)
+* 4 GB DE MEMORIA RAM
+* HDD DE 40 GB
+

@@ -1,0 +1,67 @@
+---
+permalink: copy-based/task_applying_configurations_to_ontap_volumes.html 
+sidebar: sidebar 
+keywords: apply, configuration, ontap, copy, based, transition 
+summary: 'Una vez finalizada la copia de datos base, puede copiar y aplicar todas las configuraciones de NAS del sistema 7-Mode \(incluidos los protocolos y la configuración de servicios\) a los volúmenes de ONTAP. Si el clúster de destino ejecuta Data ONTAP 8.3.2 o posterior, se realiza la transición de las configuraciones SAN en esta fase.' 
+---
+= Aplicación de configuraciones en volúmenes de ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Una vez finalizada la copia de datos de referencia, puede copiar y aplicar todas las configuraciones de NAS del sistema 7-Mode (incluida la configuración de protocolos y servicios) a los volúmenes de ONTAP. Si el clúster de destino ejecuta Data ONTAP 8.3.2 o posterior, se realiza la transición de las configuraciones SAN en esta fase.
+
+* Las configuraciones se aplican en la fase de paso previo, que tiene dos modos: Modo de sólo lectura previa y modo de lectura/escritura previa.
+* El modo de lectura/escritura previa no se admite cuando el proyecto contiene lo siguiente:
++
+** Los volúmenes SAN y el clúster de destino ejecutan Data ONTAP 8.3.1 o una versión anterior. En esta situación, las siguientes configuraciones no se aplican en la fase de transición previa, sino que se aplican durante la fase de transposición:
++
+*** Configuraciones SAN
+*** Configuraciones de la programación de snapshots
+
+
+** Volúmenes de cumplimiento de normativas de SnapLock
++
+Si el proyecto contiene volúmenes de cumplimiento SnapLock, las configuraciones de la programación Snapshot no se aplican en la fase de transición previa, en su lugar, estas configuraciones se aplican durante la fase de transposición.
+
++
+Consulte xref:concept_considerations_for_transitioning_of_snaplock_compliance_volumes.adoc[Consideraciones para la transición de volúmenes de cumplimiento de SnapLock].
+
+
+
+* Si el clúster de destino ejecuta Data ONTAP 8.3.1 o una versión anterior, el modo de lectura/escritura no se admite durante la operación previa si algún volumen del proyecto contiene LUN.
+* Si el clúster objetivo ejecuta Data ONTAP 8.3.1 o una versión anterior y un proyecto contiene volúmenes SAN y NAS, solo se realiza la transición de las configuraciones NAS en la fase de transición previa y estas configuraciones NAS solo se pueden probar en el modo de solo lectura.
++
+Las configuraciones DE SAN solo se realizan la transición en la fase de transición del almacenamiento.
+
++
+
+NOTE: Los LIF DE SAN no están configurados.
+
+* Si el clúster de destino ejecuta Data ONTAP 8.3.1 o una versión anterior y el proyecto contiene volúmenes SAN, no se aplicará la configuración de la programación de Snapshot durante la fase de aplicación de configuración (previa).
++
+Estas configuraciones se aplican durante la fase de transposición.
+
+* Si el clúster de destino ejecuta Data ONTAP 8.3.1 o una versión anterior y el proyecto contiene volúmenes SAN, no se aplicará la configuración de la programación de Snapshot durante la fase de aplicación de configuración (previa).
++
+Estas configuraciones se aplican durante la fase de transposición.
+
+
+
+.Pasos
+* Ejecute la operación de transición en el modo de solo lectura:
++
+`*transition cbt precutover -p _project_name_ -m ro_test -c _max_cap_concurrent_transfers_ -b _snapmirror_throttle_*`
+
+* Ejecute la operación de transición en el modo de lectura/escritura:
++
+.. Aplique las configuraciones a ONTAP: +
+`*transition cbt precutover -p _project_name_ -m rw_test -c _max_cap_concurrent_transfers_ -b _snapmirror_throttle_*`
+.. Probar y verificar manualmente las configuraciones en ONTAP.
+.. Inicie la operación de resincronización: +
+`*transition cbt resync -p _project_name_*`
+
+
+

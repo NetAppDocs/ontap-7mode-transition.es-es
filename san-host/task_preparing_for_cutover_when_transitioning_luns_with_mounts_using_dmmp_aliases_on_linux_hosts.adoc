@@ -1,0 +1,42 @@
+---
+permalink: san-host/task_preparing_for_cutover_when_transitioning_luns_with_mounts_using_dmmp_aliases_on_linux_hosts.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, cutover, phase, lun, point, dmmp, device, names 
+summary: Si va a realizar la transición de un LUN con un punto de montaje utilizando un nombre de alias en un host Linux, debe realizar varios pasos antes de introducir la fase de transposición. 
+---
+= Preparación de la fase de transición al realizar la transición de las LUN con puntos de montaje mediante nombres de dispositivos DMMP en hosts Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si va a realizar la transición de un LUN con un punto de montaje utilizando un nombre de alias en un host Linux, debe realizar varios pasos antes de introducir la fase de transposición.
+
+Para las configuraciones de FC, debe tener conectividad estructural y división en zonas en las controladoras de Clustered Data ONTAP.
+
+Para configuraciones iSCSI, es necesario detectar y iniciar sesión en las controladoras de Data ONTAP en clúster.
+
+* Para las transiciones basadas en copias, realice estos pasos antes de iniciar la operación de transición del almacenamiento en la herramienta de transición de 7-Mode (7MTT).
+* Para las transiciones sin copias, realice estos pasos antes de iniciar la operación Exportar y detener los sistemas de 7-Mode en 7MTT.
+
+
+.Pasos
+. Detenga la actividad de I/o en los puntos de montaje.
+. Apague las aplicaciones que acceden a las LUN de acuerdo con las recomendaciones del proveedor de aplicaciones.
+. Desmontar dispositivos DMMP:
++
+`*umount _dir_name_*`
+
+. Vacíe el ID de dispositivo DMMP de LUN de 7 modos:
++
+`*multipath -f _device_name_*`
+
++
+Si es necesario, puede obtener el nombre del dispositivo DDMP de la columna *ID de dispositivo del SO* en la pestaña *LUN de host SAN* del _Libro de evaluación de inventario_.
+
+
+
+*Información relacionada*
+
+xref:task_gathering_pretransition_information_from_inventory_assessment_workbook.adoc[Recopilación de información previa a la transición del libro de trabajo de evaluación de inventario]

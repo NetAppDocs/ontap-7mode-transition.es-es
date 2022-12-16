@@ -1,0 +1,104 @@
+---
+permalink: copy-free/task_running_manual_steps_for_rolling_back_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, manual, roll, back 
+summary: Si decide revertir la transición, debe realizar algunos pasos manuales en los sistemas Cluster y 7-Mode. La herramienta de transición de 7-Mode genera la lista de pasos de reversión manual. 
+---
+= Revertir manualmente la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si decide revertir la transición, debe realizar algunos pasos manuales en los sistemas Cluster y 7-Mode. La herramienta de transición de 7-Mode genera la lista de pasos de reversión manual.
+
+Los pasos de retroceso varían en función de la etapa en la que decida retroceder. Debe realizar todos los pasos de esta tarea si decide revertir después de una operación de importación correcta. Si decide retroceder en una etapa anterior, deberá realizar un subconjunto de estos pasos.
+
+.Pasos
+. Inicie sesión en el clúster.
+. Si alguno de los volúmenes que ha realizado la transición se encuentra en una relación de SnapMirror, seleccione una de las siguientes acciones:
++
+** Si un volumen que ha realizado la transición es el destino de una relación de SnapMirror, elimine la relación de SnapMirror: +
+`*snapmirror delete -destination-path _destination-path_ -source-path _source-path_*`
+** Si la transición de un volumen es el origen de una relación de SnapMirror, libere la relación de SnapMirror:
+`*snapmirror release -destination-path destination-path -source-path source-path*`
+
+
+. En el clúster, compruebe que no se estén ejecutando las siguientes operaciones en los volúmenes convertidos:
++
+.. Operación de movimiento de volúmenes: +
+`*volume move show*`
+.. Operación de movimiento de LUN: +
+`*lun move show*`
+.. Operación de copia de LUN: +
+`*lun copy show*`
+
+
+. Ejecute una reversión en todos los agregados de 7-Mode:
++
+.. Inicie sesión en el nivel de privilegio de diagnóstico: +
+`*set -privilege diagnostic*`
+.. Revierte los agregados al estado 7-Mode mediante el `storage transition revert start` comando.
++
+Este comando requiere parámetros adicionales, como el ID de proyecto de transición y los atributos agregados. Debe utilizar el comando complete con los parámetros y sus valores, tal y como genera la herramienta 7-Mode Transition Tool.
+
+.. Compruebe que la reversión se haya realizado correctamente en todos los agregados que han migrado: +
+`*storage transition revert show-status*`
++
+La `status-code` el campo de un agregado se muestra como `revert_complete` cuando la reversión se realiza correctamente.
+
+
+
+. Reasigne las propiedades de disco de los nodos del clúster de destino a las controladoras de 7-Mode:
++
+.. Asigne la propiedad de disco a las controladoras 7-Mode: +
+`*disk assign –disk _disk_id_ –s _system_id_ -force true*`
+.. Compruebe que la propiedad del disco está asignada a las controladoras de 7-Mode:
++
+`*storage disk show -fields owner-id*`
+
+
+
+. Quite las LIF de 7-Mode de las SVM:
++
+`*network interface delete -vserver _svm_name_ -lif _lif_name_*`
+
+. Quite las restricciones de transición sin copias en los nodos del clúster de destino del nivel de privilegio de diagnóstico:
++
+`*storage transition pre-commit end -session-id _transition_project_id_*`
+
++
+También es posible ejecutar este paso una vez completada la operación de reversión y las controladoras de 7-Mode funcionan.
+
+. Elimine la información de proyecto de transición sobre los nodos del clúster de destino mediante el siguiente comando de nivel de privilegio de diagnóstico:
++
+`*storage transition purge-info -session-id _transition_project_id_*`
+
++
+También es posible ejecutar este paso una vez completada la operación de reversión y las controladoras de 7-Mode funcionan.
+
+. Si se deshabilitó la asignación automática de propiedad de disco en los nodos del clúster durante la operación de exportación y detención, habilite:
++
+`*storage disk assign -auto true*`
+
+. Elimine manualmente todas las configuraciones que la herramienta ha pasado a las SVM de destino.
++
+Puede ver los resultados de las operaciones de aprovisionamiento e importación de SVM para obtener información sobre las configuraciones que ha realizado la transición con la herramienta.
+
+. Quite las bandejas de discos de los nodos del clúster de destino y vuelva a conectarlos a las controladoras de 7-Mode.
++
+
+TIP: Debe utilizar la herramienta Config Advisor para verificar el cableado.
+
+. Si se modificó algún ID de bandeja de discos 7-Mode para resolver los conflictos con los ID de bandeja de discos de los nodos del clúster de destino, cambie manualmente los ID antiguos y apague y encienda las bandejas de discos para que los nuevos ID se apliquen.
+. Arranque las controladoras 7-Mode de origen en el modo normal.
+. Desde una de las controladoras 7-Mode de origen, habilite la función de toma de control:
++
+`*cf enable*`
+
+. Si la eliminación automática de las copias Snapshot del agregado se ha deshabilitado durante la operación de exportación y detención, inhabilitarlas:
++
+`*options snap autodelete _aggr_name_ on*`
+
+

@@ -1,0 +1,38 @@
+---
+permalink: copy-based/task_adding_controllers_and_clusters.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, add, controller, clusters 
+summary: Antes de iniciar la transición, debe añadir las controladoras y los clústeres de 7-Mode necesarios para la transición. Las controladoras de 7-Mode que se incluyen para la evaluación se añaden automáticamente para la migración. 
+---
+= Añadir controladoras y clústeres
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de iniciar la transición, debe añadir las controladoras y los clústeres de 7-Mode necesarios para la transición. Las controladoras de 7-Mode que se incluyen para la evaluación se añaden automáticamente para la migración.
+
+* La información de la controladora 7-Mode y del clúster que proporciona no es persistente.
++
+Si se reinicia el servicio 7-Mode Transition Tool, esta herramienta le solicita información acerca de las controladoras y los clústeres que forman parte de proyectos activos. Debe proporcionar el mismo nombre de host que ha proporcionado para el sistema cuando se creó el proyecto.
+
+* Si una controladora de 7-Mode forma parte de un par de alta disponibilidad, la herramienta no solicita las credenciales del partner de alta disponibilidad de la controladora de 7-Mode (a menos que el partner de alta disponibilidad forme parte de otro proyecto activo).
++
+.. En el panel superior, haga clic en *sistemas de almacenamiento*.
+.. En el campo *Nombre de host*, introduzca el FQDN o la dirección IP del controlador 7-Mode o del sistema ONTAP.
++
+Para un clúster, puede especificar la dirección IP o el FQDN de la interfaz de gestión de clústeres. Para una controladora de 7-Mode, debe especificar la dirección IP de la unidad vFiler predeterminada, ya que no se aceptan las direcciones IP de las unidades vFiler individuales.
+
+
+
+
+
+.Pasos
+. Introduzca las credenciales de administrador para el host especificado y, a continuación, haga clic en *Agregar*.
++
+Las controladoras 7-Mode se agregan a la tabla «'controladoras 7-Mode» y los clusters se agregan a la tabla «'sistemas Clustered Data ONTAP».
+
+. Repita los pasos 2 y 3 para añadir todas las controladoras y los clústeres que necesite para la transición.
+. Si la columna Estado indica que faltan las credenciales del sistema o que las credenciales han cambiado con respecto a lo introducido inicialmente en la herramienta, haga clic en image:../media/edit_schedule.gif[""] e introduzca las credenciales de nuevo.
+

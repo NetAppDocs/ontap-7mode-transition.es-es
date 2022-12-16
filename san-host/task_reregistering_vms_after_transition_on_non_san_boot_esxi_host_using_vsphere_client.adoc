@@ -1,0 +1,36 @@
+---
+permalink: san-host/task_reregistering_vms_after_transition_on_non_san_boot_esxi_host_using_vsphere_client.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, vm, esxi, vsphere, client 
+summary: 'Después de realizar la transición de un host que no ha arrancado SAN, debe volver a registrar los equipos virtuales \(VMs\).' 
+---
+= Volver a registrar equipos virtuales tras la transición en hosts ESXi de arranque que no sean SAN mediante vSphere Client
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de realizar la transición de un host que no ha arrancado SAN, debe volver a registrar las máquinas virtuales (VM).
+
+El host debe estar en línea y se deben detectar los LUN.
+
+* Para las transiciones basadas en copias, realice estos pasos antes de iniciar la operación de transición del almacenamiento en la herramienta de transición de 7-Mode.
+* Para las transiciones sin copias, realice estos pasos antes de iniciar la operación Exportar y detener los sistemas de 7-Mode en 7MTT.
+
+
+.Pasos
+. Abra _Inventory Assessment Workbook_ generado por la herramienta de recopilación de inventario (ICT).
+. Desplácese a la ficha Host VMs y, a continuación, registre la ruta *VM Config File* y *Location/Datastore Name* de la VM.
+. Utilice vSphere Client para iniciar sesión en el host ESXi o en vCenter Server que gestiona el host ESXi.
+. En *Host and Clusters*, seleccione el host ESXi.
+. Vaya a *Configuración* > *hardware* > *almacenamiento*.
+. Seleccione el almacén de datos con el nombre de almacén de datos que indicó anteriormente.
+. Haga clic con el botón derecho del ratón y seleccione *Browse Datastore*.
++
+Se abrirá la ventana Datastore Browser.
+
+. Vaya a la ruta * VM Config File* que anotó anteriormente.
+. Haga clic con el botón derecho del ratón en el archivo '.vmx ' y, a continuación, seleccione *Agregar al inventario*.
+. Repita estos pasos para cada VM que se muestra en la pestaña *Host VMs* del _Inventory Assessment Workbook_ generado por las TIC.
+

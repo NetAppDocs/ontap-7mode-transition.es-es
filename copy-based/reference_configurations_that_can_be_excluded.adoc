@@ -1,0 +1,237 @@
+---
+permalink: copy-based/reference_configurations_that_can_be_excluded.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, configurations, excluded 
+summary: Puede personalizar la transición de la configuración excluyendo algunas configuraciones a nivel de volumen o SVM para NFS, CIFS, SAN y configuraciones de servicios de nombres desde la transición. Para ello, especifique el nombre de la propiedad con el comando Transition cbt property Set de la CLI de 7-Mode Transition Tool. 
+---
+= Configuraciones que pueden excluirse de la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede personalizar la transición de la configuración excluyendo algunas configuraciones a nivel de volumen o SVM para NFS, CIFS, SAN y servicios de nombres a partir de la transición especificando el nombre de la propiedad con `transition cbt property-set` Comando de la CLI de 7-Mode Transition Tool.
+
+
+
+== NFS
+
+|===
+| Configuración de 7-Mode para excluir | Nombre de la propiedad 
+
+
+ a| 
+Políticas de exportación
+ a| 
+`ignore-nfs-exports-transition`
+
+
+
+ a| 
+Opciones de NFS
+ a| 
+`ignore-nfs-options-transition`
+
+
+
+ a| 
+Todas las configuraciones NFS
+ a| 
+`ignore-all-nfs-configurations-transition`
+
+|===
+
+
+== CIFS
+
+|===
+| Configuración de 7-Mode para excluir | Nombre de la propiedad 
+
+
+ a| 
+Usuarios y grupos locales
+ a| 
+`ignore-local-users-groups-transition`
+
+
+
+ a| 
+Rutas de acceso al directorio inicial
+ a| 
+`ignore-cifs-home-directory-paths-transition`
+
+
+
+ a| 
+Enlaces simbólicos
+ a| 
+`ignore-cifs-symlinks-transition`
+
+
+
+ a| 
+Widelinks
+ a| 
+`ignore-cifs-widelinks-transition`
+
+
+
+ a| 
+Comparte y comparte ACL
+ a| 
+`ignore-cifs-shares-and-acls-transition`
+
+
+
+ a| 
+Opciones CIFS
+ a| 
+`ignore-cifs-options-transition`
+
+
+
+ a| 
+Asignación de nombres
+ a| 
+`ignore-cifs-name-mapping-transition`
+
+
+
+ a| 
+Auditar la configuración
+ a| 
+`ignore-cifs-audit-transition`
+
+
+
+ a| 
+Lista de controladores de dominio preferidos
+ a| 
+`ignore-cifs-preferred-domain-controllers-list-transition`
+
+
+
+ a| 
+Todas las configuraciones CIFS
+ a| 
+`ignore-all-cifs-configurations-transition`
+
+|===
+
+
+== Servicios de nombres
+
+|===
+| Configuración de 7-Mode para excluir | Nombre de la propiedad 
+
+
+ a| 
+Grupos de redes
+ a| 
+`ignore-netgroups-transition`
+
+
+
+ a| 
+Usuarios y grupos UNIX
+ a| 
+`ignore-unix-users-groups-transition`
+
+
+
+ a| 
+NIS
+ a| 
+`ignore-nis-transition`
+
+
+
+ a| 
+DNS
+ a| 
+`ignore-dns-transition`
+
+
+
+ a| 
+LDAP
+ a| 
+`ignore-ldap-transition`
+
+
+
+ a| 
+`/etc/nsswitch.conf` archivo
+ a| 
+`ignore-nsswitch-transition`
+
+
+
+ a| 
+Asignación de usuarios basada en LDAP
+ a| 
+`ignore-nmswitch-transition`
+
+
+
+ a| 
+`/etc/hosts` archivos
+ a| 
+`ignore-etc-hosts-transition`
+
+
+
+ a| 
+Todas las configuraciones de servicios de nombres
+ a| 
+`ignore-all-nameservices-configurations-transition`
+
+|===
+
+
+== SAN
+
+|===
+| Configuración de 7-Mode para excluir | Nombre de la propiedad 
+
+
+ a| 
+Asignación de igroup y LUN
+ a| 
+`ignore-igroup-and-lunmapping-transition`
+
+
+
+ a| 
+Todas las configuraciones
+ a| 
+`ignore-all-san-configurations-transition`
+
+|===
+
+
+== Programaciones de Snapshot
+
+|===
+| Configuración de 7-Mode para excluir | Nombre de la propiedad 
+
+
+ a| 
+Programaciones de Snapshot
+ a| 
+ignore-snapshot-schedule-transition
+
+
+NOTE: Si esta opción se establece en TRUE, la política de Snapshot "predeterminada" se aplica a los volúmenes que se han realizado la transición.
+
+|===
+*Información relacionada*
+
+xref:concept_cifs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.adoc[Configuraciones CIFS compatibles y no compatibles para la transición a ONTAP]
+
+xref:concept_nfs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.adoc[Transición a NFS: Configuraciones compatibles y no compatibles, así como pasos manuales necesarios]
+
+xref:concept_supported_and_unsupported_name_services_configurations.adoc[Transición de servicios de nombres: Configuraciones compatibles y no compatibles y pasos manuales necesarios]
+
+xref:concept_san_transition_supported_and_unsupported_configurations_and_required_manual_steps.adoc[Transición DE SAN: Configuraciones compatibles y no compatibles, así como pasos manuales necesarios]

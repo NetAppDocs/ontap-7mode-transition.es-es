@@ -1,0 +1,24 @@
+---
+permalink: copy-based/task_post_transition_task_for_a_metrocluster_configuration.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, cron, job, schedules, metrocluster, remote, configuration 
+summary: Las programaciones de tareas de cron creadas durante la transición no se replican en el sitio remoto y, por lo tanto, la conmutación negociada falla después de la transición. Debe crear manualmente las programaciones de tareas de cron en el sitio remoto después de la transición. 
+---
+= Configurar programaciones de tareas de cron en el sitio remoto tras realizar la transición de una configuración de MetroCluster
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Las programaciones de tareas de cron creadas durante la transición no se replican en el sitio remoto y, por lo tanto, la conmutación negociada falla después de la transición. Debe crear manualmente las programaciones de tareas de cron en el sitio remoto después de la transición.
+
+La transición de almacenamiento del sitio activo de 7-Mode debe haberse completado correctamente.
+
+.Pasos
+. Registre los mensajes de tareas de cron generados en la transición de almacenamiento para identificar las programaciones de tareas que se deben replicar en el sitio remoto.
++
+image::../media/mcc_cron_jobs.gif[trabajos de mcc cron]
+
+. Desde la interfaz de línea de comandos de clúster del sitio remoto, ejecute el `job schedule cron create` comandos grabados en <<STEP_F72D5FA759564336A365328A3414D57A,Paso 1>>.
+

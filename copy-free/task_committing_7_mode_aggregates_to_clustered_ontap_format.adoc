@@ -1,0 +1,25 @@
+---
+permalink: copy-free/task_committing_7_mode_aggregates_to_clustered_ontap_format.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, commit, project 
+summary: El paso final en transición consiste en confirmar el proyecto de transición sin copias. Después de confirmar los agregados, no es posible revertir a 7-Mode. 
+---
+= Compromiso del proyecto de transición sin copias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El paso final en transición consiste en confirmar el proyecto de transición sin copias. Después de confirmar los agregados, no es posible revertir a 7-Mode.
+
+Debe haber verificado manualmente los datos y las configuraciones convertidos, así como las cargas de trabajo y las aplicaciones que se prueban.
+
+Se eliminan todas las copias Snapshot a nivel de agregado que se crearon en la fase de exportación.
+
+.Pasos
+. Haga clic en *Commit*.
+. En el mensaje de advertencia que aparece, haga clic en *Sí*.
+
+
+Todas las restricciones de la fase de prueba de preproducción se eliminan y los volúmenes convertidos pueden servir datos de producción si no se hacen en la fase de prueba de preproducción.

@@ -1,0 +1,168 @@
+---
+permalink: copy-free/concept_how_nfs_exports_are_transitioned.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, nfs, exports 
+summary: Debe saber cómo se configuran las exportaciones de NFS en la SVM después de la transición. Es posible que tenga que realizar algunos pasos manuales si las configuraciones de exportación de 7-Mode no son compatibles con ONTAP. 
+---
+= Cómo se realiza la transición de las exportaciones de NFS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe saber cómo se configuran las exportaciones de NFS en la SVM después de la transición. Es posible que tenga que realizar algunos pasos manuales si las configuraciones de exportación de 7-Mode no son compatibles con ONTAP.
+
+Debe tener en cuenta las siguientes consideraciones acerca de la transición de las exportaciones de NFS:
+
+* Si el volumen raíz de SVM no se exporta para permitir el acceso de solo lectura a todos los clientes NFS, la herramienta de transición de 7-Mode crea una nueva política de exportación que permite el acceso de solo lectura para todos los clientes NFS y exporta el volumen raíz de la SVM con la nueva política de exportación.
++
+Para garantizar que se puedan montar todos los volúmenes o qtrees convertidos, se debe permitir el acceso de solo lectura al volumen raíz de la SVM para todos los clientes NFS.
+
+* Cuando se realiza la transición de volúmenes de 7-Mode con configuraciones de exportación no compatibles con ONTAP, estos volúmenes se exportan para impedir el acceso a todos los clientes NFS.
++
+Las políticas de exportación de estos volúmenes deben configurarse manualmente después de la transición para proporcionar los permisos de acceso requeridos.
+
+* Cuando se realiza la transición de qtrees 7-Mode con configuraciones de exportación que no son compatibles con ONTAP, heredan la política de exportación del volumen principal.
++
+Las políticas de exportación de estos qtrees deben configurarse manualmente después de la transición para proporcionar los permisos de acceso necesarios.
+
+* En ONTAP, para que un cliente NFS monte un qtree, el cliente NFS debe tener permisos de solo lectura en todas las rutas de unión principales hasta la ruta de unión del volumen raíz de la SVM (es decir, /).
++
+Para que los clientes NFS monte qtrees, los qtrees deben pertenecer a un volumen con permiso de solo lectura. Si no se cuenta con permisos de solo lectura en el nivel del volumen, los clientes NFS no podrán montar el qtree.
+
+* Si se especifica el mismo host en la combinación de listas de permisos de acceso de solo lectura, escritura y raíz, se deben evaluar las reglas de exportación convertidas tras la transición para determinar el privilegio de acceso adecuado para los hosts.
+
+
+http://www.netapp.com/us/media/tr-4067.pdf["Informe técnico de NetApp 4067: Guía de prácticas recomendadas e implementación de NFS"]
+
+
+
+== Ejemplo: Modificación de la política de exportación de un volumen para permitir el acceso a un qtree
+
+Tenga en cuenta la siguiente regla de exportación configurada en el sistema de almacenamiento de 7-Mode (192.168.26.18) que permite el acceso de lectura/escritura al volumen volstd10 y qtree qtre1 para el cliente NFS 192.168.10.10:
+
+[listing]
+----
+/vol/volstd10/qtree1 -sec=sys,rw=192.168.10.10,nosuid
+/vol/volstd10 -sec=sys,rw=192.168.11.11,nosuid
+----
+Después de la transición, la política de exportación del volumen volsdt10 en ONTAP se muestra a continuación:
+
+[listing]
+----
+cluster-01::> export-policy rule show -vserver std_22 -policyname std_2226 -instance
+ (vserver export-policy rule show)
+
+                                               Vserver: std_22
+                                           Policy Name: std_2226
+                                            Rule Index: 1
+                                       Access Protocol: any
+Client Match Hostname, IP Address, Netgroup, or Domain: 192.168.11.11
+                                        RO Access Rule: sys
+                                        RW Access Rule: sys
+           User ID To Which Anonymous Users Are Mapped:65534
+                              Superuser Security Types: none
+                          Honor SetUID Bits in SETATTR: false
+                             Allow Creation of Devices: true
+cluster-01::>
+----
+Después de la transición, la política de exportación del qtree qtre1 en ONTAP se muestra a continuación:
+
+[listing]
+----
+ cluster-01::> export-policy rule show -vserver std_22 -policyname std_2225 -instance
+  (vserver export-policy rule show)
+
+                                    Vserver: std_22
+                                Policy Name: std_2225
+                                 Rule Index: 1
+                            Access Protocol: any
+Client Match Hostname, IP Address, Netgroup, or Domain: 192.168.10.10
+                             RO Access Rule: sys
+                             RW Access Rule: sys
+User ID To Which Anonymous Users Are Mapped: 65534
+                   Superuser Security Types: none
+               Honor SetUID Bits in SETATTR: false
+                  Allow Creation of Devices: true
+cluster-01::>
+----
+Para que el cliente NFS 192.168.10.10 acceda al qtree, el cliente NFS 192.168.10.10 debe tener acceso de solo lectura al volumen principal del qtree.
+
+El siguiente resultado muestra que al cliente NFS se le niega el acceso al montar el qtree:
+
+[listing]
+----
+ [root@192.168.10.10 ]# mount 192.168.35.223:/vol/volstd10/qtree1
+transition_volume_qtreemount:192.168.35.223:/vol/volstd10/qtree1 failed, reason
+given by server: Permission denied [root@192.168.10.10 ]#
+----
+Debe modificar manualmente la política de exportación del volumen para proporcionar acceso de solo lectura al cliente NFS 192.168.10.10.
+
+[listing]
+----
+cluster-01::> export-policy rule create -vserver std_22 -policyname std_2226 -clientmatch
+192.168.10.10 -rorule sys -rwrule never -allow-suid false -allow-dev true -superuser none -protocol nfs
+  (vserver export-policy rule create)
+
+cluster-01::> export-policy rule show -vserver std_22 -policyname std_2226 -instance
+  (vserver export-policy rule show)
+
+                                    Vserver: std_22
+                                Policy Name: std_2226
+                                 Rule Index: 1
+                            Access Protocol: any
+Client Match Hostname, IP Address, Netgroup, or Domain: 192.168.11.11
+                             RO Access Rule: sys
+                             RW Access Rule: sys
+User ID To Which Anonymous Users Are Mapped: 65534
+                   Superuser Security Types: none
+               Honor SetUID Bits in SETATTR: false
+                  Allow Creation of Devices: true
+
+**                                    Vserver: std_22
+                                Policy Name: std_2226
+                                 Rule Index: 2
+                            Access Protocol: nfs
+Client Match Hostname, IP Address, Netgroup, or Domain: 192.168.10.10
+                             RO Access Rule: sys
+                             RW Access Rule: never
+User ID To Which Anonymous Users Are Mapped: 65534
+                   Superuser Security Types: none
+               Honor SetUID Bits in SETATTR: false
+                  Allow Creation of Devices: true**
+
+cluster-01::>
+----
+
+
+== Ejemplo: En qué se diferencian las reglas de exportación de qtree en 7-Mode y ONTAP
+
+En el sistema de almacenamiento de 7-Mode, cuando un cliente NFS accede a un qtree a través del punto de montaje de su volumen principal, se ignoran las reglas de exportación de qtree y se aplican las reglas de exportación de su volumen principal. Sin embargo, en ONTAP siempre se aplican las reglas de exportación de qtrees a través del punto de montaje del volumen principal, tanto si el cliente NFS se monta en el qtree como si accede al qtree. Este ejemplo se aplica específicamente a NFSv4.
+
+A continuación se muestra un ejemplo de una regla de exportación en el sistema de almacenamiento de 7-Mode (192.168.26.18):
+
+[listing]
+----
+/vol/volstd10/qtree1 -sec=sys,ro=192.168.10.10,nosuid
+/vol/volstd10   -sec=sys,rw=192.168.10.10,nosuid
+----
+En el sistema de almacenamiento 7-Mode, el cliente NFS 192.168.10.10 solo tiene acceso de solo lectura al qtree. Sin embargo, cuando el cliente accede al qtree a través del punto de montaje de su volumen principal, el cliente puede escribir en el qtree porque el cliente tiene acceso de lectura/escritura al volumen.
+
+[listing]
+----
+[root@192.168.10.10]# mount 192.168.26.18:/vol/volstd10 transition_volume
+[root@192.168.10.10]# cd transition_volume/qtree1
+[root@192.168.10.10]# ls transition_volume/qtree1
+[root@192.168.10.10]# mkdir new_folder
+[root@192.168.10.10]# ls
+new_folder
+[root@192.168.10.10]#
+----
+En ONTAP, el cliente NFS 192.168.10.10 solo tiene acceso de solo lectura al qtree qtre1 cuando el cliente accede al qtree directamente o a través del punto de montaje del volumen principal del qtree.
+
+Tras la transición, debe evaluar el impacto que tiene aplicar las políticas de exportación de NFS y, si es necesario, modificar los procesos para aplicar la nueva política de exportación de NFS en ONTAP.
+
+*Información relacionada*
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-nfs/home.html["Gestión de NFS"]

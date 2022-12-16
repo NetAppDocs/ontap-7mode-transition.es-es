@@ -1,0 +1,88 @@
+---
+permalink: copy-free/task_performing_a_transition_rollback.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, roll, back, project 
+summary: Puede revertir una transición si desea volver a 7-Mode en cualquier etapa de la transición sin copias antes de que se hayan comprometido los agregados convertidos. La reversión es una operación manual. Puede usar la herramienta 7-Mode Transition Tool para generar los pasos manuales que debe realizar para una reversión. 
+---
+= Reversión de un proyecto de transición sin copias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede revertir una transición si desea volver a 7-Mode en cualquier etapa de la transición sin copias antes de que se hayan comprometido los agregados convertidos. La reversión es una operación manual. Puede usar la herramienta 7-Mode Transition Tool para generar los pasos manuales que debe realizar para una reversión.
+
+* Debe asegurarse de que no se esté ejecutando en el clúster ninguna operación de transición de volúmenes o agregados.
++
+Puede utilizar el `job show -jobtype transition` comando.
+
+* Ninguno de los agregados de 7-Mode debe estar comprometido.
++
+
+NOTE: No se puede realizar la reversión si se confirma incluso un agregado de 7-Mode.
+
+* Los nodos del clúster de destino no deben estar en modo de toma de control.
+
+
+.Pasos
+. Haga clic en *revertir comprobaciones previas* para verificar que el proyecto es apto para una reversión.
++
+Si las comprobaciones previas informan de problemas, deberá repararlos manualmente y volver a ejecutar la operación de las comprobaciones previas. Por ejemplo, si ha creado nuevos volúmenes o LUN durante las pruebas de preproducción, debe eliminarlos manualmente.
+
+. Haga clic en *generar pasos de reversión* para generar la lista de pasos manuales que debe realizar para que la reversión se realice correctamente.
+. Haga clic en *Guardar como CSV* para guardar los pasos manuales en un archivo.
++
+Es posible copiar los comandos de reversión del archivo y ejecutarlos.
+
+. En función de la fase de transición en la que decida revertir, realice los pasos manuales necesarios:
++
+** *Fase de prueba de importación o preproducción*
++
+... Ejecute los comandos de reversión en el clúster y haga clic en *Confirmar*.
+... Conecte las bandejas de discos de 7-Mode a los controladores de 7-Mode, verifique el cableado manualmente y haga clic en *Confirmar*.
+... Ejecute los comandos de reversión en los controladores de 7-Mode y haga clic en *Confirmar*.
+... Consulte las configuraciones que se aplican en las SVM en la pestaña Operations History.
+... Quite manualmente todas las configuraciones que aplicó la herramienta de las SVM.
+
+
+** *Fase de cableado*
++
+... Conecte las bandejas de discos de 7-Mode a los controladores de 7-Mode, verifique el cableado manualmente y haga clic en *Confirmar*.
++
+Debe asegurarse de que el cableado de 7-Mode coincide con el modo en que estaba al comienzo del proyecto.
+
++
+
+NOTE: Debe usar Config Advisor para verificar el cableado.
+
+... Ejecute los comandos de reversión en los controladores de 7-Mode y haga clic en *Confirmar*.
+... Quite manualmente todas las configuraciones que aplicó la herramienta de las SVM.
++
+Puede ver las configuraciones que se aplican en las SVM en la pestaña Operations History.
+
+
+
+** *Fase de exportación*
++
+... Ejecute los comandos de reversión en los controladores de 7-Mode y haga clic en *Confirmar*.
+... Quite manualmente todas las configuraciones que aplicó la herramienta de las SVM.
++
+Puede ver las configuraciones que se aplican en las SVM en la pestaña Operations History.
+
+
+
+** *Fase de aprovisionamiento de la SVM*
++
+Quite manualmente todas las configuraciones que aplicó la herramienta de las SVM.
+
++
+Puede ver las configuraciones que se aplican en las SVM en la pestaña Operations History.
+
+
+
++
+xref:task_running_manual_steps_for_rolling_back_transition.adoc[Pasos manuales para revertir la transición]
+
+. Después de completar todos los pasos manuales, haga clic en *verificar 7-Mode* de la herramienta de transición de 7-Mode para verificar que los controladores de 7-Mode están listos para servir datos.
+

@@ -1,0 +1,28 @@
+---
+permalink: copy-based/concept_transition_overview.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, overview 
+summary: La transición a Clustered ONTAP implica identificar su entorno actual, definir el ámbito de la transición, diseñar la configuración óptima de los sistemas de destino, planificar cómo migrar datos y configuraciones y realizar actualizaciones medioambientales necesarias. 
+---
+= Descripción general de la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La transición a Clustered ONTAP implica identificar su entorno actual, definir el ámbito de la transición, diseñar la configuración óptima de los sistemas de destino, planificar cómo migrar datos y configuraciones y realizar actualizaciones medioambientales necesarias.
+
+Asegúrese de consultar la herramienta 7-Mode Transition Tool _Notas de la versión_ para obtener la información más reciente sobre las versiones de destino compatibles y los problemas conocidos.
+
+link:https://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Notas de la versión de 7-Mode Transition Tool"^]
+
+En primer lugar, debe recopilar información sobre el entorno actual, incluido tanto el entorno de almacenamiento actual como los hosts y las aplicaciones. Después de recoger el inventario de almacenamiento, es posible evaluar las funciones y funcionalidades actuales que se utilizan e identificar cualquier diferencia en la versión de ONTAP seleccionada. Es posible usar la herramienta 7-Mode Transition Tool para ejecutar estas tareas.
+
+Luego podrá definir su proyecto de migración. Esto implica identificar los volúmenes y las cargas de trabajo que desea migrar conjuntamente, luego puede diseñar su clúster y planificar su transición. Puede comenzar a planificar la migración seleccionando primero el método de migración óptimo. Al diseñar su clúster, puede utilizar la información recopilada sobre el entorno de almacenamiento para asignar los elementos de configuración existentes a sus elementos equivalentes en ONTAP. Por ejemplo, se debe asignar un volumen de 7-Mode a una SVM y se debe asignar a las LIF un volumen en ONTAP y una dirección IP que se realizará la transición. También debe determinar si es necesario realizar algún cambio de entorno en el sistema ONTAP.
+
+La implementación incluye la implementación y configuración del clúster, la migración de datos, la aplicación de cambios de configuración, la desconexión de clientes y la reconexión al sistema ONTAP de destino, la verificación del acceso, así como la realización de los cambios necesarios en el entorno.
+
+*Información relacionada*
+
+http://docs.netapp.com/ontap-9/index.jsp["Documentación de NetApp: ONTAP 9"]

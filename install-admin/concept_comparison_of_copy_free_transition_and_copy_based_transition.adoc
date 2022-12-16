@@ -1,0 +1,68 @@
+---
+permalink: install-admin/concept_comparison_of_copy_free_transition_and_copy_based_transition.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, copy, free, transition, based 
+summary: Puede utilizar la 7-Mode Transition Tool para migrar datos y configuraciones de 7-Mode a ONTAP utilizando la transición basada en copias o la transición sin copias. Es importante comprender las diferencias entre los dos métodos antes de la transición. 
+---
+= Comparación de la transición sin copias y la transición basada en copias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar la 7-Mode Transition Tool para migrar datos y configuraciones de 7-Mode a ONTAP utilizando la transición basada en copias o la transición sin copias. Es importante comprender las diferencias entre los dos métodos antes de la transición.
+
+|===
+| Parámetro | Transición sin copias | Transición basada en copias 
+
+
+ a| 
+Unidad de transición
+ a| 
+Pareja de HA
+ a| 
+Grupo de volúmenes
+
+
+
+ a| 
+Requisitos de hardware
+ a| 
+Se reutilizan las bandejas de discos
+ a| 
+Nuevas bandejas de discos y discos para alojar los volúmenes que se han trasladado
+
+
+
+ a| 
+Requisitos de plataforma
+ a| 
+Solo se admite en plataformas de nivel medio y alto https://mysupport.netapp.com/matrix["Herramienta de matriz de interoperabilidad de NetApp"]
+ a| 
+Compatible con todas las plataformas
+
+
+
+ a| 
+Duración de la transición
+ a| 
+General, duración de la transición menor (no se requiere copia de datos)
+ a| 
+Mayor duración (la duración inicial y el tiempo de transferencia de actualización varían en función de la carga de trabajo, el ancho de banda de la red y la capacidad de datos que se migra).
+
+
+
+ a| 
+Interrupción en el acceso a los datos
+ a| 
+Dentro del intervalo de horas
+
+
+IMPORTANT: En la mayoría de los casos, el tiempo de transición del almacenamiento puede ser de 3 a 8 horas. El tiempo de transición incluye el tiempo que tarda la herramienta en realizar dos operaciones automatizadas (la operación de exportación y detención y la operación de importación), así como el tiempo que se tarda en cablear manualmente las bandejas de discos a las nuevas controladoras. La operación de exportación y detención, así como la operación de importación, pueden llevar hasta 2 horas. El cableado de las bandejas de discos puede llevar de 1 hora a 6 horas.
+
+Esta guía sobre el tiempo de transición no incluye el tiempo necesario para las pruebas de preproducción necesarias y asume una transición sin errores sin fallos inesperados, como por ejemplo un fallo de disco.
+ a| 
+En cuestión de minutos
+
+|===

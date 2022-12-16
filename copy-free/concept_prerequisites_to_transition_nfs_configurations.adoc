@@ -1,0 +1,41 @@
+---
+permalink: copy-free/concept_prerequisites_to_transition_nfs_configurations.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, prerequisites, nfs, configurations 
+summary: La herramienta 7-Mode Transition Tool realiza la transición de las configuraciones de NFS solo cuando se cumplen ciertos requisitos previos en el sistema 7-Mode y el clúster. Si no se cumple alguna de las condiciones, la herramienta no realiza la transición de la configuración. 
+---
+= Requisitos previos para la transición de configuraciones de NFS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La herramienta 7-Mode Transition Tool realiza la transición de las configuraciones de NFS solo cuando se cumplen ciertos requisitos previos en el sistema 7-Mode y el clúster. Si no se cumple alguna de las condiciones, la herramienta no realiza la transición de la configuración.
+
+
+
+== Requisitos previos de 7-Mode
+
+* NFS debe tener licencia.
+* Si MultiStore tiene licencia, debe activarse NFS en todas las unidades vFiler.
+* El servicio NFS debe ejecutarse en los sistemas de 7-Mode durante la transición.
++
+Incluso después de desconectar el acceso de los clientes y de prepararse para iniciar la fase de exportación, el servicio debe estar en ejecución en los sistemas de 7-Mode.
+
+* Si desea realizar la transición de reglas de exportación en memoria, debe agregarlas a `/etc/exports` archivar antes de la transición.
++
+La herramienta de transición de 7-Mode solo realiza una transición de las reglas de exportación persistentes que se definen en la `/etc/exports` archivo.
+
+
+
+
+
+== Requisitos previos del clúster
+
+* NFS debe tener licencia.
+
+
+*Información relacionada*
+
+http://docs.netapp.com/ontap-9/index.jsp["Documentación de NetApp: ONTAP 9"]

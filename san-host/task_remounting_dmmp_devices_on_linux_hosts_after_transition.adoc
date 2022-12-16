@@ -1,0 +1,98 @@
+---
+permalink: san-host/task_remounting_dmmp_devices_on_linux_hosts_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, remount, dmmp, devices, linux, hosts 
+summary: Después de pasar de ONTAP funcionando en 7-Mode a Clustered Data ONTAP, debe volver a montar sus dispositivos DMMP para RHEL 5 y RHEL 6. El host no podrá acceder a los LUN de 7-Mode hasta que se monten los dispositivos DMMP. 
+---
+= Montaje de dispositivos DMMP en hosts Linux después de la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de pasar de ONTAP funcionando en 7-Mode a Clustered Data ONTAP, debe volver a montar sus dispositivos DMMP para RHEL 5 y RHEL 6. El host no podrá acceder a los LUN de 7-Mode hasta que se monten los dispositivos DMMP.
+
+Si realiza una transición sin copia (CFT), deben completarse los procedimientos para el realojamiento de volúmenes. Consulte link:https://docs.netapp.com/us-en/ontap-7mode-transition/copy-free/index.html["Guía de transición sin copias de 7-Mode Transition Tool"] para obtener más detalles.
+
+* En las transiciones basadas en copias, realice estos pasos después de completar la operación de transición del almacenamiento en la herramienta de transición de 7-Mode (7MTT).
+* En el caso de CFTS, realice estos pasos una vez completada la operación Importar datos y configuración en 7MTT.
+
+
+.Pasos
+. Genere el archivo de asignación de LUN de 7-Mode a ONTAP:
++
+** Para las transiciones basadas en copias, ejecute el siguiente comando desde el host Linux donde se ha instalado 7MTT: +
+`*transition cbt export lunmap -p _project-name_ -o _file_path_*`
++
+Por ejemplo:
+
++
+`*transition cbt export lunmap -p SanWorkLoad -o c:/Libraires/Documents/7-to-C-LUN-MAPPING.csv*`
+
+** Para las transiciones sin copias, ejecute el siguiente comando desde el sistema donde se ha instalado 7MTT: +
+`*transition cft export lunmap -p _project-name_ -s svm-name -o _output-file_*`
++
+Por ejemplo:
+
++
+`*transition cft export lunmap -p SanWorkLoad -s svml -0 c:/Libraries/Documents/7-to-C-LUN-MAPPING-svml.csv*`
+
++
+
+NOTE: Debe ejecutar este comando para cada máquina virtual de almacenamiento (SVM).
+
+
+
+. Anote el nuevo ID de identificador de dispositivo de la LUN de ONTAP del archivo de asignación de LUN.
+. Elimine los dispositivos SCSI creados para LUN de 7-Mode:
++
+** Para eliminar todos los dispositivos SCSI: +
+`*rescan-scsi-bus.sh -r*`
+** Para eliminar cada dispositivo SCSI individualmente: +
+`*echo 1> /sys/block/__SCSI_ID__/delete*`
++
+Este comando debe ejecutarse en todos los dispositivos SCSI de LUN de 7-Mode. Consulte la columna SCSI Device ID (ID de dispositivo SCSI) en la pestaña SAN Host LUNs (LUN de host SAN) del _Inventory Assessment Workbook_ (Libro de evaluación de inventario) para identificar los ID de dispositivo SCSI para las LUN.
+
+
+
+. Descubra nuevos LUN de ONTAP:
++
+`*rescan-scsi-bus.sh*`
+
+. Compruebe que se han detectado las LUN de ONTAP:
++
+`*sanlun lun show*`
+
++
+Los dispositivos SCSI de la LUN de ONTAP deben aparecer en la columna FileName.
+
+. Configurar dispositivos DMMP para LUN ONTAP:
++
+`*multipath*`
+
+. Compruebe que los dispositivos DMMP están presentes:
++
+`*multipath -ll _LUN_SCSI_device_name_*`
+
++
+En el siguiente ejemplo, 3600a0980517649373f4479515a7451 representa el identificador de controlador de dispositivo DMMP:
+
++
+[listing]
+----
+[root@IBMx3550M3-229-169 ~]#multipath -ll /dev/sdq
+3600a098051764937303f4479515a7451 dm-6 NETAPP,LUN C-Mode
+----
+. Monte la LUN:
++
+`*mount _device_name mountpoint_`
+
++
+Si los puntos de montaje se definen en la `/etc/fstab` archivo, puede ejecutar el `mount -a` comando para montar todos los puntos de montaje.
+
+. Compruebe los puntos de montaje:
++
+`*mount*`
+
+

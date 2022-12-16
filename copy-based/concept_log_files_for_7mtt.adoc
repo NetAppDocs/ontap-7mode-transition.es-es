@@ -1,0 +1,92 @@
+---
+permalink: copy-based/concept_log_files_for_7mtt.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, log, files, tool 
+summary: La herramienta 7-Mode Transition Tool crea archivos de registro que proporcionan detalles de procesamiento de las operaciones de transición que se han producido en el sistema. Los archivos de registro se ubican en el directorio logs de la ruta donde está instalada la herramienta 7-Mode Transition Tool. 
+---
+= Archivos de registro para la herramienta 7-Mode Transition Tool
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La herramienta 7-Mode Transition Tool crea archivos de registro que proporcionan detalles de procesamiento de las operaciones de transición que se han producido en el sistema. Los archivos de registro se ubican en el directorio logs de la ruta donde está instalada la herramienta 7-Mode Transition Tool.
+
+También es posible usar los mensajes de EMS relacionados con los registros de SnapMirror del sistema 7-Mode y del clúster para solucionar problemas.
+
+En la siguiente tabla se enumeran los archivos de registro que están relacionados con un proyecto de transición concreto:
+
+|===
+| Ruta del archivo de registro | Contiene información acerca de... 
+
+
+ a| 
+`_project_name_/transition.log`
+ a| 
+Depurar mensajes específicos de un proyecto
+
+
+
+ a| 
+`_project_name_/zapi-outbound.log`
+ a| 
+Resultado de todas las API de Data ONTAP que se ejecutan en 7-Mode Transition Tool para un proyecto concreto
+
+|===
+En la siguiente tabla se enumeran los archivos de registro que no están relacionados con ningún proyecto en particular:
+
+|===
+| Ruta del archivo de registro | Contiene información acerca de... 
+
+
+ a| 
+`transition-gui.log`
+ a| 
+Entradas de todas las acciones realizadas mediante la interfaz web
+
+
+
+ a| 
+`default/audit.log`
+ a| 
+* Todos los parámetros, como el puerto HTTP o HTTPS y la ruta del directorio de registro, que se utilizan cada vez que se ejecuta 7-Mode Transition Tool
+* Todos los comandos de transición que se ejecutan con los resultados
+
+
+
+
+ a| 
+`default/default/transition.log`
+ a| 
+Depurar mensajes que no son específicos de ningún proyecto
+
+
+
+ a| 
+`default/STREAM_MANAGEMENT/stream_management.log`
+ a| 
+Depurar mensajes registrados por el programador mientras gestiona las programaciones y que no pertenecen a ningún proyecto
+
+
+
+ a| 
+`default/default/zapi-outbound.log`
+ a| 
+Resultado de todas las API de Data ONTAP ejecutadas por 7-Mode Transition Tool y que no pertenecen a ningún proyecto
+
+
+
+ a| 
+`default/STREAM_MANAGEMENT/zapi-outbound.log`
+ a| 
+Resultado de todas las API de Data ONTAP que se ejecutan en el programador de 7-Mode Transition Tool mientras se gestionan las programaciones y cuáles no pertenecen a ningún proyecto
+
+
+
+ a| 
+`server-console.log`
+ a| 
+Registrar las entradas de todos los intercambios de paquetes realizados con el servidor de 7-Mode Transition Tool. Este archivo ayuda a solucionar problemas relacionados con un bloqueo del servidor.
+
+|===

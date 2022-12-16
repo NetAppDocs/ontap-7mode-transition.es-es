@@ -1,0 +1,80 @@
+---
+permalink: san-host/task_testing_dmmp_devices_with_file_systems_on_rhel_hosts_before_cutover_phase.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, dmmp, devices, rhel, hosts, cutover, phase 
+summary: 'Si utiliza la herramienta 7-Mode Transition Tool \(7MTT\) 2.2 o posterior y Data ONTAP 8.3.2 o posterior para realizar una transición basada en copias del host Red Hat Enterprise Linux \(RHEL\), Puede probar los LUN de Clustered Data ONTAP convertidos para verificar que puede montar el dispositivo DMMP antes de la fase de transposición. El host de origen puede seguir ejecutando I/o en sus LUN de 7-Mode de origen durante las pruebas.' 
+---
+= Probar dispositivos DMMP con sistemas de archivos en hosts RHEL antes de la fase de transposición de transiciones basadas en copias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si utiliza 7-Mode Transition Tool (7MTT) 2.2 o versiones posteriores y Data ONTAP 8.3.2 o posteriores para realizar una transición basada en copias del host Red Hat Enterprise Linux (RHEL), Puede probar los LUN de Clustered Data ONTAP convertidos para verificar que puede montar el dispositivo DMMP antes de la fase de transposición. El host de origen puede seguir ejecutando I/o en sus LUN de 7-Mode de origen durante las pruebas.
+
+Sus nuevas LUN de Clustered Data ONTAP deben asignarse a su host de prueba y sus LUN deben estar listos para la transición.
+
+Debe mantener la paridad del hardware entre el host de prueba y el host de origen.
+
+Realice estos pasos en el host de prueba.
+
+. Una vez finalizada la copia de datos de referencia, seleccione *modo de prueba* en la interfaz de usuario (UI) de 7MTT.
+. En la interfaz de usuario de 7MTT, haga clic en *Apply Configuration*.
+. Obtenga los nombres de dispositivo SCSI nuevos para las LUN de Clustered Data ONTAP:
++
+`*sanlun lun show*`
+
++
+En el siguiente ejemplo: `/dev/sdl` Es el nombre del dispositivo SCSI para `lun_dmmp_raw` LUN y. `/dev/sdk` Es el nombre del dispositivo SCSI para `lun_dmmp_raw_alias` LUN:
+
++
+[listing]
+----
+[root@ibmx3550-229-108 /]# sanlun lun show
+controller(7mode/E-Series)/
+vserver (cDOT/FlashRay) lun-pathname               filename
+-----------------------------------------------------------
+vs_brb  /vol/dmmp_raw_vol/lun_dmmp_raw              /dev/sdl
+vs_brb  /vol/dmmp_raw_alias_vol/lun_dmmp_raw_alias  /dev/sdk
+----
+. Configure los dispositivos DMMP para sus LUN de Clustered Data ONTAP:
++
+`*multipath*`
+
+. Obtenga el identificador de identificador de dispositivo para las LUN de Clustered Data ONTAP:
++
+`*multipath -ll*`
+
++
+A continuación se muestra un ejemplo de un identificador de dispositivo: "'3600a09804d532d79565d47617679764d'"
+
+. Identifique el sistema de archivos configurado en el dispositivo DMMP:
++
+`*blkid | grep -i _device_handle_ID_*`
+
+. Determine si existe una entrada de punto de montaje para el volumen lógico en la `/etc/fstab` en el host de origen.
+. Si existe una entrada de punto de montaje para el volumen lógico en el host de origen, edite manualmente el `/etc/fstab` archivo en el host de prueba para agregar las entradas del punto de montaje.
+. Monte la LUN:
++
+`*mount -a*`
+
+. Compruebe que el dispositivo DMMP está montado:
++
+`*mount*`
+
+. Realice las pruebas según sea necesario.
+. Después de completar la prueba, apague el host de prueba:
++
+`*shutdown -h -t0 now*`
+
+. En la interfaz de usuario de 7MTT, haga clic en *Finalizar prueba*.
+
+
+Si va a volver a asignar las LUN de Clustered Data ONTAP al host de origen, debe preparar el host de origen para la fase de transposición. Si van a seguir asignando sus LUN de Clustered Data ONTAP al host de prueba, no será necesario realizar otros pasos en el host de prueba.
+
+*Información relacionada*
+
+xref:task_gathering_pretransition_information_from_inventory_assessment_workbook.adoc[Recopilación de información previa a la transición del libro de trabajo de evaluación de inventario]
+
+xref:task_preparing_for_cutover_when_transitioning_luns_with_mounts_using_dmmp_aliases_on_linux_hosts.adoc[Preparación de la fase de transición al realizar la transición de las LUN con puntos de montaje mediante nombres de dispositivos DMMP en hosts Linux]

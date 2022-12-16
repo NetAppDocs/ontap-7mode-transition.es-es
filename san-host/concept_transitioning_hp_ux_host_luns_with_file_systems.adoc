@@ -1,0 +1,14 @@
+---
+permalink: san-host/concept_transitioning_hp_ux_host_luns_with_file_systems.html 
+sidebar: sidebar 
+keywords: transition, ontap, san, host, transition, hp, ux, host, lun, file, system 
+summary: 'Si realiza la transición de un LUN de host de HP-UX con un sistema de archivos de Data ONTAP que funciona en 7-Mode a Clustered Data ONTAP con la herramienta de transición de 7-Mode \(7MTT\), debe realizar pasos específicos antes y después de la transición para solucionar problemas de transición en el host.' 
+---
+= Transición de LUN de host de HP-UX con sistemas de archivos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si realiza la transición de un LUN de host de HP-UX con un sistema de archivos de Data ONTAP que funciona en 7-Mode a Clustered Data ONTAP con la herramienta de transición de 7-Mode (7MTT), debe realizar pasos específicos antes y después de la transición para solucionar problemas de transición en el host.

@@ -1,0 +1,35 @@
+---
+permalink: copy-free/task_preparing_cluster_for_transitioning_volume_snapmirror_relationships.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, prepare, cluster, snapmirror, relationship 
+summary: Para realizar la transición de relaciones de SnapMirror con volúmenes de 7-Mode, debe añadir la licencia de SnapMirror a los clústeres de origen y destino. También debe crear una relación de paridad entre los clústeres en los que se realice la transición de los volúmenes primario y secundario de las relaciones de SnapMirror y crear las programaciones de SnapMirror. 
+---
+= Preparación del clúster para la transición de relaciones de SnapMirror para volúmenes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para realizar la transición de relaciones de SnapMirror con volúmenes de 7-Mode, debe añadir la licencia de SnapMirror a los clústeres de origen y destino. También debe crear una relación de paridad entre los clústeres en los que se realice la transición de los volúmenes primario y secundario de las relaciones de SnapMirror y crear las programaciones de SnapMirror.
+
+Debe haber registrado las programaciones de SnapMirror definidas en el `/etc/snapmirror.conf` Archivo del sistema secundario 7-Mode.
+
+.Pasos
+. Añada la licencia de SnapMirror en los clústeres de origen y destino:
++
+`*system license add _license_code_*`
+
+. En cada clúster, cree la relación de paridad de clústeres.
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-clus-peer/home.html["Configuración exprés de relación entre iguales de clústeres y SVM"]
+
+. Cree programaciones en las SVM secundarias que coincidan con las programaciones del sistema secundario 7-Mode:
++
+`*job schedule cron create*`
+
+
+
+*Información relacionada*
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr/GUID-5CB10C70-AC11-41C0-8C16-B4D0DF916E9B.html["Comandos de ONTAP 9"]

@@ -1,0 +1,106 @@
+---
+permalink: san-host/task_mounting_logical_volumes_on_linux_host_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, mount, logical, volumes, linux, hosts 
+summary: Después de la transición de un sistema operativo ONTAP en 7-Mode a Clustered Data ONTAP, sus volúmenes lógicos están sin conexión. Debe montar estos volúmenes lógicos para que los hosts puedan acceder a sus LUN. 
+---
+= Montaje de volúmenes lógicos en hosts Linux después de la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de la transición de un sistema operativo ONTAP en 7-Mode a Clustered Data ONTAP, sus volúmenes lógicos están sin conexión. Debe montar estos volúmenes lógicos para que los hosts puedan acceder a sus LUN.
+
+Si realiza una transición sin copia (CFT), deben completarse los procedimientos para el realojamiento de volúmenes. Consulte link:https://docs.netapp.com/us-en/ontap-7mode-transition/copy-free/index.html["Guía de transición sin copias de 7-Mode Transition Tool"] para obtener más detalles.
+
+* En el caso de las transiciones basadas en copias (CBTS), realice estos pasos después de completar la operación de transición del almacenamiento en la herramienta de transición de 7-Mode (7MTT).
+* En el caso de CFTS, realice estos pasos después de la operación Importar datos y configuración en 7MTT.
++
+.. Genere el archivo de asignación de LUN de 7-Mode a Clustered Data ONTAP:
++
+*** Para las transiciones basadas en copias, ejecute el siguiente comando desde el host Linux donde se ha instalado 7MTT: +
+`*transition cbt export lunmap -p _project-name_ -o _file_path_*`
++
+Por ejemplo:
+
++
+`*transition cbt export lunmap -p SanWorkLoad -o c:/Libraires/Documents/7-to-C-LUN-MAPPING.csv*`
+
+*** Para las transiciones sin copias, ejecute el siguiente comando desde el sistema donde se ha instalado 7MTT:
++
+`*transition cft export lunmap -p p_roject-name_ -s _svm-name_ -o _output-file_*`
+
++
+Por ejemplo:
+
++
+`*transition cft export lunmap -p SanWorkLoad -s svml -0 c:/Libraries/Documents/7-to-C-LUN-MAPPING-svml.csv*`
+
++
+
+NOTE: Debe ejecutar este comando para cada máquina virtual de almacenamiento (SVM).
+
+
+
+.. Elimine los dispositivos SCSI creados para LUN de 7-Mode:
++
+*** Para eliminar todos los dispositivos SCSI: +
+`*rescan-scsi-bus.sh -r*`
+*** Para eliminar cada dispositivo SCSI individualmente: +
+`*echo 1> /sys/block/__SCSI_ID__/delete*`
++
+Este comando debe ejecutarse en todos los dispositivos SCSI de LUN de 7-Mode. Consulte la columna SCSI Device ID (ID de dispositivo SCSI) en la pestaña SAN Host LUNs (LUN de host SAN) del _Inventory Assessment Workbook_ (Libro de evaluación de inventario) para identificar los ID de dispositivo SCSI para las LUN.
+
+
+
+.. Descubra nuevos LUN de ONTAP:
++
+`*rescan-scsi-bus.sh*`
+
+.. Configurar dispositivos DMMP para LUN ONTAP:
++
+`*multipath*`
+
+.. Compruebe que se han detectado las LUN de ONTAP:
++
+`*sanlun lun show*`
+
+.. Determine el nuevo ID de identificador de dispositivo LUN de ONTAP:
++
+`*multipath -ll _Device_handle_name_*`
+
+.. Importe el grupo de volúmenes:
++
+`*vgimport _vg_name_*`
+
+.. Verifique el estado del grupo de volúmenes:
++
+`*vgdisplay*`
+
+.. Habilitar volúmenes lógicos:
++
+`*vgchange -ay _vg_name_*`
+
+.. Compruebe el estado del volumen lógico:
++
+`*lvdisplay*`
+
++
+El estado del VI debe aparecer como "'disponible'".
+
+.. Monte los volúmenes lógicos de la LUN de ONTAP en su directorio de punto de montaje correspondiente:
++
+`mount _lv_namemount_point_`
+
++
+Si los puntos de montaje se definen en la `etc/fstab` archivo, puede utilizar la `mount -a` comando para montar los volúmenes lógicos.
+
+.. Compruebe los puntos de montaje:
++
+`*mount*`
+
+
+
+

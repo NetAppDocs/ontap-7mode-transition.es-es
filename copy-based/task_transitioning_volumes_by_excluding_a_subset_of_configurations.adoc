@@ -1,0 +1,63 @@
+---
+permalink: copy-based/task_transitioning_volumes_by_excluding_a_subset_of_configurations.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, customize, cli 
+summary: De forma predeterminada, todas las configuraciones de 7-Mode se trasladan a ONTAP. Puede optar por excluir algunas o todas las configuraciones de los servicios de nombre, NFS, CIFS, SAN y volúmenes desde la transición utilizando la CLI de 7-Mode Transition Tool. También puede optar por consolidar las reglas de exportación de NFS 7-Mode y las programaciones de Snapshot, así como reutilizar una política de exportación y una política de Snapshot de NFS existente en la SVM de destino. 
+---
+= Personalización de la transición de configuraciones de 7-Mode mediante la CLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+De forma predeterminada, todas las configuraciones de 7-Mode se trasladan a ONTAP. Puede optar por excluir algunas o todas las configuraciones de los servicios de nombre, NFS, CIFS, SAN y volúmenes desde la transición utilizando la CLI de 7-Mode Transition Tool. También puede optar por consolidar las reglas de exportación de NFS 7-Mode y las programaciones de Snapshot, así como reutilizar una política de exportación y una política de Snapshot de NFS existente en la SVM de destino.
+
+Debe realizar esta tarea antes de aplicar la configuración, después de la cual se ignorará cualquier modificación.
+
+La herramienta de transición de 7-Mode no realiza comprobaciones previas para la configuración que se excluye.
+
+De forma predeterminada, todas las configuraciones de 7-Mode se seleccionan para la transición.
+
+Es recomendable ejecutar primero las comprobaciones previas con todas las configuraciones y, a continuación, excluir una o más configuraciones en la ejecución posterior de las comprobaciones previas. Esto le ayuda a comprender qué configuraciones se excluyen de la transición y qué comprobaciones previas se omiten posteriormente.
+
+.Pasos
+* Excluir y verificar las configuraciones:
++
+.. Excluir las configuraciones: +
+`*transition cbt property-set -p _project_name_ -n _config_property_name_ -v true*`
++
+`_config_property_name_` es la configuración que desea excluir.
+
++
+xref:reference_configurations_that_can_be_excluded.adoc[Configuraciones que pueden excluirse de la transición]
+
+.. Compruebe el valor de la propiedad que se ha establecido para excluir la configuración:
++
+`*transition cbt property-get -p _project_name_ -n _config_property_name_*`
+
+
+
+* Consolide las reglas de exportación de NFS para la transición:
++
+** Consolide reglas de exportación NFS de 7-Mode similares a una única política de exportación de Clustered Data ONTAP, que se pueden aplicar al volumen o qtree que se ha trasladado: +
+`*transition cbt property-set -p _project_name_ -n _nfs-consolidate-similiar-7mode-exports_ -v true*`
++
+Si la `nfs-consolidate-similiar-7mode-exports` la propiedad se establece en `false`, La herramienta de transición de 7-Mode crea una nueva política de exportación NFS en ONTAP para cada regla de exportación de NFS de 7-Mode.
+
+** Reutilizar una política de exportación NFS existente en la SVM que coincida con la política de exportación que se creará con la herramienta; esta se puede aplicar a los volúmenes o qtrees convertidos: +
+`*transition cbt property-set -p _project_name_ -n _nfs-reuse-matching-svm-export-policies_ -v true*`
+
+
+* Consolide las programaciones de Snapshot para la transición:
++
+** Consolide programaciones de Snapshot de 7-Mode similares en una única política de Snapshot en ONTAP, que se puede aplicar al volumen que se ha realizado la transición: +
+`*transition cbt property-set -p _project_name_ -n _consolidate-similar-7mode-snapshot-policies_ -v true*`
++
+Si la `consolidate-similar-7mode-snapshot-policies` La propiedad se establece en false, la herramienta de transición de 7-Mode crea una nueva política de Snapshot en ONTAP para cada programación de Snapshot.
+
+** Reutilizar una política de Snapshot existente en la SVM que coincida con la política de Snapshot que se creará con la herramienta; esta se puede aplicar a los volúmenes que se han realizado la transición: +
+`*transition cbt property-set -p _project_name_ -n _reuse-matching-svm-snapshot-policies_ -v true*`
+
+
+

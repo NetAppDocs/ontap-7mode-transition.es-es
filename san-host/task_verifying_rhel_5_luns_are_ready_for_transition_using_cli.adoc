@@ -1,0 +1,35 @@
+---
+permalink: san-host/task_verifying_rhel_5_luns_are_ready_for_transition_using_cli.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, rhel, 5, lun, cli 
+summary: 'Si el LUN de Red Hat Enterprise Linux \(RHEL\) 5 está configurado con un multivía de asignador de dispositivos \(DMMP\), debe verificar que no haya un sistema de archivos configurado antes de realizar la transición de la LUN de Data ONTAP funcionando en 7-Mode a Clustered Data ONTAP.' 
+---
+= Comprobar que las LUN de RHEL 5 están listas para la transición mediante la CLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si el LUN de Red Hat Enterprise Linux (RHEL) 5 está configurado con un asignador multivía de dispositivos (DMMP), debe verificar que no haya un sistema de archivos configurado antes de realizar la transición del LUN de Data ONTAP operativo en 7-Mode a Clustered Data ONTAP.
+
+.Pasos
+. Busque el nombre del dispositivo SCSI para la transición de la LUN:
++
+`*sanlun lunshow*`
+
+. Identifique el nombre del dispositivo DMMP para el LUN:
++
+`*multipath -11*`
+
++
+El nombre del dispositivo DMMP puede ser un identificador de identificador de dispositivo (WWID), por ejemplo `360a980003753456258244538554b4b53`, o puede ser un alias, como, `dmmp_raw_lun`.
+
+. Compruebe que la LUN no tiene un sistema de archivos:
++
+`*dumpe2fs/dev/mapper/__DMMP device name__*`
+
++
+Si la LUN no tiene un sistema de archivos, se muestra en el resultado no se ha podido encontrar un superbloque de sistemas de archivos válido.
+
+

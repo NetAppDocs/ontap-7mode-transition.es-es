@@ -1,0 +1,50 @@
+---
+permalink: copy-based/task_generating_an_assessment_report_by_importing_inventory_report_xml.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, generate, assessment, report, inventory, xml 
+summary: Puede importar el informe XML de inventario generado por la herramienta de recopilación de inventario para evaluar las características y funcionalidades de hosts y controladores. A continuación puede identificar cómo funcionan este host y las controladoras en la versión de ONTAP seleccionada para realizar la transición mediante la creación de un informe de evaluación. 
+---
+= Generar un informe de evaluación importando el XML del informe de inventario
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede importar el informe XML de inventario generado por la herramienta de recopilación de inventario para evaluar las características y funcionalidades de hosts y controladores. A continuación puede identificar cómo funcionan este host y las controladoras en la versión de ONTAP seleccionada para realizar la transición mediante la creación de un informe de evaluación.
+
+* Debe haber ejecutado la herramienta de recopilación de inventario y generado el archivo XML del informe de inventario.
++
+
+NOTE: Para evaluar los hosts y las controladoras para una transición basada en copias, debe usar Inventory Collect Tool 3.3 para recopilar el inventario.
+
+* Debe haber preparado los sistemas y los hosts de 7-Mode para la evaluación de la transición.
+
+
+No es necesario acceder a los sistemas que desea evaluar mientras se importa el informe de inventario y se realiza una evaluación de transición.
+
+.Pasos
+. Inicie sesión en 7-Mode Transition Tool y, a continuación, haga clic en *recopilar y evaluar* en la página de inicio.
+. Haga clic en *Importar XML de informe de inventario*.
+. Haga clic en *examinar* y, a continuación, seleccione el informe XML generado por la herramienta de recopilación de inventario.
+. Haga clic en *Importar*.
++
+El estado de evaluación del sistema muestra `Imported;Ready`.
+
+. Seleccione el sistema para el que desea realizar la evaluación de transición.
+. Haga clic en *Crear informe de evaluación de transición*.
+. En el cuadro de diálogo Create Transition Assessment Report, seleccione la versión Data ONTAP del clúster de destino.
+. Especifique un prefijo para el nombre de archivo de los informes.
+. Haga clic en *generar informe*.
++
+Los informes AssessmentWorkbook y AssessmentExecutiveSummary se generan en formato XML.
+
+. Vea el informe AssessmentWorkbook en Microsoft Excel y el informe AssessmentExecutiveSummary en Microsoft Word utilizando Microsoft Office 2007 o versiones posteriores.
++
+Para ver el informe AssessmentWorkbook en Microsoft Excel, es posible que tenga que habilitar macros en Excel.
+
+
+
+*Información relacionada*
+
+xref:task_collecting_tool_logs.adoc[Descargando archivos de registro de transición]

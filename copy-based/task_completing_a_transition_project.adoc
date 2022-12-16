@@ -1,0 +1,62 @@
+---
+permalink: copy-based/task_completing_a_transition_project.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, complete, project 
+summary: Puede completar una transición completando los proyectos individuales. Debido a que esta operación provoca interrupciones, debe evaluar cuándo debe ejecutarse. Cuando se realiza la transición de volúmenes en una relación de SnapMirror, es necesario completar el proyecto secundario antes de completar la transición del proyecto principal. 
+---
+= La finalización de un proyecto de transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede completar una transición completando los proyectos individuales. Debido a que esta operación provoca interrupciones, debe evaluar cuándo debe ejecutarse. Cuando se realiza la transición de volúmenes en una relación de SnapMirror, es necesario completar el proyecto secundario antes de completar la transición del proyecto principal.
+
+La transición del almacenamiento se completa en unos minutos. El tiempo requerido para que los clientes vuelvan a montar los datos varía. El momento de la transición del almacenamiento o de la ventana de interrupción del servicio depende de los factores siguientes:
+
+* Actualización final
++
+La actualización final de los datos depende de la cantidad de cambios en los datos de origen desde la última actualización. Las transferencias incrementales minimizan la cantidad de datos que se deben transferir durante la transición.
+
+* Volviendo a conectar los clientes
++
+Si cada cliente debe conectarse al clúster necesita actualizaciones, el número de clientes que deben actualizarse determina el tiempo de transposición.
+
+
+
+Las interrupciones de servicio se aplican solo a los volúmenes que se migran. No es necesario apagar todo el sistema de almacenamiento de 7-Mode de origen. Los volúmenes del sistema de origen que no se migran pueden permanecer en línea y ser accesibles.
+
+. En el Panel de migración, seleccione el proyecto que desea completar.
+. Desconectar el acceso del cliente manualmente.
+. Haga clic en *Complete Transition*.
++
+.. Si desea mantener los volúmenes de origen de 7-Mode en línea después de la transición, desactive la casilla de verificación *desconectar los volúmenes de origen después de la transición*.
++
+De forma predeterminada, esta opción está seleccionada y los volúmenes de origen se desconectan.
+
+.. Si ha seleccionado SnapLock Volumes para la verificación de la cadena de custodia, active la casilla de verificación *entiendo que no debo desconectar los volúmenes SnapLock de 7-Mode durante la verificación de la cadena de custodia* para mantener los volúmenes SnapLock en línea después de la transición.
+.. Si ha seleccionado la transición de una relación de SnapMirror entre clústeres que ejecutan ONTAP 9.3 o versiones compatibles posteriores, active la casilla de verificación *comprendo que debo convertir manualmente el tipo de relación de SnapMirror de data_protection a Extended_data_protection*.
+.. Active la casilla de verificación *Personalizar el número de transferencias simultáneas de SnapMirror y el límite del acelerador para esta operación* para especificar el número de operaciones de copia de datos de SnapMirror y el límite del acelerador.
+.. Haga clic en *continuar*.
+
+
++
+Se muestran los resultados de la operación de transposición.
+
+
+
+Las direcciones IP de 7-Mode seleccionadas para la transición no están configuradas del sistema de almacenamiento de 7-Mode y los LIF asociados creados antes de que la transición se ponga al estado administrativo. Los volúmenes de 7-Mode se encuentran sin conexión.
+
+Desde el clúster, ejecute el comando Vserver check lif-multi-tenancy run para comprobar que se puede acceder a los servidores de nombres mediante las LIF realizadas durante la transición.
+
+
+NOTE: Si creó una nueva LIF, los usuarios y aplicaciones de los volúmenes en transición deben volver a asignarse a las unidades con las nuevas direcciones IP y los puertos una vez que finalizan todos los proyectos.
+
+Si ha completado la transición de una relación de SnapMirror entre clústeres que ejecutan ONTAP 9.3 o versiones compatibles posteriores, debe convertir la relación de SnapMirror del tipo DP al tipo XDP.
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-dap/home.html["Protección de datos"]
+
+*Información relacionada*
+
+xref:concept_guidelines_for_deciding_when_to_cutover.adoc[Directrices para la decisión de cuándo realizar la transición]

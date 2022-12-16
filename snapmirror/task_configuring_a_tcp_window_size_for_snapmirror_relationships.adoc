@@ -1,0 +1,56 @@
+---
+permalink: snapmirror/task_configuring_a_tcp_window_size_for_snapmirror_relationships.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, configure, tcp, window, size, snapmirror, relationship 
+summary: Puede configurar un tamaño de ventana TCP para las relaciones de SnapMirror entre el volumen de 7-Mode y el volumen de ONTAP para mejorar el rendimiento de la transferencia de SnapMirror a fin de que las operaciones de replicación se completen más rápido. 
+---
+= Configurar un tamaño de ventana TCP para relaciones de SnapMirror
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede configurar un tamaño de ventana TCP para las relaciones de SnapMirror entre el volumen de 7-Mode y el volumen de ONTAP para mejorar el rendimiento de la transferencia de SnapMirror a fin de que las operaciones de replicación se completen más rápido.
+
+La `window-size-for-tdp-mirror` La opción es provista con el comando policy de snapmirror para configurar el tamaño de la ventana TCP de las relaciones de SnapMirror entre 7-Mode y los volúmenes de ONTAP (TDP). Con esta opción, puede configurar un tamaño de ventana TCP superior/inferior. Al configurar esta opción, debe tener en cuenta lo siguiente:
+
+* La `window-size-for-tdp-mirror` la opción sólo se puede configurar para políticas de tipo `async-mirror`.
+* La `window-size-for-tdp-mirror` la opción se puede configurar en el rango de `256 KB` para `7 MB`. De lo contrario, la configuración fallará.
+* El valor predeterminado para `window-size-for-tdp-mirror` la opción es `2 MB`.
+
+
+
+NOTE: La `window-size-for-tdp-mirror` la opción está oculta y la tabulación completa no funciona. Asegúrese de escribir la opción completa para utilizarla.
+
+El ejemplo siguiente muestra cómo configurar un tamaño de ventana TCP de `5 MB` Para una relación de SnapMirror del tipo `TDP`:
+
+.Pasos
+. Cree una política de SnapMirror de tipo `async-mirror` Esto tiene un tamaño de ventana TCP de `5 MB`:
++
+`*snapmirror policy create*`
+
++
+[listing]
+----
+cluster01::> snapmirror policy create -vserver vserverA –policy tdp_window_size_policy -window-size-for-tdp-mirror 5MB -type async-mirror
+----
+. Cree una relación de SnapMirror del tipo `TDP` y aplicar la directiva:
++
+`*snapmirror create*`
+
++
+[listing]
+----
+cluster01::> snapmirror create -source-path filerA:volA -destination-path vserverA:volA -type TDP -policy tdp_window_size_policy
+----
+. Vea el tamaño de ventana configurado en la política de SnapMirror:
++
+`*snapmirror policy show*`
+
++
+[listing]
+----
+cluster01::> snapmirror policy show -vserver vserverA -policy tdp_window_size_policy -fields window-size-for-tdp-mirror
+----
+

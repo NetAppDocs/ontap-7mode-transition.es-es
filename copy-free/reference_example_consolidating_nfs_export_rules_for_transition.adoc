@@ -1,0 +1,298 @@
+---
+permalink: copy-free/reference_example_consolidating_nfs_export_rules_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, examples, nfs, export, rules, snapshot, schedules 
+summary: Tal vez le interese consultar ejemplos de cómo se consolidan reglas de exportación similares de 7-Mode y programaciones de Snapshot de 7-Mode en una única política de exportación de NFS y una única política de Snapshot en ONTAP. También es posible que desee comprender cómo se asignan las políticas consolidadas a los volúmenes o qtrees convertidos con o sin necesidad de reutilizar una política existente coincidente en la SVM de destino. 
+---
+= Ejemplos de consolidación de reglas de exportación de NFS y planificaciones de Snapshot para la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Tal vez le interese consultar ejemplos de cómo se consolidan reglas de exportación similares de 7-Mode y programaciones de Snapshot de 7-Mode en una única política de exportación de NFS y una única política de Snapshot en ONTAP. También es posible que desee comprender cómo se asignan las políticas consolidadas a los volúmenes o qtrees convertidos con o sin necesidad de reutilizar una política existente coincidente en la SVM de destino.
+
+
+
+== Ejemplo de consolidación de reglas de exportación NFS para la transición
+
+*Reglas de exportación NFS en 7-Mode y ONTAP antes de la transición*
+
+*Reglas de exportación de 7-Mode*
+
+[listing]
+----
+/vol/vol1       -sec=sys,rw,nosuid
+/vol/vol2       -sec=sys,rw,nosuid
+/vol/vol3       -sec=sys,rw,nosuid
+----
+*Políticas de exportación existentes en ONTAP*
+
+[listing]
+----
+cluster-2::> vserver export-policy show -vserver vs1
+Vserver          Policy Name
+---------------  -------------------
+vs1              default
+vs1              export_policy_1
+----
+La política de exportación existente export_policy_1 tiene la siguiente regla de exportación:
+
+[listing]
+----
+cluster-2::> vserver export-policy rule show -vserver vs1 -policyname export_policy_1
+             Policy          Rule    Access   Client                RO
+Vserver      Name            Index   Protocol Match                 Rule
+------------ --------------- ------  -------- --------------------- ---------
+vs1          export_policy_1 1       nfs      0.0.0.0/0             sys
+----
+*Políticas de exportación en ONTAP después de la transición con consolidación (sin reutilización)*
+
+Los volúmenes vol1, vol2 y vol3 tienen reglas de exportación similares en 7-Mode; por lo tanto, se asigna a estos volúmenes una nueva política de exportación consolidada Transition_export_policy_1 tras la transición:
+
+[listing]
+----
+cluster-2::> vserver export-policy show -vserver vs1
+Vserver          Policy Name
+---------------  -------------------
+vs1              default
+vs1              export_policy_1
+vs1              transition_export_policy_1
+3 entries were displayed.
+----
+[listing]
+----
+cluster-2::> vserver export-policy rule show -vserver vs1 -policyname transition_export_policy_1
+             Policy          Rule    Access   Client                RO
+Vserver      Name            Index   Protocol Match                 Rule
+------------ --------------- ------  -------- --------------------- ---------
+vs1          transition_export_policy_1
+                             1       nfs      0.0.0.0/0             sys
+----
+[listing]
+----
+cluster-2::> volume show -vserver vs1 -volume vol1,vol2,vol3 -fields policy
+vserver volume policy
+------- ------ --------------------------
+vs1     vol1   transition_export_policy_1
+vs1     vol2   transition_export_policy_1
+vs1     vol3   transition_export_policy_1
+3 entries were displayed.
+----
+*Políticas de exportación en ONTAP después de la transición con consolidación y reutilización*
+
+Los volúmenes vol1, vol2 y vol3 tienen reglas de exportación similares en 7-Mode; por lo tanto, se asigna una política de exportación consolidada a estos volúmenes tras la transición. La política de exportación, export_policy_1, que coincide con las reglas de exportación de 7-Mode, ya existe en la SVM. Por lo tanto, la política se aplica a los siguientes volúmenes:
+
+[listing]
+----
+cluster-2::> vserver export-policy show -vserver vs1
+Vserver          Policy Name
+---------------  -------------------
+vs1              default
+vs1              export_policy_1
+2 entries were displayed.
+----
+[listing]
+----
+cluster-2::> vserver export-policy rule show -vserver vs1 -policyname export_policy_1
+             Policy          Rule    Access   Client                RO
+Vserver      Name            Index   Protocol Match                 Rule
+------------ --------------- ------  -------- --------------------- ---------
+vs1          export_policy_1 1       nfs      0.0.0.0/0             sys
+----
+[listing]
+----
+cluster-2::> volume show -vserver vs1 -volume vol1,vol2,vol3 -fields policy
+vserver volume policy
+------- ------ --------------------------
+vs1     vol1   export_policy_1
+vs1     vol2   export_policy_1
+vs1     vol3   export_policy_1
+3 entries were displayed.
+----
+
+
+== Ejemplo de consolidación de políticas Snapshot para la transición
+
+*Programaciones de instantáneas en 7-Mode y ONTAP antes de la transición*
+
+*Programa de 7 modos*
+
+|===
+| Volumen de 7-Mode | Programación Snapshot de 7-Mode 
+
+
+ a| 
+vol1
+ a| 
+0 2 4 a 8,12,16,20 (copias snapshot semanales: 0, copias snapshot diarias: 2, copias snapshot cada hora: 6 a 2, 4, 8, 12, 16 20 horas)
+
+
+
+ a| 
+vol2
+ a| 
+0 2 4@8,12,16,20
+
+
+
+ a| 
+vol3
+ a| 
+0 2 4@8,12,16,20
+
+
+
+ a| 
+vol4
+ a| 
+1 2 3 a 8,12,16 (copias snapshot semanales: 1, copias snapshot diarias: 2, copias snapshot cada hora: 3 a 8,12,16 horas)
+
+
+
+ a| 
+vol5
+ a| 
+2 2 3 a 8,12,16 (copias snapshot semanales: 2, copias snapshot diarias: 2, copias snapshot cada hora: 3 a 8,12,16 horas)
+
+|===
+*Políticas de instantánea existentes en ONTAP*
+
+|===
+| Nombre de la política Snapshot | Detalles de políticas 
+
+
+ a| 
+Intervalo semanal
+ a| 
+Semanal, cuenta: 1
+
+
+
+ a| 
+Intervalo de tiempo 4
+ a| 
+*Detalles del programa*
+
+* Intervalo 1: Diario, sujeto 1: 2
+* Tiempo 2: 4 cada 8, 12, 16, 20 horas
+
+
+
+
+ a| 
+Intervalo 1
+ a| 
+Cada hora a las 8, 12, 16, 20 horas, recuento: 4
+
+|===
+*Política de Snapshot en ONTAP después de la transición con consolidación (sin reutilización)*
+
+|===
+| Volumen de 7-Mode | Programación Snapshot de 7-Mode | Política de Snapshot en ONTAP 
+
+
+ a| 
+vol1
+ a| 
+0 2 4 a 8,12,16,20 (copias snapshot semanales: 0, copias snapshot diarias: 2, copias snapshot cada hora: 4 a las 8, 12, 16, 20 horas)
+ a| 
+*Política consolidada para vol1, vol2 y vol3*
+
+* Nombre: Transition_Snapshot_policy_0
+* Programación de detalles
++
+** Intervalo 1: Diario, sujeto 1: 2
+** Tiempo 2: 4 cada 8, 12, 16, 20 horas
+
+
+
+
+
+
+ a| 
+vol2
+ a| 
+0 2 4@8,12,16,20
+ a| 
+vol3
+
+
+
+ a| 
+0 2 4@8,12,16,20
+ a| 
+vol4
+ a| 
+1 2 3 a 8,12,16 (copias snapshot semanales: 1, copias snapshot diarias: 2, copias snapshot cada hora: 3 a 8,12,16 horas)
+
+
+
+ a| 
+* Nombre: Transition_Snapshot_policy_1
+* Programación de detalles
++
+** Intervalo 1: Semanal, sujeto 1: 1
+** Intervalo 2: Diario, sujeto 2: 2
+** Intervalo 3: Cada hora, con derechos compensatorios 3: 3 cada 8,12,16 horas
+
+
+
+ a| 
+vol5
+ a| 
+2 2 3 a 8,12,16 (copias snapshot semanales: 2, copias snapshot diarias: 2, copias snapshot cada hora: 3 a 8,12,16 horas)
+
+|===
+*Política de Snapshot en ONTAP después de la transición con consolidación y reutilización*
+
+|===
+| Volumen de 7-Mode | Programación Snapshot de 7-Mode | Política de Snapshot en ONTAP 
+
+
+ a| 
+vol1
+ a| 
+0 2 4 a 8,12,16,20 (copias snapshot semanales: 0, copias snapshot diarias: 2, copias snapshot cada hora: 4 a 2, 4, 8, 12, 16 20 horas)
+ a| 
+Política consolidada para vol1, vol2 y vol3 para la que se reutiliza la política existente de ONTAP
+
+Nombre: ScheduleDailyHourly4
+
+
+
+ a| 
+vol2
+ a| 
+0 2 4@8,12,16,20
+ a| 
+vol3
+
+
+
+ a| 
+0 2 4@8,12,16,20
+ a| 
+vol4
+ a| 
+1 2 3 a 8,12,16 (copias snapshot semanales: 1, copias snapshot diarias: 2, copias snapshot cada hora: 3 a 8,12,16 horas)
+
+
+
+ a| 
+* Nombre: Transition_Snapshot_policy_1
+* Programación de detalles
++
+** Intervalo 1: Semanal, sujeto 1: 1
+** Intervalo 2: Diario, sujeto 2: 2
+** Intervalo 3: Cada hora, con derechos compensatorios 3: 3 cada 8,12,16 horas
+
+
+
+ a| 
+vol5
+ a| 
+2 2 3 a 8,12,16 (copias snapshot semanales: 2, copias snapshot diarias: 2, copias snapshot cada hora: 3 a 8,12,16 horas)
+
+|===

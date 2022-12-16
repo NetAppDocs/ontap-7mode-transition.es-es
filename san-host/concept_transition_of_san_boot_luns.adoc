@@ -1,0 +1,22 @@
+---
+permalink: san-host/concept_transition_of_san_boot_luns.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, san, boot, lun 
+summary: 'Debe reiniciar las LUN de arranque SAN antes de pasar de Data ONTAP funcionando en 7-Mode a Clustered Data ONTAP mediante la herramienta de transición de 7-Mode \(7MTT\). Debe realizar pasos específicos para preparar la fase de transición y, después de la transición, debe detectar las LUN.' 
+---
+= Transición de las LUN de arranque SAN
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe reiniciar las LUN de arranque SAN antes de pasar de Data ONTAP funcionando en 7-Mode a Clustered Data ONTAP mediante la herramienta de transición de 7-Mode (7MTT). Debe realizar pasos específicos para preparar la fase de transición y, después de la transición, debe detectar las LUN.
+
+*Información relacionada*
+
+xref:task_preparing_for_transition_of_fc_or_fcoe_san_boot_luns.adoc[Preparar la transición de LUN DE arranque SAN FC o FCoE en hosts RHEL]
+
+xref:task_preparing_for_transition_of_iscsi_san_boot_luns.adoc[Preparación para la transición de LUN DE arranque SAN iSCSI]
+
+xref:task_discovering_san_boot_luns_after_transition.adoc[Detección de las LUN de arranque SAN después de la transición]

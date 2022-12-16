@@ -1,0 +1,80 @@
+---
+permalink: copy-based/reference_limits_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, limits 
+summary: Cuando realice la transición de los volúmenes con la herramienta 7-Mode Transition Tool, debe tener en cuenta ciertos límites para la evaluación, como el número de controladoras y hosts que pueden evaluarse simultáneamente. Para la migración, debe revisar el número de volúmenes en un proyecto y el número de proyectos que se pueden ejecutar simultáneamente. 
+---
+= Límites para la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando realice la transición de los volúmenes con la herramienta 7-Mode Transition Tool, debe tener en cuenta ciertos límites para la evaluación, como el número de controladoras y hosts que pueden evaluarse simultáneamente. Para la migración, debe revisar el número de volúmenes en un proyecto y el número de proyectos que se pueden ejecutar simultáneamente.
+
+En la siguiente tabla, se enumera el número de controladoras y hosts que pueden evaluarse simultáneamente:
+
+|===
+| Parámetro | Límite máximo 
+
+
+ a| 
+Número de controladoras
+ a| 
+50
+
+
+
+ a| 
+Números de hosts
+ a| 
+20
+
+
+
+ a| 
+Número de hosts ESXi
+ a| 
+10
+
+|===
+
+NOTE: El número máximo de controladoras 7-Mode en una única evaluación depende de la cantidad de objetos, como el número de volúmenes, qtrees, cuota y exportaciones.
+
+En la siguiente tabla, se enumera el número de volúmenes en un proyecto y el número de proyectos que se pueden ejecutar simultáneamente durante la migración:
+
+|===
+| Parámetro | Límite máximo 
+
+
+ a| 
+Número de volúmenes en un proyecto
+ a| 
+160
+
+
+
+ a| 
+Límite recomendado para el número total de volúmenes en todos los proyectos activos de la interfaz web en un momento dado
+ a| 
+240
+
+
+
+ a| 
+Número máximo de proyectos activos en un momento dado
+ a| 
+50
+
+
+NOTE: Si tiene 50 proyectos activos, puede replicar datos desde sistemas de almacenamiento 50 7-Mode y sus destinos de SnapMirror asociados.
+
+
+
+ a| 
+Número de programas de copia de datos por proyecto
+ a| 
+7
+
+|===

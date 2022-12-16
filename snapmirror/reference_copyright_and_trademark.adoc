@@ -1,0 +1,12 @@
+---
+permalink: snapmirror/reference_copyright_and_trademark.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, copyright, trademark, machine, translation 
+summary: Copyright y Marca comercial para la transición de datos de 7-Mode mediante tecnología SnapMirror. 
+---
+= Copyright, Marca comercial y traducción automática
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+

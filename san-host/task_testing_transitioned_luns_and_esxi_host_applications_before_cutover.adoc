@@ -1,0 +1,81 @@
+---
+permalink: san-host/task_testing_transitioned_luns_and_esxi_host_applications_before_cutover.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, lun, esxi, applications, cutover, phase, copy, based 
+summary: 'Si utiliza la herramienta 7-Mode Transition Tool \(7MTT\) 2.2 o una versión posterior y Data ONTAP 8.3.2 o posterior para realizar la transición de un host ESXi, puede probar las LUN de Clustered Data ONTAP que han pasado para verificar que puede conectar su host y aplicaciones antes de la fase de transición. El host de origen puede seguir ejecutando I/o en sus LUN de 7-Mode de origen durante las pruebas.' 
+---
+= Prueba de la transición de LUN y aplicaciones host ESXi antes de la fase de transición de las transiciones basadas en copias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si utiliza 7-Mode Transition Tool (7MTT) 2.2 o una versión posterior y Data ONTAP 8.3.2 o posterior para realizar la transición de un host ESXi, puede probar los LUN de Clustered Data ONTAP convertidos para verificar que puede conectar el host y las aplicaciones antes de la fase de transposición. El host de origen puede seguir ejecutando I/o en sus LUN de 7-Mode de origen durante las pruebas.
+
+* El nuevo host de prueba debe aprovisionarse en un nuevo entorno de prueba.
++
+Para evitar la duplicación o conflictos de IP/MAC o UUID, los hosts de prueba deben configurarse en una red privada.
+
+* Si va a realizar la transición de un host arrancado desde un disco duro local, el host de prueba debe tener la misma versión de ESXi y los mismos controladores que el host de origen.
+* La división en zonas debe estar completa entre los hosts FC o FCoE y los nuevos nodos de Clustered Data ONTAP.
+* La división en zonas no debe existir entre el host de origen y el nuevo host Data ONTAP en clúster.
++
+Si el host de origen puede ver con la transición de LUN de Clustered Data ONTAP durante el modo de prueba, se podrían experimentar interrupciones del servicio inesperadas en el host de origen.
+
+* Si va a realizar la transición de un host San arrancado, debe desactivar su adaptador de red.
+
+
+Se debe mantener la paridad del hardware entre el host de prueba y el host de origen, y se deben realizar los siguientes pasos en el host de prueba:
+
+Sus LUN de Clustered Data ONTAP se encuentran en modo de lectura/escritura durante las pruebas. Cuando finaliza la prueba y se prepara para la fase de transposición, se convierten al modo de solo lectura.
+
+.Pasos
+. Una vez finalizada la copia de datos de referencia, seleccione *modo de prueba* en la interfaz de usuario (UI) de 7MTT.
+. En la interfaz de usuario de 7MTT, haga clic en *Apply Configuration*.
+. Dividir en zonas los nodos de Clustered Data ONTAP en el host de prueba.
+. Inicie sesión en el nodo Clustered Data ONTAP y, a continuación, añada nuevos iniciadores de host de prueba al igroup que creó 7MTT durante la fase de prueba.
+. Vaya a. `C:\Program Files\NetApp\operating in 7-Mode Transition Tool\`.
+. Genere el archivo de asignación de LUN de 7-Mode a Clustered Data ONTAP desde el host Linux donde está instalado 7MTT:
++
+`*transition cbt export lunmap -p _project-name_ -o _file_path_*`
+
++
+Por ejemplo:
+
++
+`*transition cbt export lunmap -p SanWorkLoad -o c:/Libraires/Documents/7-to-C-LUN-MAPPING.csv*`
+
+. Ponga el host de prueba en línea.
++
+** xref:concept_reconfiguration_of_vmware_software_iscsi_initiator.adoc[Reconfigure el iniciador iSCSI del software VMware después de la transición]
+** xref:task_setting_up_esxi_hosts_configured_for_san_boot_after_transition.adoc[Configure sus hosts ESXi configurados para arranque SAN después de la transición]
+
+
+. Compruebe que se han detectado todas las LUN de Clustered Data ONTAP que han realizado la transición.
+. Si va a realizar la transición de un host arrancado que no es SAN, vuelva a registrar los equipos virtuales.
++
+xref:task_reregistering_vms_after_transition_on_non_san_boot_esxi_host_using_vsphere_client.adoc[Volver a registrar las máquinas virtuales después de la transición del host ESXi.]
+
+. Complete los pasos posteriores a la transición necesarios para los hosts ESXi.
++
+xref:concept_post_transition_requirements_for_esxi_hosts.adoc[Requisitos posteriores a la transición para hosts ESXi]
+
+. Conectar el host y las aplicaciones.
+. Realice las pruebas según sea necesario.
+. Apague el host de prueba.
+. En la interfaz de usuario de 7MTT, haga clic en *Finalizar prueba*.
++
+Ahora las nuevas LUN de Clustered Data ONTAP son de solo lectura, y se resincronizan los datos de las LUN de 7-Mode de origen.
+
+. Si piensa utilizar el mismo origen después de completar la transición, edite el igroup en el nodo de Clustered Data ONTAP para añadir el iniciador adecuado.
++
+Si tiene pensado promocionar el host de prueba a producción, no es necesario editar el igroup.
+
+
+
+Tras completar la prueba, planifique la hora de apagar el host de origen conectado a las controladoras que ejecutan Data ONTAP en 7-Mode. Al hacer clic en *Complete Transition*, los volúmenes y LUN de 7-Mode de origen se desconectan y las LUN de Clustered Data ONTAP que han pasado a ser de lectura/escritura.
+
+*Información relacionada*
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-dctg/home.html["Transición basada en copias"]

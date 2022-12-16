@@ -1,0 +1,98 @@
+---
+permalink: san-host/task_enabling_caw_on_a_datastore_using_esxi_cli.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, enable, caw, datastore, esxi, cli 
+summary: 'Si no ha sido compatible con Comparar y escribir \(CAW\) en Data ONTAP con funcionamiento en 7-Mode, debe habilitar manualmente la compatibilidad con CAW cuando realice la transición a Clustered Data ONTAP. Clustered Data ONTAP admite CAW de forma predeterminada.' 
+---
+= Habilitar CAW en un almacén de datos mediante la interfaz de línea de comandos de ESXi
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si no ha sido compatible con Compare and Write (CAW) en Data ONTAP con funcionamiento en 7-Mode, debe habilitar manualmente la compatibilidad con CAW cuando realice la transición a Clustered Data ONTAP. Clustered Data ONTAP admite CAW de forma predeterminada.
+
+* No debe haber I/o ni máquinas virtuales que se ejecuten activamente en el almacén de datos de VMFS.
+* El almacén de datos debe volver a montarse, si se ha migrado.
+* Debe tener el nuevo ID de naa para LUN de ONTAP desde el archivo de asignación 7-Mode Transition Tool (7MTT).
+
+
+Solo se debe habilitar CAW cuando no se ejecutan activamente operaciones de I/o ni máquinas virtuales en el almacén de datos de VMFS.
+
+* Solo se debe habilitar CAW cuando no se ejecutan activamente operaciones de I/o ni máquinas virtuales en el almacén de datos de VMFS.
+* Para las transiciones basadas en copias, realice estos pasos después de completar la operación de transición del almacenamiento en 7MTT.
+* En el caso de las transiciones sin copias, realice estos pasos una vez completada la operación Importar datos y configuración en 7MTT.
+
+
+.Pasos
+. Abra _Inventory Assessment Workbook_ generado por la herramienta de recopilación de inventario (ICT).
+. Vaya a la pestaña sistemas de archivos del host SAN.
+. Compruebe el estado de CAW para el almacén de datos.
++
+El valor *ATS/CAW* del almacén de datos debe mostrar *Disabled*, y la columna Filesystem debe mostrar *VMFS.x*.
+
+. Anote el nombre del almacén de datos en la columna Disk
+. Inicie sesión en la consola ESXi mediante SSH.
+. Indique los detalles del dispositivo y la partición:
++
+`*~ # vmkfstools -Ph -v1 _datastore_path_*`
+
++
+Datastore_path es el nombre del almacén de datos de la columna Disk del _Inventory Assessment Workbook_.
+
++
+`*# vmkfstools -Ph -v1 /vmfs/volumes/datastorename*`
+
++
+[listing]
+----
+VMFS-5.60 file system spanning 1 partitions.
+File system label (if any): datastorename
+Mode: public
+Capacity 9.8 GB, 8.2 GB available, file block size 1 MB, max file size 64
+TB
+Volume Creation Time: Mon Dec 9 10:29:18 2013
+Files (max/free): 27408/27394
+Ptr Blocks (max/free): 64512/64495
+Sub Blocks (max/free): 3968/3964
+Secondary Ptr Blocks (max/free): 256/256
+File Blocks (overcommit/used/overcommit %): 0/1593/0
+Ptr Blocks (overcommit/used/overcommit %): 0/17/0
+Sub Blocks (overcommit/used/overcommit %): 0/4/0
+Volume Metadata size: 590675968
+UUID: 52a59b7e-52d2fb6c-11d6-001ec9d631cb
+Partitions spanned (on "lvm"):
+naa.600a098044314c6c442b446d51376749:1
+naa.600a098054314c6c445d446f79716431:1
+naa.600a098054314c6c445d446f79716433:1
+Is Native Snapshot Capable: YES
+----
+. Anote el nombre del dispositivo y el número de partición.
++
+En el ejemplo anterior, `naa.600a098044314c6c442b446d51376749:1` es el nombre del dispositivo y el número de partición.
+
+. Utilice el ID de dispositivo y el número de partición para activar CAW en el almacén de datos:
++
+`*~# vmkfstools --configATSOnly 1 /vmfs/devices/disks/__device-ID:Partition__*`
+
+. Verifique que el volumen VMFS se haya configurado con sólo ATS:
++
+`*# vmkfstools -Ph -v1 /vmfs/volumes/VMFS-volume-name*`
+
++
+[listing]
+----
+VMFS-5.54 file system spanning 1 partitions.
+File system label (if any): ats-test-1
+Mode: public ATS-only
+----
+
+
+*Información relacionada*
+
+xref:task_remounting_vmfs_volumes_after_transition_using_vsphere_client.adoc[Volver a montar volúmenes VMFS después de la transición mediante vSphere Client]
+
+xref:task_remounting_vmfs_volumes_after_transition_using_esxi_cli_console.adoc[Volver a montar los volúmenes VMFS después de la transición mediante la interfaz de línea de comandos de ESXi]
+
+https://pubs.vmware.com/vsphere-55/index.jsp?topic=/com.vmware.vsphere.storage.doc/GUID-6887003D-2322-49AC-A56C-7AFE7350DB5D.html["Documentación de VMware"]

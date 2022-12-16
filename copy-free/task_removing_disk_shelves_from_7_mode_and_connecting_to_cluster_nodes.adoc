@@ -1,0 +1,123 @@
+---
+permalink: copy-free/task_removing_disk_shelves_from_7_mode_and_connecting_to_cluster_nodes.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, disconnect, disk, shelves, connect, cluster, node 
+summary: El cableado de las bandejas de discos de 7-Mode a los nodos del clúster de destino es un proceso manual. Después de cablear las bandejas de discos, se recomienda comprobar el cableado mediante Config Advisor. Después, puede verificar el cableado mediante la herramienta 7-Mode Transition Tool. La herramienta sólo realiza un subconjunto de las comprobaciones que realiza Config Advisor. 
+---
+= Desconectar las bandejas de discos del sistema 7-Mode y la conexión a los nodos del clúster
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El cableado de las bandejas de discos de 7-Mode a los nodos del clúster de destino es un proceso manual. Después de cablear las bandejas de discos, se recomienda comprobar el cableado mediante Config Advisor. Después, puede verificar el cableado mediante la herramienta 7-Mode Transition Tool. La herramienta sólo realiza un subconjunto de las comprobaciones que realiza Config Advisor.
+
+Debe haber registrado la información acerca de la conectividad de la bandeja de discos con los puertos de la controladora de 7-Mode.
+
+Debe tener en cuenta algunas de las consideraciones que se deben tener en cuenta para conectar bandejas de discos SAS:
+
+* Debe seguir las reglas para el cableado de los puertos cuadrados SAS y los puertos circulares.
+* Las bandejas IOM6 e IOM3 se pueden mezclar en la misma pila, pero no debe haber más que una única transición entre bandejas que utilizan diferentes tipos de IOM.
++
+Por ejemplo, IOM6e (controladora)--IOM6 (bandeja)--IOM3 (bandeja)--IOM3 (bandeja) es una configuración admitida. Pero IOM6e (controladora)--IOM3 (bandeja)--IOM6 (bandeja)--IOM3 (bandeja) no es una configuración compatible.
+
+
+
+.Pasos
+. Compruebe los ID de bandeja de discos en la pareja de ha 7-Mode y los nodos del clúster de destino:
++
+.. Si hay ID de bandeja duplicados (si se usan los ID de bandeja de discos de 7-Mode para las bandejas de discos en los nodos del clúster de destino), cambie los ID de bandeja de discos.
++
+*** Para las bandejas de discos SAS, un ID de bandeja válido es de 00 a 99.
+*** Los ID de las bandejas SAS deben ser únicos en el par de alta disponibilidad.https://library.netapp.com/ecm/ecm_download_file/ECMP1119629["Guía de instalación y servicio de bandejas de discos SAS para DS4243, DS2246, DS4486 y DS4246"]
+*** Para las bandejas de discos FC, un ID de bandeja válido es de 1 a 7.
+*** Los ID de las bandejas FC deben ser únicos en cada bucle FC.https://library.netapp.com/ecm/ecm_download_file/ECMP1112854["Guía de servicio de hardware DS14mk2 FC y DS14mk4 FC"]
+
+
+.. Apague y encienda las bandejas de discos para que los nuevos ID entren en vigencia.
+
+
+. Apague las bandejas de discos de 7-Mode.
+. Según si hay puertos adicionales disponibles en los nodos del clúster de destino, elija una de las siguientes opciones:
++
+|===
+| Si... | Realice lo siguiente... 
+
+
+ a| 
+Hay puertos adicionales disponibles para conectar las bandejas de discos
+ a| 
+Conecte las bandejas de discos en una nueva pila a los nodos del clúster de destino en una configuración multivía.
+
+
+NOTE: Se recomienda conectar las bandejas de discos a una pila aparte. La herramienta de transición de 7-Mode detecta la disponibilidad del número necesario de puertos en los nodos del clúster de destino cuando se ejecutan las comprobaciones previas.
+
+
+
+ a| 
+Los puertos no están disponibles para conectar las bandejas de discos
+ a| 
+Ejecute una de las siguientes acciones:
+
+** Añada una nueva tarjeta de expansión y conecte las bandejas de discos en una pila nueva a los nodos del clúster de destino en una configuración multivía.
++
+Debe haber verificado que la tarjeta de expansión es compatible con la plataforma de destino.
+
+** Conecte las bandejas de discos a una pila existente en una configuración multivía.
+
+
+|===
++
+https://library.netapp.com/ecm/ecm_download_file/ECMP1119629["Guía de instalación y servicio de bandejas de discos SAS para DS4243, DS2246, DS4486 y DS4246"]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMM1280273["Guía de servicio de hardware de DiskShelf14mk2 AT"]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMP1112854["Guía de servicio de hardware DS14mk2 FC y DS14mk4 FC"]
+
+. Encienda las bandejas de discos.
++
+
+IMPORTANT: Debe esperar al menos 70 segundos para continuar.
+
+. Utilice Config Advisor para verificar las conexiones.
++
+Debe corregir los problemas de cables identificados por Config Advisor.
+
++
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["Descargas de NetApp: Config Advisor"]
+
+. En la herramienta de transición de 7-Mode, haga clic en *verificar cableado*.
++
+Se muestra un mensaje que enumera las consideraciones importantes para esta operación.
+
++
+*Solución de problemas:* Si faltan discos en un agregado, el agregado se degrada y la verificación del cableado falla. Si el número de discos que faltan está dentro de un límite permitido, puede continuar la transición con los agregados degradados ejecutando el siguiente comando desde la CLI de 7-Mode Transition Tool:
+
++
+`*transition cft aggregate degraded-transition -p _project_name_ -n 7-__mode_host_name__ -a _7-mode_aggregate_name_ -i acknowledge*`
+
++
+De este modo, puede volver a ejecutar la operación de verificación del cableado y continuar con la transición. Debe asegurarse de que haya suficientes discos de repuesto en el nodo del clúster de destino para reconstruir estos grupos RAID después de realizar la transición de los agregados.
+
+. Haga clic en *Sí* para continuar.
+. Espere a que la operación finalice y realice los pasos siguientes para guardar los resultados de la operación y recopilar los registros de la herramienta:
++
+.. Haga clic en *Guardar como CSV* para guardar los resultados de la operación en un archivo.
+.. Haga clic en *recopilar registros de la herramienta* para crear una copia de seguridad de todos los archivos de registro de transición.
++
+Se recomienda guardar los archivos de registro después de cada operación de transición.
+
+.. Haga clic en *Cerrar*.
+
+
++
+Si la operación tarda mucho tiempo en completarse, puede hacer clic en *Ejecutar en fondo* para salir de la ventana de resultados de la operación. No debe editar el proyecto ni realizar ninguna otra tarea cuando la operación se esté ejecutando en segundo plano. A continuación, puede ver los resultados de las operaciones en la pestaña Historial de operaciones.
+
+
+
+*Información relacionada*
+
+xref:task_gathering_cabling_information_for_transition.adoc[Recopilación de información de cableado para la transición]

@@ -1,0 +1,16 @@
+---
+permalink: san-host/concept_how_to_identify_vm_snapshots_that_must_be_removed_before_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, vm, snapshots, removed, identify 
+summary: 'Las máquinas virtuales \(VM\) con RDM virtual no sobreviven la transición de Data ONTAP en 7-Mode a Clustered Data ONTAP. Estas snapshots deben eliminarse antes de la transición. Las copias Snapshot de máquinas virtuales con solo vDisk de VMFS y RDM físico \(PTRDM\) sobreviven la transición y no son necesario quitarse.' 
+---
+= Cómo identificar las copias Snapshot de VM que se deben eliminar antes de la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Las máquinas virtuales de snapshots (VM) con RDM virtual no sobreviven la transición de Data ONTAP en 7-Mode a Clustered Data ONTAP. Estas snapshots deben eliminarse antes de la transición. Las copias Snapshot de máquinas virtuales con solo vDisk de VMFS y RDM físico (PTRDM) sobreviven la transición y no son necesarios quitarse.
+
+Puede utilizar el _Inventory Assessment Workbook_ generado por Inventory Collect Tool para identificar todas las VM con RDM virtuales asociados. Las instantáneas enumeradas en _Inventory Assessment Workbook_ en la columna VM Snapshots y en la columna NPTRDM con un valor superior a 0 son máquinas virtuales que tienen un RDM virtual conectado con instantáneas VM.

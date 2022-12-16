@@ -1,0 +1,39 @@
+---
+permalink: san-host/task_testing_transitioned_san_boot_luns_on_hp_ux_hosts_before_cutover.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, boot, lun, hp, ux, cutover, phase, copy, based 
+summary: 'Si utiliza la herramienta de transición de 7-Mode \(7MTT\) 2.2 o posterior y Data ONTAP 8.3.2 o posterior para realizar la transición de los LUN de arranque SAN del host HP-UX, puede probar los LUN de Clustered Data ONTAP convertidos antes de la fase de transición. El host de origen puede seguir ejecutando I/o en sus LUN de 7-Mode de origen durante las pruebas.' 
+---
+= Prueba de haber realizado la transición de LUN DE arranque SAN en hosts HP-UX antes de la fase de transición de las transiciones basadas en copias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si utiliza 7-Mode Transition Tool (7MTT) 2.2 o versiones posteriores y Data ONTAP 8.3.2 o posteriores para realizar la transición de las LUN DE arranque SAN de host HP-UX, puede probar los LUN de Clustered Data ONTAP convertidos antes de la fase de transición. El host de origen puede seguir ejecutando I/o en sus LUN de 7-Mode de origen durante las pruebas.
+
+Sus nuevas LUN de Clustered Data ONTAP deben asignarse a su host de prueba y sus LUN deben estar listos para la transición
+
+Debe mantener la paridad del hardware entre el host de prueba y el host de origen, y debe realizar los siguientes pasos en el host de prueba.
+
+Sus LUN de Clustered Data ONTAP se encuentran en modo de lectura/escritura durante las pruebas. Cuando finaliza la prueba y se prepara para la fase de transposición, se convierten al modo de solo lectura.
+
+.Pasos
+. Una vez finalizada la copia de datos de referencia, seleccione *modo de prueba* en la interfaz de usuario (UI) de 7MTT.
+. En la interfaz de usuario de 7MTT, haga clic en *Apply Configuration*.
+. En el host de prueba, introduzca la BIOS del HBA.
+. Cambie la dirección IP y el nombre de host en el host de prueba.
+. Compruebe que sus LUN de Clustered Data ONTAP estén presentes en el host de prueba:
++
+`*sanlun lun show*`
+
+. Realice las pruebas según sea necesario.
+. Apague el host de prueba:
++
+`*shutdown -h -y 0*`
+
+. En la interfaz de usuario de 7MTT, haga clic en *Finalizar prueba*.
+
+
+Si va a volver a asignar las LUN de Clustered Data ONTAP al host de origen, debe preparar el host de origen para la fase de transposición. Si van a seguir asignando sus LUN de Clustered Data ONTAP al host de prueba, no será necesario realizar otros pasos en el host de prueba.

@@ -1,0 +1,14 @@
+---
+permalink: inventory-collect/index.html 
+sidebar: sidebar 
+keywords: 7, mode, ontap, host, storage, information, collection, transition, assessment 
+summary: Describe cómo recoger información sobre los sistemas, los switches, los hosts y las aplicaciones host de ONTAP y 7-Mode, así como la manera en la que se debe elaborar un informe de inventario que pueda usarse con la herramienta 7-Mode Transition Tool para determinar si los sistemas están listos para la transición. 
+---
+= Guía de recogida de información de hosts y almacenamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+En esta guía, se describe cómo recoger información sobre los sistemas, los switches, los hosts y las aplicaciones host de ONTAP y 7-Mode, así como la manera en la que se debe elaborar un informe de inventario que pueda usarse con la herramienta 7-Mode Transition Tool para determinar si los sistemas están listos para la transición.

@@ -1,0 +1,40 @@
+---
+permalink: copy-based/task_performing_post_transition_tasks.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, perform, manual, post, tasks 
+summary: Una vez que la transición de almacenamiento se complete correctamente y se complete la transición, debe realizar algunas tareas posteriores a la transición para configurar las funciones que no se han realizado la transición, antes de habilitar el acceso de los clientes a los volúmenes de ONTAP. 
+---
+= Realizar tareas manuales posteriores a la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Una vez que la transición de almacenamiento se complete correctamente y se complete la transición, debe realizar algunas tareas posteriores a la transición para configurar las funciones que no se han realizado la transición, antes de habilitar el acceso de los clientes a los volúmenes de ONTAP.
+
+.Pasos
+. Manual: Realice los pasos necesarios para configurar las funciones que no se realizaron la transición, como se indica en el informe de comprobaciones previas.
++
+Por ejemplo, debe configurar manualmente IPv6 y FPolicy después de la transición.
+
+. Elimine o consolide las configuraciones que se han realizado la transición.
++
+La herramienta de transición de 7-Mode crea una nueva instancia para todas las configuraciones que se han realizado la transición desde 7-Mode. Por lo tanto, es posible que haya varias instancias de algunas configuraciones, como programaciones de cron, que deban consolidarse o eliminarse manualmente.
+
+. Transición DE SAN: Vuelva a configurar manualmente los hosts.
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["Transición y corrección de hosts de SAN"]
+
+. Asegurarse de que la SVM está lista para servir datos a los clientes; para ello, se comprueban lo siguiente:
++
+** Los volúmenes en la SVM están en línea y de lectura/escritura.
+** Las direcciones IP de la SVM están activas y es posible acceder a ellas desde los servidores de nombres.
+
+
+. Redirija el acceso de los clientes a los volúmenes ONTAP.
+
+
+*Información relacionada*
+
+http://docs.netapp.com/ontap-9/index.jsp["Documentación de NetApp: ONTAP 9"]

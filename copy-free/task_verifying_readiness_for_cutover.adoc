@@ -1,0 +1,36 @@
+---
+permalink: copy-free/task_verifying_readiness_for_cutover.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, verify, cutover, ready, systems 
+summary: Antes de desconectar el acceso del cliente, puede verificar que el sistema 7-Mode está listo para la transición de almacenamiento, como comprobar si el SP o RLM está configurado en el sistema 7-Mode y si las bandejas de discos, los agregados y los volúmenes están listos para la transición. Es posible resolver manualmente cualquier problema antes de la operación de exportación, lo que reduce el tiempo de inactividad. 
+---
+= Comprobación de que los sistemas 7-Mode están listos para la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de desconectar el acceso del cliente, puede verificar que el sistema 7-Mode está listo para la transición de almacenamiento, como comprobar si el SP o RLM está configurado en el sistema 7-Mode y si las bandejas de discos, los agregados y los volúmenes están listos para la transición. Es posible resolver manualmente cualquier problema antes de la operación de exportación, lo que reduce el tiempo de inactividad.
+
+Puede ejecutar esta operación varias veces antes de que se inicie la operación de exportación y detención.
+
+.Pasos
+. Haga clic en *comprobar disponibilidad* para verificar que los sistemas 7-Mode están listos para la transición.
++
+Aunque esta operación es opcional, se recomienda verificar la preparación de los sistemas y solucionar los problemas antes de la operación de exportación con el fin de minimizar el plazo de transposición del almacenamiento.
+
+. Espere a que la operación finalice y haga lo siguiente:
++
+.. Haga clic en *Guardar como CSV* para guardar los resultados de la operación en un archivo.
+.. Haga clic en *recopilar registros de la herramienta* para realizar una copia de seguridad de todos los archivos de registro de transición.
++
+Se recomienda guardar los archivos de registro después de cada operación de transición.
+
+.. Haga clic en *Cerrar* para cerrar la ventana resultados de la operación.
+
+
++
+Si la operación tarda mucho tiempo en completarse, puede hacer clic en *Ejecutar en fondo* para salir de la ventana de resultados de la operación. No debe editar el proyecto ni realizar ninguna otra tarea cuando la operación se esté ejecutando en segundo plano. A continuación, puede ver los resultados de las operaciones en la pestaña Historial de operaciones.
+
+

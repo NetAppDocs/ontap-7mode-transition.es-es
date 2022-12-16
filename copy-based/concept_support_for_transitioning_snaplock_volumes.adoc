@@ -1,0 +1,16 @@
+---
+permalink: copy-based/concept_support_for_transitioning_snaplock_volumes.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, support, snaplock, volumes 
+summary: La herramienta de transición de 7-Mode admite la transición de los volúmenes de SnapLock a los clústeres de destino que ejecutan cualquier versión de ONTAP 9.0, excepto la versión 9.6. 
+---
+= Compatibilidad con volúmenes SnapLock que estén realizando la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La herramienta de transición de 7-Mode admite la transición de los volúmenes de SnapLock a los clústeres de destino que ejecutan cualquier versión de ONTAP 9.0, excepto la versión 9.6.
+
+Los volúmenes de SnapLock Enterprise y SnapLock Compliance se admiten para realizar la transición a los clústeres de destino que ejecutan cualquier versión de ONTAP excepto 9.6. Sin embargo, la transición del volumen de SnapLock Compliance no es compatible con los clústeres de destino que se encuentran en configuraciones MetroCluster.

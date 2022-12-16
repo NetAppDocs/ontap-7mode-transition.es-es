@@ -1,0 +1,14 @@
+---
+permalink: copy-free/concept_preparing_data_protection_features_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, data, protection, features 
+summary: Debe realizar algunos pasos manuales para realizar la transición de relaciones de SnapMirror de 7-Mode. También debe conocer las relaciones de protección de datos que se ofrecen y que no se permiten para la transición. 
+---
+= Preparar las funciones de protección de datos para la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe realizar algunos pasos manuales para realizar la transición de relaciones de SnapMirror de 7-Mode. También debe conocer las relaciones de protección de datos que se ofrecen y que no se permiten para la transición.

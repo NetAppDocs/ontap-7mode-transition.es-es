@@ -1,0 +1,54 @@
+---
+permalink: san-host/task_preparing_for_post_transition_esxi_host_remediation.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, post, esxi, host, remediation 
+summary: 'Una vez finalizada la transición de la herramienta de transición de 7-Mode \(7MTT\), debe realizar varias tareas de corrección del host ESXi. Debe completar varios pasos para poder ejecutar esas tareas.' 
+---
+= Preparación para la corrección de hosts ESXi posterior a la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Una vez finalizada la transición de la herramienta de transición de 7-Mode (7MTT), deberá realizar varias tareas de reparación del host ESXi. Debe completar varios pasos para poder ejecutar esas tareas.
+
+* En el caso de las transiciones basadas en copias (CBTS), realice estos pasos antes de iniciar la operación de transición del almacenamiento en 7MTT.
+* En el caso de las transiciones sin copia (CFF), realice estos pasos antes de iniciar el funcionamiento de los sistemas de exportación y detención de 7-Mode en 7MTT.
+
+
+.Pasos
+. Genere el archivo de asignación de LUN de 7-Mode a ONTAP:
++
+** Para CBTS, ejecute el siguiente comando desde el host Linux donde se ha instalado 7MTT: +
+`*transition cbt export lunmap -p _project-name_ -o _file_path_*`
++
+Por ejemplo:
+
++
+`*transition cbt export lunmap -p SanWorkLoad -o c:/Libraires/Documents/7-to-C-LUN-MAPPING.csv*`
+
+** Para CFTS, ejecute el siguiente comando desde el sistema donde se ha instalado 7MTT: +
+`*transition cft export lunmap -p _project-name_ -s _svm-name_ -o _output-file_*`
++
+Por ejemplo:
+
++
+`*transition cft export lunmap -p SanWorkLoad -s svm1 -o c:/Libraires/Documents/7-to-C-LUN-MAPPING-svm1.csv*`
+
++
+
+NOTE: Debe ejecutar este comando para cada máquina virtual de almacenamiento (SVM).
+
+
+
+. Compruebe que hay mapas de igroup e iniciadores presentes.
++
+7MTT vuelve a crear el mismo igroup con iniciadores usados en Data ONTAP en 7-Mode y vuelve a asignar el LUN de Clustered Data ONTAP al host.
+
+. Compruebe que la división en zonas es adecuada para el nuevo destino de Clustered Data ONTAP.
+. Si realiza una transición sin copias (CFT), ejecute el proceso `vol rehost`.
++
+Consulte link:https://docs.netapp.com/us-en/ontap-7mode-transition/copy-free/index.html["Guía de transición sin copias de 7-Mode Transition Tool"] para `vol rehost` procedimientos.
+
+

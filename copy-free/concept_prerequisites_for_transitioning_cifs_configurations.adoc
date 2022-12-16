@@ -1,0 +1,118 @@
+---
+permalink: copy-free/concept_prerequisites_for_transitioning_cifs_configurations.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, cifs, configurations, prerequisites 
+summary: La herramienta de transición de 7-Mode realiza la transición de las configuraciones de CIFS solo cuando se cumplen determinados requisitos previos en el sistema de 7-Mode y en el clúster. Si no se cumple alguna de las condiciones, la herramienta no realiza la transición de la configuración. 
+---
+= Requisitos previos para la transición de configuraciones CIFS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La herramienta de transición de 7-Mode realiza la transición de las configuraciones de CIFS solo cuando se cumplen determinados requisitos previos en el sistema de 7-Mode y en el clúster. Si no se cumple alguna de las condiciones, la herramienta no realiza la transición de la configuración.
+
+
+
+== Requisitos previos de 7-Mode
+
+* Debe añadir la licencia de CIFS.
+* Si la licencia de MultiStore está habilitada, CIFS debe añadirse a la lista de protocolos permitidos para la unidad vFiler propietaria de los volúmenes de la transición.
+* CIFS debe configurarse y estar en funcionamiento durante la transición.
++
+Incluso después de desconectar el acceso del cliente y de prepararse para iniciar la fase de exportación, el servicio CIFS debe estar en ejecución en los sistemas de 7-Mode.
+
+* El tipo de autenticación de CIFS debe ser Active Directory (AD) o Workgroup.
+
+
+
+
+== Requisitos previos del clúster
+
+* Debe añadir la licencia de CIFS.
+* Los siguientes métodos de autenticación CIFS se admiten en versiones diferentes de ONTAP:
++
+** Clustered Data ONTAP 8.2.x y 8.3.x son compatibles con la autenticación AD.
+** ONTAP 9.0 o versiones posteriores son compatibles con la autenticación AD y la autenticación de grupo de trabajo.
+
+
+* En la siguiente tabla se identifica el método de autenticación que se debe utilizar en la SVM de destino:
++
+|===
+| Método de autenticación de 7-Mode | Método de autenticación de Clustered Data ONTAP 8.2.x y 8.3.x. | ONTAP 9.5 o método de autenticación anterior 
+
+
+ a| 
+ANUNCIO
+ a| 
+ANUNCIO
+ a| 
+ANUNCIO
+
+
+
+ a| 
+Grupo de trabajo
+ a| 
+ANUNCIO
+ a| 
+Workgroup o AD
+
+|===
+* Puede realizar la transición de la configuración de CIFS de 7-Mode a ONTAP si los dominios de AD no coinciden entre el servidor CIFS de 7-Mode y el servidor CIFS de SVM de destino.
++
+La herramienta activa un error de bloqueo ignorable cuando se detecta una discrepancia de nombre de dominio de AD. Para continuar con la transición, puede reconocer el error de bloqueo.
+
+* El servidor CIFS debe configurarse manualmente antes de la fase Apply Configuration (previa)
++
+Puede crear el servidor CIFS en la SVM de las siguientes dos formas:
+
++
+|===
+| Si desea... | Haga lo siguiente... 
+
+
+ a| 
+Transfiera o conserve la identidad del servidor CIFS en la SVM de destino
+ a| 
+ You have the following two options to create the CIFS server:
+.. Aplicable a todas las versiones de ONTAP:
++
+*** Antes de la fase de aprovisionamiento de la SVM, debe volver a configurar el servidor CIFS en el sistema de 7-Mode mediante una identidad CIFS temporal.
++
+Esta reconfiguración permite configurar la identidad del servidor CIFS original en la SVM. Debe comprobar que el servidor CIFS se está ejecutando en el sistema de 7-Mode durante las fases «aprovisionamiento de máquina virtual» y «exportación y parada» con la nueva identidad temporal. Esta acción es necesaria para leer configuraciones CIFS de 7-Mode durante las fases de aprovisionamiento de SVM y «exportación y parada».
+
+*** Debe configurar el servidor CIFS en la SVM de destino con la identidad CIFS 7-Mode original.
+*** Una vez que se cumplan estas condiciones, podrá realizar la operación «aprovisionamiento de máquina virtual» y, a continuación, llevar a cabo la operación «"Exportar y detener" para permitir el acceso de los clientes a volúmenes de ONTAP.
+
+
+.. Aplicable para las versiones de ONTAP de 9.0 a 9.5:
++
+*** Utilice la `vserver cifs modify` Para cambiar el nombre del servidor CIFS (nombre NetBIOS del servidor CIFS).
++
+Con esta función, deberá crear un servidor CIFS en la SVM de destino con una identidad temporal y, a continuación, llevar a cabo la operación «aprovisionamiento de máquina virtual».
+
+*** Después de la fase «'import'», puede ejecutar la `vserver cifs modify` Comando en el clúster de destino para reemplazar la identidad CIFS de SVM de destino con la identidad CIFS de 7-Mode.
+
+
+
+
+
+
+ a| 
+Usar una nueva identidad
+ a| 
+** Antes de la fase «aprovisionamiento de máquina virtual», debe configurar el servidor CIFS en la SVM de destino con una nueva identidad CIFS.
+** Debe comprobar que el servidor CIFS está activo y en funcionamiento en el sistema 7-Mode durante las fases «aprovisionamiento de máquina virtual» y «exportación y parada».
++
+Esta acción es necesaria para leer configuraciones CIFS de 7-Mode durante «aprovisionamiento de máquina virtual» y «"exportación y parada"».
+
+** Después de comprobar estas condiciones, puede realizar la operación «aprovisionamiento de máquina virtual».
++
+A continuación, puede probar las configuraciones de SVM y, posteriormente, planificar la transición del almacenamiento.
+
+
+
+|===
+

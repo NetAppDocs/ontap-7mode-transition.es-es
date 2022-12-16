@@ -1,0 +1,23 @@
+---
+permalink: install-admin/reference_tool_installation_fails_with_incompatible_os_error.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, tool, fail, incompatible, os, error 
+summary: Se produce un error en la instalación de 7-Mode Transition Tool y se genera el mensaje de error 7-Mode Transition Tool no es compatible con esta versión de Windows. 
+---
+= Se produce un error de sistema operativo incompatible en la instalación de la herramienta
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La instalación de la herramienta de transición de 7-Mode se produce un error y aparece el mensaje de error `7-Mode Transition Tool is not compatible with this version of Windows`.
+
+* *Solución*
++
+.. Haga clic con el botón derecho del ratón en la `NetApp_7ModeTransitionTool_Setup.exe` File y, a continuación, seleccione *Propiedades*.
+.. En la ficha compatibilidad , haga clic en *Cambiar la configuración de todos los usuarios*.
+.. Compruebe que la casilla de verificación *Ejecutar este programa en modo de compatibilidad para:* no está activada y, a continuación, haga clic en *aplicar*.
+
+
+

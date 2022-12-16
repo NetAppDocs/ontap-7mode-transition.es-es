@@ -1,0 +1,74 @@
+---
+permalink: san-host/task_making_a_san_boot_lun_primary_for_hp_ux_emulex_hbas_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, san, boot, lun, primary, hp, ux, emulex, hba 
+summary: Si su host HP-UX de 7-Mode de Data ONTAP se arrancó CON SAN, debe hacer que el LUN de arranque SAN sea el LUN de arranque principal tras la transición a Clustered Data ONTAP. 
+---
+= Realizar un LUN de arranque SAN como el LUN de arranque principal de los HBA Emulex de HP-UX tras la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si su host HP-UX de 7-Mode de Data ONTAP se arrancó CON SAN, debe hacer que el LUN de arranque SAN sea el LUN de arranque principal tras la transición a Clustered Data ONTAP.
+
+Debe haber completado la migración de datos y su LUN de arranque debe asignarse a su host desde el nodo de Clustered Data ONTAP.
+
+Para las transiciones basadas en copias, realice estos pasos después de completar el funcionamiento de transición del almacenamiento en la herramienta de transición de 7-Mode. Los hosts HP-UX no admiten las transiciones sin copia.
+
+.Pasos
+. Desde el símbolo del sistema del shell, enumere los HBA de Emulex:
++
+`*drivers*`
+
+. Seleccione el HBA de Emulex y pulse Intro.
+. Seleccione *Utilidad de configuración*.
+. Seleccione *Configurar parámetros de arranque*.
+. Seleccione *Configurar dispositivos de arranque*.
+. Seleccione cualquier dispositivo de la lista y, a continuación, pulse Intro.
+. Seleccione *objetivos de escaneado*.
+. Seleccione la LUN con la ruta de arranque que desee y presione Entrar.
+. Seleccione *Peripheral dev* como el modo y, a continuación, pulse Intro.
+. Seleccione *arranque este dispositivo a través de WWN* y, a continuación, pulse Intro.
++
+Se muestra el LUN de arranque.
+
+. Pulse *Esc* hasta que vuelva al indicador de comandos de la shell.
+. Muestre su LUN para obtener la ruta de la LUN desde la que desea arrancar:
++
+`*map -r*`
+
++
+Las rutas de LUN se enumeran en la columna dispositivo. El disco SAN de arranque se muestra bajo la columna de la tabla de mapeo y tiene "'WWN'" y "'parte 1'" en la cadena de salida.
+
+. Introduzca la ruta de LUN de su LUN de arranque SAN.
++
+Un ejemplo de una ruta de LUN es fs0.
+
+. Salga del shell EFI:
++
+`*cd efi*`
+
+. Introduzca el directorio HPUX:
++
+`*cd hpux*`
+
+. Haga que la nueva LUN DE arranque SAN de Clustered Data ONTAP sea la LUN de arranque principal:
++
+`*bcfg boot add 1 hpux.efi "HP-UX-Primary Boot"*`
+
+. Actualice manualmente el BIOS del HBA realizando una entrada en el EFI para el LUN DE arranque DE SAN.
+. Cree una ruta de arranque alternativa:
++
+`*bcfg boot add 2 hpux.efi “HPUX alternate boot”*`
+
+. Cree una tercera ruta de arranque:
++
+`*bcfg boot add 2 hpux.efi “HPUX third boot”*`
+
+. Cree una cuarta ruta de arranque:
++
+`*bcfg boot add 2 hpux.efi “HPUX fourth boot”*`
+
+

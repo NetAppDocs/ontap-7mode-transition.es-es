@@ -1,0 +1,79 @@
+---
+permalink: san-host/task_bringing_windows_hosts_online_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, windows, host, online 
+summary: 'Después de realizar la transición de las LUN con la herramienta 7-Mode Transition Tool \(7MTT\) para hosts Windows, debe completar varios pasos para conectar el host y comenzar a mantener los datos de nuevo.' 
+---
+= Conectar hosts de Windows después de la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de realizar la transición de las LUN con la herramienta 7-Mode Transition Tool (7MTT) para hosts Windows, debe completar varios pasos para conectar el host y comenzar a mantener los datos de nuevo.
+
+Si realiza una transición sin copia (CFT), procedimientos para `vol rehost` debe estar completo. Consulte link:https://docs.netapp.com/us-en/ontap-7mode-transition/copy-free/index.html["Guía de transición sin copias de 7-Mode Transition Tool"] para obtener más detalles.
+
+* En el caso de las transiciones basadas en copias (CBTS), realice estos pasos después de completar la operación de transición del almacenamiento en la herramienta de transición de 7-Mode (7MTT).
+* En el caso de CFTS, realice estos pasos tras completar la operación Importar y configurar datos en 7MTT.
++
+.. Genere el archivo de asignación de LUN de 7-Mode a ONTAP:
++
+*** Para las transiciones basadas en copias, ejecute el siguiente comando desde el host donde se ha instalado 7MTT: +
+`*transition cbt export lunmap -p _project-name_ -o _file_path_*`
++
+Por ejemplo:
+
++
+`*transition cbt export lunmap -p SanWorkLoad -o c:/Libraires/Documents/7-to-C-LUN-MAPPING.csv*`
+
+*** Para las transiciones sin copias, ejecute el siguiente comando desde el sistema donde se ha instalado 7MTT: +
+`*transition cft export lunmap -p _project-name_ -s _svm-name_ -o _output-file_*`
++
+
+NOTE: Debe ejecutar este comando para cada máquina virtual de almacenamiento (SVM).
+
++
+Por ejemplo:
+
++
+`*transition cft export lunmap -p SANWorkLoad -s svml -o c:/Libraries/Documents/7-to-C-LUN-MAPPING-svml.csv*`
+
+
+
+.. Si el host Windows se inició con SAN y se realizó la transición de la LUN de arranque, encienda el host.
+.. Actualice el BIOS de FC para permitir que el sistema arranque desde la LUN en la controladora de Clustered Data ONTAP.
++
+Consulte la documentación de HBA para obtener más información.
+
+.. En el host Windows, vuelva a analizar los discos del Administrador de discos.
+.. Obtenga los números de serie de LUN, los ID de LUN y los números de disco físico de Windows correspondientes de las LUN asignadas al host.
++
+*** Para sistemas que ejecutan ONTAPDSM de Data ONTAP: Utilice el complemento de extensión de gestión de Data ONTAPDSM o el cmdlet de PowerShell de Get-sandisk.
+*** Para sistemas que ejecutan MSDSM: Utilice la herramienta de recopilación de inventario (ICT).
++
+El ID de LUN, el número de serie de la LUN y el número de serie correspondiente se capturan en la pestaña SAN Host LUNs.
+
+
+
+.. Utilice los números de serie de LUN, los ID de LUN y los números de disco físico de Windows correspondientes de las LUN junto con el resultado de la asignación de LUN y los datos recopilados en el estado previo a la transición para determinar si las LUN se han realizado correctamente.
+.. Tenga en cuenta que los números de discos físicos de las LUN que han realizado la transición han cambiado.
+.. Conecta sus discos.
++
+*** Utilice el Administrador de discos de Windows para llevar discos en línea que no formen parte de la conmutación por error del clúster.
+*** Use el Administrador de clústeres de conmutación por error para llevar discos en línea que forman parte de la conmutación por error del clúster.
+
+
+.. Si el host que está realizando la transición ejecuta Windows Server 2003 y ha migrado el dispositivo de quórum, inicie los servicios del clúster en todos los nodos del clúster.
+.. Si Hyper-V está habilitado en el host y los dispositivos de paso están configurados con los equipos virtuales, modifique la configuración desde Hyper-V Manager.
++
+Como resultado de la transición, es posible que el número de disco físico de la LUN que corresponde al dispositivo en modo de paso haya cambiado.
+
+
+
+
+
+*Información relacionada*
+
+xref:concept_what_the_inventory_collect_tool_is.adoc[Qué es la herramienta de recopilación de inventario]

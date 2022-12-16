@@ -1,0 +1,112 @@
+---
+permalink: copy-based/task_generating_an_assessment_report_by_adding_systems_to_7mtt.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, generate, assessment, report, add, system, tool 
+summary: Puede recopilar información de inventario de las controladoras, los hosts y los switches FC si añade los sistemas a la herramienta 7-Mode Transition Tool. A continuación, puede crear un informe de evaluación para evaluar las características y funcionalidades de dichos sistemas e identificar cómo funcionan en la versión de ONTAP seleccionada para la transición. 
+---
+= Para generar un informe de evaluación, se añaden sistemas a la herramienta de transición de 7-Mode
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede recopilar información de inventario de las controladoras, los hosts y los switches FC si añade los sistemas a la herramienta 7-Mode Transition Tool. A continuación, puede crear un informe de evaluación para evaluar las características y funcionalidades de dichos sistemas e identificar cómo funcionan en la versión de ONTAP seleccionada para la transición.
+
+* El nombre de usuario del sistema de almacenamiento y los hosts debe tener suficientes privilegios para ejecutar los comandos enumerados en el archivo Léame.
++
+El archivo léame se encuentra en `_7-Mode_Transition_Tool_installed_location\bin\ict_`.
+
+* Debe haber preparado los sistemas de 7-Mode, los hosts y los switches FC para la evaluación de la transición.
+* Para evaluar los sistemas Windows, debe disponer de una cuenta de usuario de dominio.
+* Si va a agregar varios sistemas para su evaluación, debe crear un archivo de texto codificado en formato ASCII o UTF-8 y debe contener los detalles del sistema en forma de un sistema por línea.
++
+Los detalles de cada sistema deben tener el siguiente formato:
+
++
+[listing]
+----
+(ontap|windows|vmware|linux|cisco|brocade)://[(user|domain_user)[:password]@](host_name|ip)
+----
+* El sistema en el que se instala y ejecuta la herramienta 7-Mode Transition Tool debe poder acceder a la controladora o el host.
+* Todas las funciones deben configurarse o tener activada la licencia para que el libro pueda contener información de inventario acerca de estas características.
+* El nombre de usuario del sistema de almacenamiento debe tener privilegios administrativos suficientes para recopilar información del inventario.
+* Todos los nombres de host y las configuraciones de sistemas de almacenamiento, como los nombres de recursos compartidos CIFS, los nombres de usuario y los nombres de grupos, deben tener el formato UTF-8.
+
+
+Si se reinicia el servicio 7-Mode Transition Tool o el sistema en el que se instala esta herramienta, los detalles del sistema agregados a la herramienta se pierden y el sistema se debe volver a añadir a la herramienta.
+
+.Pasos
+. Si desea utilizar los datos más recientes de la matriz de interoperabilidad (IMT) para la evaluación para la transición:
++
+.. Descargue los datos de IMT desde la matriz de interoperabilidad y, a continuación, guárdelo:
++
+... En el menú Informes, haga clic en *completar exportaciones diarias*.
+... En el cuadro de diálogo completar exportaciones diarias, introduzca FAS en el campo de búsqueda.
+... Descargue el archivo Excel del host SAN de ONTAP y guárdelo.https://mysupport.netapp.com/matrix["Herramienta de matriz de interoperabilidad de NetApp"]
+
+
+.. Desde la interfaz de línea de comandos, importe los datos de IMT mediante el `transition imt import` comando.
+.. Compruebe que la importación se ha realizado correctamente mediante el `transition imt show` comando.
++
+*Solución de problemas:* Si falla la operación de importación de datos IMT, puede revertir a los datos anteriores utilizando el `transition imt restore` comando.
+
+
+
+. Inicie sesión en 7-Mode Transition Tool y, a continuación, haga clic en *Get Started* en la sección recopilar y evaluar.
+. Haga clic en *Agregar sistemas*.
+. En la ventana Add System (Agregar sistema), realice una de las siguientes acciones:
++
+** Añada un único sistema:
++
+... Introduzca el nombre de dominio completamente cualificado (FQDN) o la dirección IP del sistema.
+... Introduzca el nombre de usuario y la contraseña del sistema especificado.
+... Seleccione el tipo de sistema:
++
+**** Sistemas de almacenamiento Data ONTAP
+**** Hosts: Microsoft Windows, Red Hat Linux Enterprise y VMware ESXi
+**** Switches FC: Cisco y Brocade
+
+
+
+
+** Agregue varios sistemas haciendo clic en *examinar* y seleccionando el archivo de texto que contiene las credenciales de varios sistemas.
+
+
+. Haga clic en *Agregar*.
++
+Si el estado de evaluación de un sistema es Listo, puede realizar una evaluación de transición para dicho sistema.
+
+. Genere el informe de evaluación de la transición:
++
+.. Seleccione los sistemas para la evaluación de la transición.
+.. Haga clic en *Crear informe de evaluación de transición*.
+.. En el cuadro de diálogo Create Transition Assessment Report, seleccione la versión Data ONTAP del clúster de destino.
+.. Especifique un prefijo para el nombre de archivo de los informes.
+.. Haga clic en *generar informe*.
+
+
++
+El libro de trabajo de evaluación (nombre del informe adjunto con "'AsessmentWorkbook'") y el resumen ejecutivo de evaluación (nombre del informe adjunto con los informes "'AsessmentExecutiveSummary'") se generan en formato XML.
+
++
++ puede acceder al libro de evaluación, al resumen de evaluación y a los archivos XML de inventario que se utilizan para generar el informe de evaluación desde la `...etc/webapp/transition-gui/tmc` carpeta.
+
+. Consulte el libro de evaluación en Microsoft Excel y el resumen ejecutivo de evaluación en Microsoft Word utilizando Microsoft Office 2007 o versiones posteriores.
++
+En el libro de trabajo de evaluación, consulte las pestañas viabilidad de la transición (CBT), Resumen de la comprobación previa de la configuración, Detalles de la comprobación previa de la configuración y Resumen de comprobación previa de CBT para obtener detalles de la evaluación de la transición basada en copias.
+
++
+En el resumen ejecutivo de evaluación, consulte la sección de viabilidad de una transición basada en copias para obtener información detallada sobre la evaluación a nivel de controlador.
+
++
+Es posible que tenga que habilitar macros en Excel para ver el libro de evaluación.
+
++
+En el resumen de recopilación de datos del libro de evaluación, si el estado de acceso de un sistema es `FAILED`, la información de inventario de ese sistema no es válida. En el resumen ejecutivo de evaluación, el valor de algunos de los campos de este sistema se muestra como `Not Assessed`.
+
+
+
+*Información relacionada*
+
+xref:task_collecting_tool_logs.adoc[Descargando archivos de registro de transición]

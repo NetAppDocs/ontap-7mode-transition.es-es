@@ -1,0 +1,68 @@
+---
+permalink: san-host/task_preparing_for_cutover_when_transitioning_linux_host_file_systems_on_lvm_devices.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, cutover, phase, host, lvm, device 
+summary: 'Si va a realizar la transición de un sistema de archivos host Linux en un dispositivo Logical Volume Manager \(LVM\), existen pasos que debe realizar antes de la fase de transposición.' 
+---
+= Preparación de la fase de transición cuando se realizan la transición de los sistemas de archivos host Linux en dispositivos LVM
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si va a realizar la transición de un sistema de archivos host Linux en un dispositivo LVM, existen pasos que debe seguir antes de la fase de transposición.
+
+* Para las configuraciones de FC, debe tener conectividad estructural y división en zonas en las controladoras de Clustered Data ONTAP.
+* Para configuraciones iSCSI, es necesario detectar y iniciar sesión en las controladoras de Data ONTAP en clúster.
+* Debe recopilar la siguiente información previa a la transición del _Manual de evaluación de inventario_:
++
+** Nombres de dispositivos DMMP utilizados por LVM
+** El nombre del grupo de volúmenes
+** El nombre del volumen lógico
+** El sistema de archivos configurado en el dispositivo de volumen lógico
+** El directorio en el que se montan los volúmenes lógicos
+
+
+* Para las transiciones basadas en copias, realice estos pasos antes de iniciar la operación de transición del almacenamiento en la herramienta de transición de 7-Mode (7MTT).
+* Para las transiciones sin copias, realice estos pasos antes de iniciar la operación Exportar y detener 7-Mode en 7MTT.
+
+
+.Pasos
+. Detenga la E/S a los puntos de montaje del VI.
+. Apague las aplicaciones que acceden a las LUN de acuerdo con las recomendaciones del proveedor de aplicaciones.
+. Desmonte el punto de montaje del VI:
++
+`*umount _dir_name_*`
+
+. Deshabilite el volumen lógico:
++
+`*vgchange -an _vg_name_*`
+
+. Compruebe el estado del volumen lógico:
++
+`*lvdisplay _dir_name_*`
+
++
+El estado del VI debe indicar ""NO disponible""".
+
+. Exporte el grupo de volúmenes:
++
+`*vgexport _vg_name_*`
+
+. Verifique el estado de VG:
++
+`*vgdisplay _vg_name_*`
+
++
+El estado del VG deberá indicar "'exportado'".
+
+. Vacíe los ID de dispositivo DDMP de 7-Mode:
++
+`*multipath -f _device_name_*`
+
+
+
+*Información relacionada*
+
+xref:task_gathering_pretransition_information_from_inventory_assessment_workbook.adoc[Recopilación de información previa a la transición del libro de trabajo de evaluación de inventario]

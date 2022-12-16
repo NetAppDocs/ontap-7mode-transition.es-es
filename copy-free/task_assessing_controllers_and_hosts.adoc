@@ -1,0 +1,26 @@
+---
+permalink: copy-free/task_assessing_controllers_and_hosts.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, assess, controllers, hosts 
+summary: Puede recopilar y evaluar información sobre las controladoras y los hosts usando la herramienta 7-Mode Transition Tool o la herramienta de recopilación de inventario, según las normativas de seguridad del entorno. 
+---
+= Evaluación de las controladoras y los hosts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede recopilar y evaluar información sobre las controladoras y los hosts usando la herramienta 7-Mode Transition Tool o la herramienta de recopilación de inventario, según las normativas de seguridad del entorno.
+
+* La herramienta 7-Mode Transition Tool recopila información de inventario sobre la controladora y los hosts agregando los sistemas o utilizando el informe de inventario generado por Inventory Collect Tool.
++
+A continuación, la herramienta de transición de 7-Mode evalúa la información de inventario y crea el informe de evaluación de transición.
+
+* Al realizar una evaluación de transición, debe tener en cuenta las siguientes consideraciones:
++
+** No se deben ejecutar simultáneamente operaciones de evaluación ni de migración en una controladora.
+** Debe evitar realizar operaciones de evaluación en las controladoras de almacenamiento activas durante las horas de mayor actividad.
+
+
+

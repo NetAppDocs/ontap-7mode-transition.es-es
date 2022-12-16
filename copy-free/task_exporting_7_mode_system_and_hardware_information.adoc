@@ -1,0 +1,61 @@
+---
+permalink: copy-free/task_exporting_7_mode_system_and_hardware_information.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, exporte, storage, configurations, halt 
+summary: La ventana de transposición de la transición comienza desde la fase de exportación. En esta fase, la herramienta recopila información del sistema, detalles de la bandeja de discos y configuraciones de almacenamiento de los sistemas de 7-Mode y, a continuación, detiene los sistemas de almacenamiento de 7-Mode. 
+---
+= Exportar configuraciones de almacenamiento y detener los sistemas 7-Mode
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La ventana de transposición de la transición comienza desde la fase de exportación. En esta fase, la herramienta recopila información del sistema, detalles de la bandeja de discos y configuraciones de almacenamiento de los sistemas de 7-Mode y, a continuación, detiene los sistemas de almacenamiento de 7-Mode.
+
+* El procesador de servicio (SP) o el módulo de LAN remota (RLM) se deben configurar con una dirección IPv4 en el sistema 7-Mode.
+* Todos los clientes deben estar desconectados de los sistemas 7-Mode (desmontando exportaciones NFS, desconectando recursos compartidos CIFS y apagando hosts SAN), pero los servicios NAS y SAN aplicables deben estar en ejecución en los sistemas 7-Mode.
++
+
+IMPORTANT: No debe detener ningún servicio de protocolo porque son necesarios para recoger las configuraciones de protocolo de los sistemas de almacenamiento 7-Mode.
+
+* Se pierden todos los datos que se hayan escrito en los volúmenes de 7-Mode durante esta operación.
+* No se debe realizar ninguna operación de gestión en los sistemas 7-Mode durante esta operación.
+* La herramienta realiza las siguientes operaciones en la fase de exportación:
++
+** Recopila todas las configuraciones de volúmenes y almacenamiento
+** Crea una copia Snapshot de cada agregado de la transición
++
+Si decide volver a 7-Mode en cualquier etapa de la transición, la herramienta correspondiente a la operación de reversión usa estas copias de Snapshot.
+
+** Arranca las controladoras de 7-Mode en modo de mantenimiento
+** Quita propiedades de disco de las controladoras 7-Mode
+** Deshabilita la asignación automática de discos en los nodos del clúster de destino
+
+
+
+
+.Pasos
+. Haga clic en *Exportar y detener*.
++
+Se muestra un mensaje que enumera las consideraciones importantes para esta operación.
+
+. Haga clic en la casilla de verificación *Confirmar que el acceso de cliente está desconectado*.
+. Haga clic en *Sí* para continuar con la operación de exportación y detención.
++
+Se muestran los resultados de la operación.
+
+. Espere a que la operación finalice y realice los pasos siguientes para guardar los resultados de la operación y recopilar los registros de la herramienta:
++
+.. Haga clic en *Guardar como CSV* para guardar los resultados de la operación en un archivo.
+.. Haga clic en *recopilar registros de la herramienta* para crear una copia de seguridad de todos los archivos de registro de transición.
++
+Se recomienda guardar los archivos de registro después de cada operación de transición.
+
+.. Haga clic en *Cerrar* para cerrar la ventana resultados de la operación.
+
+
++
+Si la operación tarda mucho tiempo en completarse, puede hacer clic en *Ejecutar en fondo* para salir de la ventana de resultados de la operación. No debe editar el proyecto ni realizar ninguna otra tarea cuando la operación se esté ejecutando en segundo plano. A continuación, puede ver los resultados de las operaciones en la pestaña Historial de operaciones.
+
+

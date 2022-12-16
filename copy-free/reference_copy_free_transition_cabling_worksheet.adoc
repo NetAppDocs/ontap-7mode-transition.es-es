@@ -1,0 +1,223 @@
+---
+permalink: copy-free/reference_copy_free_transition_cabling_worksheet.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, cabling, worksheet 
+summary: Puede utilizar la hoja de trabajo para el cableado de transición sin copias para planificar el cableado. Debe registrar información acerca de los puertos y las bandejas de discos conectados a las controladoras de 7-Mode y los nodos de clúster de destino. También debe registrar los puertos que se usarán para conectar las bandejas de discos de 7-Mode a los nodos del clúster de destino. 
+---
+= Hoja de trabajo relativa al cableado de transición sin copia
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar la hoja de trabajo para el cableado de transición sin copias para planificar el cableado. Debe registrar información acerca de los puertos y las bandejas de discos conectados a las controladoras de 7-Mode y los nodos de clúster de destino. También debe registrar los puertos que se usarán para conectar las bandejas de discos de 7-Mode a los nodos del clúster de destino.
+
+image::../media/cft_cabling_plan_worksheet.gif[hoja de trabajo para el plan de cableado cft]
+
+* Puertos A/B del módulo: Conexiones de puertos para el módulo A/B
+* Tipo de bandeja/etiqueta de activo: Tipo de bandeja de discos
+* ID de bandeja: ID de bandeja de discos
+
+
+
+
+== Hoja de trabajo para el cableado de muestra
+
+|===
+4+| Cableado de 7-Mode 4+| Cableado de Clustered Data ONTAP 
+
+
+4+| Controladora A (nombre de host): 7hostA 4+| Nodo a (nombre de host): Cluster1-01 
+
+
+4+| Ubicación: Colorado Piso: Tercer bastidor: 8 4+| Ubicación: Colorado Piso: Quinto bastidor: 3 
+
+
+| Puertos del módulo A | Puertos del módulo B. | Tipo de bandeja/etiqueta de activo | ID de bandeja | Puertos del módulo A | Puertos del módulo B. | Tipo de bandeja/etiqueta de activo | ID de bandeja 
+
+
+ a| 
+1a
+ a| 
+0a
+ a| 
+DS4243/150254-7
+ a| 
+10-13
+ a| 
+1a
+ a| 
+0a
+ a| 
+DS4243/174243-2
+ a| 
+10-11
+
+
+
+ a| 
+1b
+ a| 
+0b
+ a| 
+DS4243/151205-2
+ a| 
+30-37
+ a| 
+1b
+ a| 
+0b
+ a| 
+DS4243/150254-7
+ a| 
+20-23
+
+
+
+ a| 
+1c (sin conexión)
+ a| 
+0c (sin conexión)
+ a| 
+n.a.
+ a| 
+n.a.
+ a| 
+1c
+ a| 
+0c
+ a| 
+DS4243/151205-2
+ a| 
+30-37
+
+
+
+ a| 
+1d
+ a| 
+0d
+ a| 
+DS4243/143921-4
+ a| 
+14-15
+ a| 
+1d
+ a| 
+0d
+ a| 
+DS4243/143921-4
+ a| 
+14-15
+
+
+
+ a| 
+*Controladora B (nombre de host): 7hostB*
+ a| 
+*Nodo B (nombre de host):cluster1-02*
+
+
+
+ a| 
+*Ubicación: Colorado Piso: Tercer bastidor: 8*
+ a| 
+*Ubicación: Colorado Piso: Quinto Rack: 3*
+
+
+
+ a| 
+*Puertos del módulo A*
+ a| 
+*Puertos del módulo B*
+ a| 
+*Tipo de estante/etiqueta de activo*
+ a| 
+*ID de estante*
+ a| 
+*Puertos del módulo A*
+ a| 
+*Puertos del módulo B*
+ a| 
+*Tipo de estante/etiqueta de activo*
+ a| 
+*ID de estante*
+
+
+
+ a| 
+1a
+ a| 
+0a
+ a| 
+DS4243/174263-6
+ a| 
+10-13
+ a| 
+1a
+ a| 
+0a
+ a| 
+DS4243/174233-2
+ a| 
+10-11
+
+
+
+ a| 
+1b (sin conexión)
+ a| 
+0b (sin conexión)
+ a| 
+n.a.
+ a| 
+n.a.
+ a| 
+1b
+ a| 
+0b
+ a| 
+DS4243/174263-6
+ a| 
+20-23
+
+
+
+ a| 
+1c
+ a| 
+0c
+ a| 
+DS4243/174274-9
+ a| 
+30-37
+ a| 
+1c
+ a| 
+0c
+ a| 
+DS4243/174274-9
+ a| 
+30-37
+
+
+
+ a| 
+1d
+ a| 
+0d
+ a| 
+DS4243/174285-6
+ a| 
+14-15
+ a| 
+1d
+ a| 
+0d
+ a| 
+DS4243/174285-6
+ a| 
+14-15
+
+|===

@@ -1,0 +1,106 @@
+---
+permalink: command-map/concept_how_to_interpret_clustered_ontap_command_maps_for_7_mode_administrators.html 
+sidebar: sidebar 
+keywords: ontap, command, map, transition, clustered, commands, options, configuration, file, maps, interpret 
+summary: Si va a pasar de Data ONTAP ejecutándose en 7-Mode a Clustered Data ONTAP, puede resultarlo útil para hacer referencia a los mapas de comandos, que muestran los equivalentes de Clustered Data ONTAP de los comandos, las opciones y los archivos de configuración de 7-Mode. 
+---
+= Cómo interpretar los comandos, las opciones y los archivos de configuración de Clustered Data ONTAP con mapas para administradores de 7-Mode
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si va a pasar de Data ONTAP ejecutándose en 7-Mode a Clustered Data ONTAP, puede resultarlo útil para hacer referencia a los mapas de comandos, que muestran los equivalentes de Clustered Data ONTAP de los comandos, las opciones y los archivos de configuración de 7-Mode.
+
+
+
+== Qué información de mapeo se incluye
+
+La asignación de comandos para administradores de 7-Mode incluye las siguientes asignaciones de comandos, opciones y archivos de configuración de 7-Mode a sus equivalentes en Clustered Data ONTAP:
+
+* xref:reference_how_7_mode_commands_map_to_clustered_ontap_commands.adoc[Cómo se asignan los comandos de 7-Mode a comandos de Clustered Data ONTAP]
+* xref:reference_how_7_mode_options_map_to_clustered_ontap_commands.adoc[Cómo se asignan las opciones de 7-Mode a comandos de Clustered Data ONTAP]
+* xref:reference_how_7_mode_configuration_files_map_to_clustered_ontap_commands.adoc[Cómo se asignan los archivos de configuración de 7-Mode a comandos de Clustered Data ONTAP]
+
+
+
+
+== Cómo interpretar comandos de método abreviado compatibles con 7-Mode
+
+Aunque la interfaz de línea de comandos (CLI) de Data ONTAP se reorganiza de forma significativa para las operaciones de clúster, muchos de los comandos tienen versiones de métodos abreviados de teclado compatibles con 7-Mode que no requieren cambios en las secuencias de comandos u otras tareas automatizadas. Estas versiones de acceso directo se enumeran primero y en *negrita* en las tablas aquí. A continuación se enumeran las versiones de acceso directo que no son compatibles con 7-Mode, seguidas de la versión completa de forma larga de los comandos:
+
+|===
+| Comando 7-Mode | Comando Clustered Data ONTAP 
+
+
+ a| 
+`aggr add`
+ a| 
+`*aggr add*`
+
+`aggr add-disks`
+
+`storage aggregate add-disks`
+
+|===
+Si no aparece ningún acceso directo *bold*, no hay disponible una versión compatible con 7-Mode. No todas las formas de los comandos se muestran en la tabla. La CLI es extremadamente flexible, ya que permite utilizar varias formas abreviadas.
+
+
+
+== Descripción de los distintos shell de Clustered Data ONTAP para comandos de la CLI
+
+Un clúster tiene tres shell distintos para los comandos de la CLI:
+
+* _Clustershell_ es el shell nativo, que se inicia automáticamente cuando se inicia sesión en el clúster.
++
+Se proporcionan todos los comandos que necesita para configurar y gestionar el clúster.
+
+* El _nodeshell_ es un shell especial que le permite ejecutar un subconjunto de comandos 7-Mode.
++
+Estos comandos solo surten efecto en el nivel del nodo. Puede cambiar de clustershell a una sesión de Nodeshell para ejecutar comandos nodeshell interactivamente, o puede ejecutar un comando nodeshell desde clustershell. Usted puede reconocer un comando como un comando nodeshell si tiene la (larga) forma `system node run -node {_nodename_|local} commandname`.
+
+* _Systemshell_ es un shell de bajo nivel que se utiliza sólo para fines de diagnóstico y solución de problemas.
++
+No tiene fines administrativos generales. Acceda al shell del sistema únicamente con la ayuda del soporte técnico.
+
+
+
+
+
+== Cambiando a nodeshell
+
+Cuando usted ve una versión de acceso directo compatible con 7-Mode de un comando nodeshell, se supone que usted está ejecutando el comando desde el nodeshell. Para cambiar a nodeshell, introduzca lo siguiente:
+
+`*system node run -node {_nodename_|local}*`
+
+Otras formas del `nodeshell` el comando se debe ejecutar desde el clustershell.
+
+
+
+== Dónde obtener más información
+
+|===
+| Si desea... | Para obtener más información... 
+
+
+ a| 
+Use los comandos clustershell
+ a| 
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr/GUID-5CB10C70-AC11-41C0-8C16-B4D0DF916E9B.html["Comandos de ONTAP 9"]
+
+
+
+ a| 
+Utilice los comandos nodeshell
+ a| 
+https://library.netapp.com/ecm/ecm_download_file/ECMP1511537["Data ONTAP 8. 2 comandos: Referencia de páginas del manual para 7-Mode, volumen 1"]
+
+
+
+ a| 
+Ejecutar comandos de la CLI, desplazarse por los directorios de comandos de la CLI, establecer valores en la CLI y utilizar consultas, patrones y comodines
+ a| 
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Administración del sistema"]
+
+|===

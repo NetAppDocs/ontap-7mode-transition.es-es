@@ -1,0 +1,34 @@
+---
+permalink: snapmirror/concept_guidelines_for_transitioning_snaplock_volumes.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, guidelines, snaplock, volumes, requirements 
+summary: Es posible realizar la transición de volúmenes de SnapLock de 7-Mode a los volúmenes de SnapLock creados en ONTAP 9.5 o una versión anterior. Debe tener en cuenta los requisitos y las directrices para realizar la transición de volúmenes de SnapLock. 
+---
+= Directrices para realizar la transición de volúmenes SnapLock
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible realizar la transición de volúmenes de SnapLock de 7-Mode a los volúmenes de SnapLock creados en ONTAP 9.5 o una versión anterior. Debe tener en cuenta los requisitos y las directrices para realizar la transición de volúmenes de SnapLock.
+
+* No se admite la transición de los volúmenes SnapLock de 7-Mode si los volúmenes SnapLock contienen LUN.
+* Puede realizar la transición de volúmenes de SnapLock Enterprise de 7-Mode solo a volúmenes de SnapLock Enterprise en ONTAP 9.5 o versiones anteriores.
+* Puede realizar la transición de los volúmenes de 7-Mode SnapLock Compliance solo a los volúmenes de SnapLock Compliance en ONTAP 9.5 o una versión anterior.
+* Al realizar la transición de una relación de SnapMirror para volúmenes de 7-Mode, puede utilizar una transición escalonada (primero la secundaria y luego la primaria) solo para los volúmenes de SnapLock Enterprise.
++
+La relación de recuperación ante desastres de SnapMirror entre volúmenes primarios de 7-Mode y volúmenes secundarios de ONTAP solo se admite para los volúmenes SnapLock Enterprise, pero no para los volúmenes de SnapLock Compliance.
+
++
+xref:task_transitioning_a_data_protection_relationship.adoc[La transición de una relación de SnapMirror para volúmenes en una configuración escalonada]
+
+* Debe realizar la transición de una relación de SnapMirror para volúmenes de 7-Mode entre los volúmenes de SnapLock Compliance mediante la transición de los volúmenes primario y secundario en paralelo.
++
+xref:task_transitioning_a_volume_snapmirror_relationship_in_parallel.adoc[Realizar la transición de una relación de SnapMirror para volúmenes en paralelo]
+
+
+
+*Información relacionada*
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-arch-con/home.html["Archivado y cumplimiento de normativas con tecnología SnapLock"]

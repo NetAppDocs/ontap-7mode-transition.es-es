@@ -1,0 +1,26 @@
+---
+permalink: snapmirror/concept_considerations_for_space_when_transitioning_san_volumes.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, space, considerations, transition, san, volume 
+summary: Debe asegurarse de que haya espacio suficiente disponible en los volúmenes durante la transición. Además del espacio necesario para almacenar datos y copias Snapshot, el proceso de transición también requiere 1 MB de espacio por LUN para actualizar ciertos metadatos del sistema de archivos. 
+---
+= Consideraciones de espacio cuando se realiza la transición de volúmenes SAN
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe asegurarse de que haya espacio suficiente disponible en los volúmenes durante la transición. Además del espacio necesario para almacenar datos y copias Snapshot, el proceso de transición también requiere 1 MB de espacio por LUN para actualizar ciertos metadatos del sistema de archivos.
+
+Antes de la transición, puede utilizar la `df -h` Comando en el volumen de 7-Mode para verificar si el espacio libre de 1 MB por LUN está disponible en el volumen. Si el volumen no tiene suficiente espacio libre disponible, se debe añadir la cantidad de espacio necesaria al volumen de 7-Mode.
+
+Si la transición de LUN falla debido a la falta de espacio en el volumen de destino, se genera el siguiente mensaje de EMS: `LUN.vol.proc.fail.no.space: Processing for LUNs in volume vol1 failed due to lack of space`.
+
+En este caso, debe configurar el `filesys-size-fixed` Atributo a FALSE en el volumen de destino y después, añada 1 MB por LUN de espacio libre al volumen.
+
+Si hay volúmenes que contienen LUN reservadas para el espacio, es posible que el volumen crezca hasta 1 MB por LUN no proporcione espacio suficiente. En estos casos, la cantidad de espacio adicional que se debe agregar es el tamaño de la reserva de Snapshot para el volumen. Después de agregar espacio al volumen de destino, puede usar la `lun transition start` Comando para realizar la transición de las LUN.
+
+*Información relacionada*
+
+http://docs.netapp.com/ontap-9/index.jsp["Documentación de NetApp: ONTAP 9"]

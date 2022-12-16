@@ -1,0 +1,44 @@
+---
+permalink: copy-based/task_completing_transition_process.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, complete 
+summary: Debido a que la operación completa provoca interrupciones, debe evaluar cuándo debe ejecutarse. Cuando se realiza la transición de volúmenes en una relación de SnapMirror, es necesario completar el proyecto secundario antes de completar la transición del proyecto principal. 
+---
+= Completar la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debido a que la operación completa provoca interrupciones, debe evaluar cuándo debe ejecutarse. Cuando se realiza la transición de volúmenes en una relación de SnapMirror, es necesario completar el proyecto secundario antes de completar la transición del proyecto principal.
+
+.Pasos
+. Realice una copia de datos de los volúmenes 7-Mode a los volúmenes de ONTAP:
++
+`*transition cbt update -p _project_name_ -t _available-transfers-percentage_ -c _snapmirror-throttlemax-cap-concurrent-transfers_ -x -r interactive*`
+
++
+Esto ayuda a reducir el tiempo de inactividad durante la transición de almacenamiento.
+
+. Manual: Desconecte el acceso del cliente.
+. Complete el proceso de transición:
++
+`*transition cbt cutover -p _project_name_ -t _available-transfers-percentage_ -c _max-cap-concurrent-transfers_ -x _snapmirror-throttle_ -r interactive -o [true|false]*`
+
++
+De manera predeterminada, los volúmenes de 7-Mode se establecen sin conexión. Para conservar los volúmenes de 7-Mode en línea, configure el `-o` opción a. `false`.
+
++
+
+NOTE: Si la transposición no se realiza correctamente por algún motivo (por ejemplo, no se puede acceder al sistema o clúster de 7-Mode), debe resolver los problemas y ejecutar el `transition cutover` comando de nuevo.
+
++
+Para obtener más información acerca de los comandos, consulte las páginas de manual.
+
++
+La sesión de transición pasa al estado de transición. Si la transposición es correcta, la sesión pasa al estado completado.
+
+
+
+Se deben realizar todas las tareas posteriores a la transición y volver a conectar los clientes a los volúmenes de ONTAP.

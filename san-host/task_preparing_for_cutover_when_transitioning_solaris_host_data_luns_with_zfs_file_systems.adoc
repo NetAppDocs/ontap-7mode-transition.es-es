@@ -1,0 +1,63 @@
+---
+permalink: san-host/task_preparing_for_cutover_when_transitioning_solaris_host_data_luns_with_zfs_file_systems.html 
+sidebar: sidebar 
+keywords: cutover, ontap, san, host, transition, host, data, lun, nfs, file, system 
+summary: Si va a realizar la transición de una LUN de datos del host Solaris con un sistema de archivos ZFS desde Data ONTAP que funciona en 7-Mode a Clustered Data ONTAP, debe realizar determinados pasos antes de entrar en la fase de transposición. 
+---
+= Preparación de la fase de transición al realizar la transición de LUN de datos host de Solaris con sistemas de archivos ZFS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si va a realizar la transición de una LUN de datos del host Solaris con un sistema de archivos ZFS desde Data ONTAP que funciona en 7-Mode a Clustered Data ONTAP, debe realizar determinados pasos antes de entrar en la fase de transposición.
+
+Si utiliza una configuración FC, debe establecerse la conectividad estructural y la división en zonas en los nodos de Clustered Data ONTAP.
+
+Si utiliza una configuración iSCSI, deben detectarse las sesiones iSCSI a los nodos de Clustered Data ONTAP y haberse iniciado sesión.
+
+Para las transiciones basadas en copias, realice estos pasos antes de iniciar la operación de transición del almacenamiento en la herramienta de transición de 7-Mode (7MTT).
+
+Para las transiciones sin copias, realice estos pasos antes de iniciar la operación Exportar y detener 7-Mode en 7MTT.
+
+.Pasos
+. Detenga la I/o en todos los puntos de montaje.
+. Apague cada aplicación que acceda a las LUN de acuerdo con las recomendaciones del proveedor de aplicaciones.
+. Exporte el zpool:
++
+`*zpool export _pool-name_*`
+
++
+[listing]
+----
+# zpool export n_pool
+----
+. Compruebe que los zpools se exportan:
++
+** Debe enumerar el zpool que se exporta: +
+`*zpool import*`
+** No debe enumerar el zpool que se exporta: +
+`*zpool list*`
+
+
++
+[listing]
+----
+# zpool export n_pool
+
+# zpool list
+no pools available
+
+# zpool import
+  pool: n_pool
+    id: 5049703405981005579
+ state: ONLINE
+action: The pool can be imported using its name or numeric identifier.
+config:
+
+        n_pool                                   ONLINE
+          c0t60A98000383035356C2447384D396550d0  ONLINE
+          c0t60A98000383035356C2447384D39654Ed0  ONLINE
+----
+

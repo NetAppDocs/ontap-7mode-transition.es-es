@@ -1,0 +1,16 @@
+---
+permalink: copy-free/task_planning_a_copy_free_transition_project.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, plan, project 
+summary: 'La planificación de un proyecto de transición sin copias implica seleccionar las controladoras de 7-Mode de origen y los nodos del clúster de destino, asignar los volúmenes de 7-Mode a una máquina virtual de almacenamiento \(SVM\), seleccionar las LIF que se van a realizar la transición y ejecutar comprobaciones previas.' 
+---
+= Planificación de un proyecto de transición sin copia
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La planificación de un proyecto de transición sin copias implica seleccionar las controladoras de 7-Mode de origen y los nodos del clúster de destino, asignar los volúmenes de 7-Mode a una máquina virtual de almacenamiento (SVM), seleccionar las LIF que se van a realizar la transición y ejecutar comprobaciones previas.
+
+Puede crear varios proyectos con los mismos nodos de par de alta disponibilidad de clúster de destino. A continuación, puede ejecutar comprobaciones previas y aplicar las configuraciones de SVM en todos estos proyectos. Sin embargo, sólo un proyecto puede estar en la ventana de sección crítica en un momento dado. Un proyecto se encuentra en la ventana de sección crítica si el proyecto se encuentra en cualquiera de las fases de exportación a confirmación o si se ha iniciado una operación de reversión para el proyecto. Puede continuar con la operación de exportación y detención de otro proyecto sólo después de que se haya completado la operación de confirmación o reversión del proyecto en la ventana de sección crítica.

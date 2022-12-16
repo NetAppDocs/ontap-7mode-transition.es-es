@@ -1,0 +1,18 @@
+---
+permalink: copy-based/task_consolidating_snapshot_policies_and_cron_schedules_on_transitioned_volumes.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, consolidate, cron, schedules, transitioned, volumes 
+summary: La herramienta de transición de 7-Mode genera programaciones únicas por cada volumen que ha realizado la transición. Por ello, tras la transición se pueden crear muchas tareas programadas con Cron, por lo que es necesario saber cómo consolidarlas tras la transición. 
+---
+= Consolidación de programaciones de cron desde volúmenes convertidos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La herramienta de transición de 7-Mode genera programaciones únicas por cada volumen que ha realizado la transición. Por ello, tras la transición se pueden crear muchas tareas programadas con Cron, por lo que es necesario saber cómo consolidarlas tras la transición.
+
+.Pasos
+. Consolidar los horarios de cron después de la transición mediante `job schedule cron` comando.
+

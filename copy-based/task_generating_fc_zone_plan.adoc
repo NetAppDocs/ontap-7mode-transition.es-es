@@ -1,0 +1,63 @@
+---
+permalink: copy-based/task_generating_fc_zone_plan.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, generate, fc, zone, plan 
+summary: Para los switches FC, debe generar un plan de zona FC como parte del informe de evaluación de la transición para configurar las zonas para agrupar los hosts y los destinos del iniciador después de la migración. 
+---
+= Generar un plan de zona FC
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para los switches FC, debe generar un plan de zona FC como parte del informe de evaluación de la transición para configurar las zonas para agrupar los hosts y los destinos del iniciador después de la migración.
+
+* El sistema 7-Mode, los hosts y el clúster deben estar conectados al mismo switch.
++
+xref:concept_supported_configurations_for_generating_an_fc_zone_plan.adoc[Configuraciones compatibles para generar un plan de zona FC]
+
+* Debe haber creado las SVM objetivo y los LIF FC necesarios en el clúster.
+* Los LIF FC creados en las SVM de destino tendrán WWPN, que son diferentes de los WWPN de 7-Mode. Por lo tanto, ejecute la división en zonas de FC mientras realiza la transición DE SAN para FCP.
+
+
+.Pasos
+. En la sección recopilar y evaluar, haga clic en *Agregar sistemas*.
+. En la ventana Add System (Agregar sistema), realice una de las siguientes acciones:
++
+** Añada un único sistema:
++
+... Introduzca el FQDN o la dirección IP del sistema.
+... Introduzca el nombre de usuario y la contraseña del sistema especificado.
+... Seleccione el tipo de sistema:
++
+**** Sistemas de almacenamiento Data ONTAP
+**** Hosts: Microsoft Windows, Red Hat Linux Enterprise y VMware ESXi
+**** Switches FC: Cisco y Brocade
+
+
+
+
+** Agregue varios sistemas haciendo clic en *examinar* y seleccionando el archivo de texto que contiene las credenciales de varios sistemas.
+
+
+. Haga clic en *Agregar*.
++
+Si el estado de evaluación de un sistema es Listo, puede realizar una evaluación de transición para dicho sistema.
+
+. Genere el informe de evaluación de la transición con el plan de zona FC:
++
+.. Seleccione los sistemas, incluidos los switches FC necesarios, para llevar a cabo una evaluación de la transición.
+.. Haga clic en *Crear informe de evaluación de transición*.
+.. En el cuadro de diálogo Pair Systems and start FC zone Planner, seleccione los sistemas de 7-Mode (una sola controladora o un par de alta disponibilidad), el switch conectado al clúster y una SVM en el clúster.
+.. Haga clic en *partición FC para sistemas emparejados*.
+.. En el cuadro de diálogo Create Transition Assessment Report, seleccione la versión Data ONTAP del clúster de destino.
+.. Especifique un prefijo para el nombre de archivo de los informes.
+.. Haga clic en *generar informe*.
+
+
+
+
+El plan de zona FC se genera como a. `.zip` archivo. El plan contiene zonas creadas por la configuración de igroup en los sistemas de 7-Mode. Cada zona contiene un WWPN de iniciador único y varios WWPN de destino de SVM.
+
+Debe usar el plan de la zona de FC para configurar las zonas a fin de agrupar los hosts y los destinos del iniciador para proporcionar acceso a los datos desde el clúster.

@@ -1,0 +1,43 @@
+---
+permalink: snapmirror/concept_features_and_volumes_not_supported_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, feature, volumes, supported, snapmirror 
+summary: No podrá realizar la transición de determinados volúmenes de 7-Mode, como los volúmenes tradicionales, ni de ciertas funciones de 7-Mode, como las relaciones síncronas con SnapMirror, porque es posible que algunas funciones no estén disponibles en Clustered Data ONTAP. 
+---
+= Funciones y volúmenes no compatibles para la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+No podrá realizar la transición de determinados volúmenes de 7-Mode, como los volúmenes tradicionales, ni de ciertas funciones de 7-Mode, como las relaciones síncronas con SnapMirror, porque es posible que algunas funciones no estén disponibles en Clustered Data ONTAP.
+
+Solo se puede realizar la transición de un volumen de 7-Mode a una SVM.
+
+No se pueden realizar la transición de los siguientes volúmenes o configuraciones de 7-Mode:
+
+* Volúmenes restringidos o sin conexión
+* Volúmenes tradicionales
+* Volúmenes con asignación de caracteres de NFS a CIFS (mapa de caracteres)
+* Volúmenes con configuraciones de protección de acceso en el nivel de almacenamiento
+* Volúmenes que contienen qtrees con configuraciones de Storage-Level Access Guard
++
+Si el clúster de destino ejecuta Data ONTAP 8.3.1 o una versión posterior, puede realizar la transición de volúmenes que contengan qtrees con esta configuración.
+
+* Volúmenes con `no_i2p` opción habilitada.
+* Volúmenes de FlexCache
+* Volúmenes de 32 bits y volúmenes de 64 bits que tienen copias Snapshot de 32 bits si el clúster de destino ejecuta Data ONTAP 8.3 o posterior
+* Volúmenes FlexClone
++
+Los volúmenes FlexClone se pueden realizar como volúmenes FlexVol, pero la jerarquía de clones y la eficiencia del almacenamiento se perderán.
+
+* Volumen raíz de una unidad vFiler, donde el volumen raíz se basa en un qtree que pertenece a la unidad vFiler predeterminada
+* Configuración síncrona de SnapMirror
+* Relaciones de SnapMirror para qtrees
+* Configuraciones IPv6
+* Relaciones de SnapVault
+* Compresión de red para SnapMirror
+* Restaurar el volumen de destino a una copia de Snapshot específica (SnapMirror `break -s` comando)
+* Operación de movimiento de volúmenes
+

@@ -1,0 +1,260 @@
+---
+permalink: copy-based/concept_how_you_transition_a_stand_alone_volume.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, stand, alone, volume 
+summary: 'La transición de un volumen independiente incluye distintas fases: Preparación, copia de datos, aplicación de configuración \(previa\) y transposición del almacenamiento. Después de completar la transición, debe realizar algunos pasos posteriores a la transición antes de reanudar el acceso de los clientes. Comprender qué sucede en cada fase le ayuda a gestionar su transición de forma eficiente.' 
+---
+= Cómo realizar la transición de un volumen independiente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La transición de un volumen independiente incluye distintas fases: Preparación, copia de datos, aplicación de la configuración (transición previa) y transición del almacenamiento. Después de completar la transición, debe realizar algunos pasos posteriores a la transición antes de reanudar el acceso de los clientes. Comprender qué sucede en cada fase le ayuda a gestionar su transición de forma eficiente.
+
+image::../media/transition_singlevol.gif[La siguiente ilustración describe las distintas fases de la transición,such as preparation,data copy]
+
+|===
+| Fase | Pasos 
+
+
+ a| 
+Preparación
+ a| 
+. Obteniendo información
+. Realizar las comprobaciones previas
+. Creación de programas de copia de datos
+
+
+
+
+ a| 
+Copia de datos
+ a| 
+. Creación de los volúmenes ONTAP como de solo lectura
+. Creación de una relación de transición entre iguales
+. Establecer una relación de SnapMirror
+. Realización de una transferencia completa
+. Realiza actualizaciones incrementales programadas
+
+
+
+
+ a| 
+Transición previa
+ a| 
+. Rompemos la relación SnapMirror
+. Aplicación de configuraciones a la SVM
+. Configurar LIF de datos en la SVM
+. Datos y configuraciones de prueba (manual y sólo para RW de preprueba)
+. Resincronización de los volúmenes de ONTAP con los volúmenes de 7-Mode correspondientes
+
+
+
+
+ a| 
+Transición del almacenamiento
+ a| 
+. Desconexión del acceso del cliente (manual)
+. Realizando una actualización final de SnapMirror
+. Rompemos la relación SnapMirror
+. Quitar direcciones IP de 7-Mode y configurar los LIF de datos para que estén en estado activo en la SVM
+. Desconectar el volumen de origen
+
+
+Tras la transición, realice los pasos posteriores a la transición y permita el acceso al cliente (manual)
+
+
+
+ a| 
+Verificación de la cadena de custodia de los volúmenes de SnapLock
+ a| 
+. Enumerar todos los archivos WORM de volúmenes 7-Mode
+. Calcular la huella de cada archivo WORM en los volúmenes de 7-Mode (enumerados en el paso anterior) y calcular la huella digital del archivo WORM correspondiente en los volúmenes de ONTAP convertidos
+. Generar un informe con detalles sobre el número de archivos con huellas digitales coincidentes y no coincidentes, y el motivo de la discrepancia
+
+
+|===
+
+
+== Fase de preparación
+
+En esta fase, se recopila información sobre el sistema 7-Mode y el clúster, los volúmenes y las direcciones IP. La herramienta de transición de 7-Mode realiza las siguientes tareas en esta fase:
+
+. Recopila y añade información sobre el sistema de almacenamiento y los volúmenes de 7-Mode.
+. Realiza las comprobaciones previas de la transición.
+. Recopila y añade información sobre el clúster, la SVM y el agregado.
+. Recopila direcciones IP que se deben configurar en la SVM:
++
+** Selecciona las direcciones IP que existen en el sistema 7-Mode.
+** Especifica las nuevas direcciones IP que se deben configurar en la SVM. NOTA: La herramienta no admite la transición de LIF iSCSI y FC (SAN). Debe configurar manualmente LIF SAN en la SVM antes de la transición.
+
+
+. Crea programas de copias de datos para copias de referencia y actualizaciones incrementales.
+. Si el proyecto contiene volúmenes SnapLock, recopila información sobre los volúmenes SnapLock de lectura y escritura para los que se requiere verificación de cadena de custodia y los detalles del volumen ONTAP que almacena los datos de huella digital que se generan durante la operación de verificación de cadena de custodia.
++
+
+NOTE: La operación de verificación cadena de custodia sólo se admite en volúmenes con nombres de archivo que sólo tienen caracteres ASCII.
+
+. Planifica la transición de la configuración seleccionando las configuraciones de 7-Mode que se deben realizar la transición a la SVM de destino y los volúmenes de destino.
+
+
+No debe modificar los objetos (volúmenes, direcciones IP, información del sistema, etc.) de la controladora después de corregir los errores y las advertencias que se notifican durante las comprobaciones previas.
+
+
+
+== Fase de copia de datos
+
+En esta fase, los datos de los volúmenes 7-Mode se copian a los volúmenes ONTAP. La herramienta de transición de 7-Mode realiza las siguientes tareas en esta fase:
+
+. Crea los volúmenes ONTAP con acceso de solo lectura.
+. Configure una relación entre iguales entre el sistema 7-Mode y la SVM.
+. Establece una relación de SnapMirror de transición (relación del tipo TDP) entre los volúmenes de 7-Mode y los volúmenes ONTAP.
+. Completa la transferencia de copias de datos de referencia en función de las entradas de la programación.
+. Realiza actualizaciones incrementales programadas de los volúmenes de ONTAP.
+
+
+
+
+== Aplicar la fase de configuración (previa)
+
+Se recomienda ejecutar una operación de transición previa unos días o semanas antes del plazo planificado de transposición. Esta actividad permite verificar si todas las configuraciones se aplican correctamente y si es necesario realizar cambios.
+
+En esta fase, las configuraciones de los volúmenes de 7-Mode se copian a volúmenes de ONTAP.
+
+Existen dos modos para la fase aplicar configuración (precutover): *Preprecitover de sólo lectura* y *Pretutover de lectura/escritura*.
+
+El modo de lectura/escritura previa no se admite cuando el proyecto contiene:
+
+* Los volúmenes SAN y el clúster de destino ejecutan Data ONTAP 8.3.1 o una versión anterior
++
+En este caso, las siguientes configuraciones no se aplican en la fase aplicar configuración (precutover). En su lugar, se aplican durante la fase de transposición.
+
++
+** Configuraciones SAN
+** Configuraciones de la programación de snapshots
+
+
+* Volúmenes de cumplimiento de normativas de SnapLock
++
+Si el proyecto contiene volúmenes de cumplimiento de SnapLock, las configuraciones de la programación de snapshots no se aplican en la fase aplicar configuración (previa). En su lugar, estas configuraciones se aplican durante la fase de transposición.
+
++
+xref:concept_considerations_for_transitioning_of_snaplock_compliance_volumes.adoc[Consideraciones para la transición de volúmenes de cumplimiento de SnapLock]
+
+
+
+Si el clúster de destino ejecuta Data ONTAP 8.3.1 o una versión anterior y desea ejecutar la operación Apply Configuration (creación previa) en el modo de lectura/escritura para volúmenes NAS, debe crear proyectos independientes para los volúmenes NAS y SAN. Esta acción es necesaria porque el modo de lectura/escritura previa no se admite si tiene volúmenes SAN en el proyecto.
+
+Si el proyecto contiene volúmenes de SnapLock Compliance y desea ejecutar la operación Apply Configuration (creación previa) en modo de lectura/escritura para volúmenes que no sean de SnapLock Compliance, debe crear proyectos independientes para volúmenes de SnapLock Compliance y que no sean de SnapLock Compliance. Esta acción es necesaria porque el modo de lectura/escritura previa no se admite si tiene volúmenes de cumplimiento SnapLock en el proyecto.
+
+La herramienta realiza los siguientes pasos en el *modo de sólo lectura previa*:
+
+. Realiza una actualización incremental de volúmenes de 7-Mode a volúmenes de ONTAP.
+. Rompe la relación de SnapMirror entre volúmenes de 7-Mode y volúmenes de ONTAP.
++
+
+NOTE: Para los volúmenes de cumplimiento normativo de SnapLock, la relación de SnapMirror entre el volumen de 7-Mode y los volúmenes de ONTAP no se rompe. La relación de SnapMirror no se rompe porque la operación de resincronización de SnapMirror entre los volúmenes de 7-Mode y ONTAP no es compatible con los volúmenes de SnapLock Compliance.
+
+. Recopila configuraciones de volúmenes de 7-Mode y aplica las configuraciones a los volúmenes de ONTAP y SVM.
+. Configura las LIF de datos en la SVM:
++
+** Las direcciones IP existentes de 7-Mode se crean en la SVM en estado administrativo inactivo.
+** Se crean nuevas direcciones IP en la SVM con el estado administrativo up.
+
+
+. Vuelve a sincronizar la relación de SnapMirror entre volúmenes de 7-Mode y volúmenes ONTAP
+
+
+La herramienta realiza los siguientes pasos en el *modo de lectura/escritura previa*:
+
+. Realiza una actualización incremental de volúmenes de 7-Mode a volúmenes de ONTAP.
+. Rompe la relación de SnapMirror entre volúmenes de 7-Mode y volúmenes de ONTAP.
+. Recopila configuraciones de volúmenes de 7-Mode y aplica las configuraciones a los volúmenes de ONTAP y SVM.
+. Configura las LIF de datos en la SVM:
++
+** Las direcciones IP existentes de 7-Mode se crean en la SVM en estado administrativo inactivo.
+** Se crean nuevas direcciones IP en la SVM con el estado administrativo up.
+
+
+. Habilita los volúmenes ONTAP para el acceso de lectura/escritura.
++
+Después de aplicar la configuración, los volúmenes ONTAP están disponibles para el acceso de lectura/escritura para que se pueda probar el acceso a los datos de lectura/escritura en estos volúmenes durante la prueba de aplicar configuración (previa). Puede verificar manualmente las configuraciones y el acceso a los datos en ONTAP.
+
+. Vuelve a sincronizar los volúmenes ONTAP cuando la operación "Finalizar prueba" se activa manualmente.
+
+
+
+
+== Fase de transición de almacenamiento
+
+La herramienta de transición de 7-Mode realiza las siguientes tareas en esta fase:
+
+. Opcional: Realiza una actualización de SnapMirror bajo demanda para reducir el tiempo de inactividad tras la transición.
+. Manual: Desconecte el acceso del cliente del sistema 7-Mode.
+. Realiza una actualización final de SnapMirror de volúmenes de 7-Mode a volúmenes de ONTAP.
+. Rompe y elimina la relación de SnapMirror entre los volúmenes de 7-Mode y los volúmenes de ONTAP, por lo que los volúmenes ONTAP son de lectura/escritura.
++
+Si el volumen seleccionado es un volumen de SnapLock Compliance y el volumen es el destino de una relación de SnapMirror, la relación de SnapMirror entre el volumen de 7-Mode y el volumen ONTAP se elimina sin una operación de interrupción de SnapMirror. Esta acción se realiza para garantizar que los volúmenes secundarios de ONTAP SnapLock Compliance permanezcan en modo de solo lectura. Los volúmenes secundarios de cumplimiento de normativas de ONTAP SnapLock deben estar en modo de solo lectura para que la operación de resincronización se complete correctamente entre los volúmenes primario y secundario de cumplimiento de normativas de SnapLock.
+
+. Aplica la configuración de horarios de Snapshot si:
++
+** El clúster de destino ejecuta Clustered Data ONTAP 8.3.0 ó 8.3.1 y el proyecto contiene volúmenes SAN.
+** El proyecto contiene volúmenes de cumplimiento de SnapLock.
+
+
+. Aplica configuraciones SAN, si el clúster de destino ejecuta Data ONTAP 8.3.1 o una versión anterior.
+. Aplica configuraciones de cuotas, si las hubiera.
+. Elimina las direcciones IP de 7-Mode existentes seleccionadas para la transición del sistema 7-Mode y lleva las LIF de datos de la SVM al estado administrativo.
++
+
+NOTE: La herramienta de transición de 7-Mode no realiza la transición de los LIF DE SAN.
+
+. Opcional: Desconecta los volúmenes de 7-Mode.
+
+
+
+
+== Proceso de verificación de la cadena de custodia de los volúmenes de SnapLock
+
+Debe realizar la operación de verificación de la cadena de custodia. La herramienta realiza las siguientes operaciones cuando se inicia una verificación de cadena de custodia:
+
+. Enumera todos los archivos WORM de volúmenes 7-Mode.
+. Calcula la huella de cada archivo WORM en los volúmenes de 7-Mode (enumerados en el paso anterior) y calcula la huella digital del archivo WORM correspondiente en los volúmenes ONTAP convertidos.
+. Genera un informe con detalles sobre el número de archivos con huellas digitales coincidentes y no coincidentes, así como el motivo de la discrepancia.
+
+
+[NOTE]
+====
+* La operación de verificación de cadena de custodia solo se admite en volúmenes SnapLock de lectura y escritura que tienen nombres de archivos con caracteres ASCII.
+* Esta operación puede tardar una cantidad de tiempo considerable en función del número de archivos de los volúmenes de SnapLock de 7-Mode.
+
+
+====
+
+
+== Pasos posteriores a la transición
+
+Una vez que la fase de transición del almacenamiento se haya completado correctamente y la transición se haya completado, debe realizar algunas tareas manuales posteriores a la transición:
+
+. Realice los pasos necesarios para configurar las funciones que no se realizaron la transición o que se realizaron la transición parcialmente, como se indica en el informe de comprobaciones previas.
++
+Por ejemplo, IPv6 y FPolicy deben configurarse manualmente después de la transición.
+
+. Para la transición SAN, vuelva a configurar los hosts.
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["Transición y corrección de hosts de SAN"]
+
+. Asegurarse de que la SVM está lista para servir datos a los clientes; para ello, se comprueban lo siguiente:
++
+** Los volúmenes en la SVM están en línea y de lectura/escritura.
+** Las direcciones IP están activas y accesibles en la SVM.
+
+
+. Redirija el acceso de los clientes a los volúmenes ONTAP.
+
+
+*Información relacionada*
+
+xref:task_transitioning_volumes_using_7mtt.adoc[Migración de datos y configuración desde volúmenes de 7-Mode]

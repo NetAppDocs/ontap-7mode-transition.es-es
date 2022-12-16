@@ -1,0 +1,24 @@
+---
+permalink: copy-based/concept_guidelines_for_deciding_when_to_cutover.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, decide, perform, cutover 
+summary: Dado que la transición produce interrupciones para los clientes, debe planificar la actividad para minimizar el tiempo de inactividad. Debe programar la transición durante un periodo de poca actividad. Debe actualizar los volúmenes ONTAP y esperar a que las transferencias se completen antes de desconectar a los clientes e iniciar la transición al almacenamiento para reducir el tiempo de inactividad. 
+---
+= Directrices para la decisión de cuándo realizar la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dado que la transición produce interrupciones para los clientes, debe planificar la actividad para minimizar el tiempo de inactividad. Debe programar la transición durante un periodo de poca actividad. Debe actualizar los volúmenes ONTAP y esperar a que las transferencias se completen antes de desconectar a los clientes e iniciar la transición al almacenamiento para reducir el tiempo de inactividad.
+
+Debe seguir supervisando el estado de SnapMirror de cada volumen. Si la última duración de transferencia de las pocas actualizaciones anteriores del volumen se encuentra dentro de un límite aceptable, la mayoría de los cambios de datos en el volumen se deberían haber copiado y el tiempo para la actualización final de los datos durante la transición debería estar dentro del límite aceptable.
+
+El tiempo de inactividad aproximado se puede obtener según el número de volúmenes que se hayan realizado la transición.
+
+Para minimizar el tiempo de transición, la latencia de red entre la herramienta de transición de 7-Mode y los sistemas de almacenamiento debe ser mínima. Para realizar la transición de una relación de SnapMirror para volúmenes, la latencia de red entre la herramienta y los sistemas principales debe ser mínima.
+
+*Información relacionada*
+
+xref:task_performing_on_demand_snapmirror_update_operation.adoc[Realizar actualizaciones de SnapMirror bajo demanda]

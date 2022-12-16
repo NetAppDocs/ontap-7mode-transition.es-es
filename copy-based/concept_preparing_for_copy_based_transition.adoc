@@ -1,0 +1,33 @@
+---
+permalink: copy-based/concept_preparing_for_copy_based_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, prepare 
+summary: Antes de iniciar una operación de copia de datos de 7-Mode a ONTAP, debe comprender los requisitos y las restricciones para la migración y completar determinadas tareas en el sistema 7-Mode y el clúster. 
+---
+= Preparación para la transición basada en copias
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de iniciar una operación de copia de datos de 7-Mode a ONTAP, debe comprender los requisitos y las restricciones para la migración y completar determinadas tareas en el sistema 7-Mode y el clúster.
+
+Antes de la transición, debe asegurarse de que se cumplan los siguientes requisitos:
+
+* Es necesario acceder a los sistemas 7-Mode y ONTAP desde el host en el que se ha instalado la herramienta.
+* Los sistemas 7-Mode deben ejecutar las versiones de Data ONTAP compatibles.
+* La licencia de SnapMirror debe estar activada en el sistema 7-Mode.
+* Si existen licencias de funciones necesarias en el sistema 7-Mode, se deben instalar en el clúster.
+* Es necesario configurar el servidor NTP y sincronizar la hora en todo el sistema 7-Mode y en el clúster.
+* Deben completarse todas las tareas preparatorias del sistema de 7-Mode.
+* Deben completarse todas las tareas preparatorias del grupo.
+
+
+*Información relacionada*
+
+xref:reference_transition_preparation_checklist.adoc[Lista de comprobación para la preparación de la transición]
+
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/7MTT_v2.0%2F%2FTransitioned_Data_ONTAP_features["Funciones de 7MTT v2.0/Data ONTAP convertido"]
+
+link:https://mysupport.netapp.com/matrix/imt.jsp?components=68128;&solution=1&isHWU&src=IMT["Herramienta de matriz de interoperabilidad de NetApp"^]

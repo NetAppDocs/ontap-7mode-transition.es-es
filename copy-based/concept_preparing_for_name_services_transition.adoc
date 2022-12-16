@@ -1,0 +1,14 @@
+---
+permalink: copy-based/concept_preparing_for_name_services_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, prepare, name, services 
+summary: Configuraciones del servicio de nombres que incluyen DNS, LDAP, NIS, hosts, switch de servicios de nombres, La herramienta de transición de 7-Mode realiza la transición de los usuarios, grupos y configuraciones de grupos de redes de UNIX. Debe tener en cuenta algunos aspectos antes de llevar a cabo la transición de las configuraciones de los servicios de nombres. 
+---
+= Preparación para la transición de servicios de nombres
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Configuraciones del servicio de nombres que incluyen DNS, LDAP, NIS, hosts, switch de servicios de nombres, La herramienta de transición de 7-Mode realiza la transición de los usuarios, grupos y configuraciones de grupos de redes de UNIX. Debe tener en cuenta algunos aspectos antes de llevar a cabo la transición de las configuraciones de los servicios de nombres.

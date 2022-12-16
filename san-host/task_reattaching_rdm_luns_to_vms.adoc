@@ -1,0 +1,38 @@
+---
+permalink: san-host/task_reattaching_rdm_luns_to_vms.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, rdm, lun, vm 
+summary: 'Para que las máquinas virtuales conectadas a LUN de dispositivo sin formato asignado \(RDM\) funcionen después de la transición, debe quitar los discos de RDM que alojan el LUN de la máquina virtual. Después, debe volver a asociar los discos RDM a la máquina virtual según el número de serie de LUN proporcionado por la herramienta de transición de 7-Mode \(7MTT\).' 
+---
+= Volver a asociar LUN de RDM a máquinas virtuales
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para que las máquinas virtuales conectadas a LUN de dispositivo sin formato asignado (RDM) funcionen después de la transición, debe quitar los discos RDM que alojan el LUN de la máquina virtual. Después, debe volver a asociar los discos RDM a la máquina virtual según el número de serie de LUN proporcionado por 7-Mode Transition Tool (7MTT).
+
+* Para las transiciones basadas en copias, realice estos pasos antes de iniciar la operación de transición del almacenamiento en 7MTT.
+* Para las transiciones sin copias, realice estos pasos antes de iniciar la operación Exportar y detener los sistemas de 7-Mode en 7MTT.
+
+
+.Pasos
+. En _Inventory Assessment Workbook_, desplácese a la pestaña *Detalles del disco de la VM del host*.
+. Identifique la VM host ESXi con PTRDM o NPTRDM en la columna *Type*.
+. Anote el nombre de la VM, los detalles de la ruta del disco en la columna *disco* y el ID de naa de la columna *asignación de dispositivo*.
+. Compruebe que el ID de naa se incluya en el archivo de asignación de 7MTT que se generó después de la transición.
+. Compruebe que el ID de naa tenga un nuevo ID de naa correspondiente en la columna *WWID de LUN* del archivo de asignación.
++
+Este es el nuevo ID de LUN de naa según la norma Clustered Data ONTAP.
+
+. Use el ID de naa de LUN de Clustered Data ONTAP de la columna *WWID de LUN* y los detalles de la ruta de disco para volver a conectar el LUN de Clustered Data ONTAP a la máquina virtual.
+
+
+*Información relacionada*
+
+xref:task_removing_stale_rdm_using_vsphere_client.adoc[Eliminación de RDM obsoletos mediante vSphere Client]
+
+xref:task_reattaching_rdm_to_vms_using_vsphere_client.adoc[Volver a asociar RDM a máquinas virtuales mediante vSphere Client]
+
+xref:task_reattaching_rdm_using_esxi_cli_console.adoc[Volver a conectar RDM con ESXi la CLI/Console]

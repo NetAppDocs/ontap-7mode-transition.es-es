@@ -1,0 +1,54 @@
+---
+permalink: san-host/task_reattaching_rdm_to_vms_using_vsphere_client.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, rdm, vm, vshpere, client 
+summary: 'Tras la transición de un host ESXi mediante la herramienta de transición de 7-Mode \(7MTT\), debe volver a asociar los RDM a las máquinas virtuales \(VM\).' 
+---
+= Volver a asociar RDM a máquinas virtuales mediante vSphere Client
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de realizar la transición de un host ESXi mediante 7-Mode Transition Tool (7MTT), debe volver a colocar los RDM en máquinas virtuales (VM).
+
+Se deben haber eliminado las asignaciones obsoletas de dispositivos sin formato (RDM).
+
+.Pasos
+. Abra el host ESXi o la instancia de vCenter Server que gestiona el host ESXi.
+. Haga clic con el botón derecho del ratón en el equipo virtual y seleccione *Editar configuración*.
++
+Se abrirá la ventana VM Properties.
+
+. Haga clic en *Agregar*.
++
+Se abre la ventana Agregar hardware.
+
+. Haga clic en *disco duro*.
+. Haga clic en *Siguiente* para seleccionar el disco.
+. Seleccione *asignaciones de dispositivos sin formato*.
+. Haga clic en *Siguiente* para seleccionar la LUN de destino.
+. Seleccione la LUN con el nuevo ID de NAA según la norma de Data ONTAP en clúster que anotó en el archivo de asignación de 7MTT.
+. Haga clic en *Siguiente*.
+. Elija *Seleccionar Datastore*.
+. Seleccione el almacén de datos que coincida con la ruta de disco indicada en el archivo de asignación de 7MTT.
+. Haga clic en *Siguiente*.
+. Elija *físico* o *Virtual* para el *modo de compatibilidad*.
++
+Elija el modo de compatibilidad que se indicó cuando se quitó la RDM obsoleta.
+
+. Haga clic en *Siguiente*.
+. Elija *Opciones avanzadas*.
+. Seleccione *nodo de dispositivo virtual*.
++
+Seleccione el modo de dispositivo virtual que indicó al quitar el RDM obsoleto.
+
+. Haga clic en *Siguiente*.
+. Haga clic en *Finalizar* para enviar los cambios.
+. Repita los pasos para todas las máquinas virtuales con RDM conectado.
+
+
+*Información relacionada*
+
+xref:task_removing_stale_rdm_using_vsphere_client.adoc[Eliminación de RDM obsoletos mediante vSphere Client]

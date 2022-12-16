@@ -1,0 +1,85 @@
+---
+settings:
+  name: ONTAP 7-Mode Transition
+  platform: ''
+  internal:
+    pdf_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: false
+  langs: es-es,us-en,ja-jp,ko-kr,zh-cn,zh-tw,de-de,fr-fr
+sidebar:
+  entries:
+  - title: Transición de 7-Mode
+    url: "/index.html"
+  - title: Notas de la versión
+    url: "/releasenotes.html"
+  - section: command-map
+  - section: install-admin
+  - section: copy-based
+  - section: copy-free
+  - section: inventory-collect
+  - section: snapmirror
+  - section: san-host
+  - title: Avisos legales
+    url: "/reference_legal_notices.html"
+homepage:
+  tiles:
+  - title: Manos a la obra
+    links:
+    - title: Novedades
+      summary: Consulte las novedades de la versión más reciente de 7-Mode Transition
+        Tool
+      url: releasenotes.html
+    - title: Instale la herramienta de transición de 7-Mode
+      summary: Aprenda a instalar la herramienta en Microsoft Windows o Linux
+      url: "/install-admin/concept_transition_to_clustered_ontap_using_7mtt.html"
+    - title: Recopilación de los datos necesarios para la transición
+      summary: Descubra cómo recoger la información esencial para la transición
+      url: "/inventory-collect/concept_collecting_host_and_storage_inventory_information_for_transition_assessment.html"
+  - title: Asignación de comandos para administradores de 7-Mode
+    links:
+    - title: Cómo se asignan los comandos de 7-Mode a comandos de la ONTAP
+      summary: Busque los equivalentes de ONTAP de los comandos de 7-Mode
+      url: "/command-map/reference_how_7_mode_commands_map_to_clustered_ontap_commands.html"
+    - title: Cómo se asignan las opciones de 7-Mode a comandos de ONTAP
+      summary: Conozca cómo se asignan las opciones de 7-Mode a los parámetros de
+        comandos de ONTAP
+      url: "/command-map/reference_how_7_mode_options_map_to_clustered_ontap_commands.html"
+    - title: Cómo se asignan los archivos de configuración de 7-Mode a los comandos
+        de ONTAP
+      summary: Reducir cómo se asignan los archivos de configuración de 7-Mode a los
+        comandos de configuración de ONTAP
+      url: "/command-map/reference_how_7_mode_configuration_files_map_to_clustered_ontap_commands.html"
+  - title: Formas de transición
+    links:
+    - title: Transición basada en copias
+      summary: Utilice la herramienta para realizar una transición basada en copias
+        de 7-Mode a ONTAP
+      url: "/copy-based/concept_copy_based_transition_workflow.html"
+    - title: Transición sin copias
+      summary: Utilice la herramienta para realizar una transición sin copias de 7-Mode
+        a ONTAP
+      url: "/copy-free/task_copy_free_transition_workflow.html"
+    - title: Realice la transición de datos con SnapMirror
+      summary: Comprender cómo realizar la transición de datos de 7-Mode a ONTAP mediante
+        comandos de SnapMirror
+      url: "/snapmirror/task_transitioning_7_mode_volumes_using_snapmirror.html"
+  - title: Transición y corrección de hosts de SAN
+    links:
+    - title: VMware ESXi
+      summary: Comprender los requisitos previos y posteriores a la transición relativos
+        a los hosts VMware ESXi
+      url: "/san-host/concept_vmware_esxi_host_remediation.html"
+    - title: Red Hat Enterprise Linux
+      summary: Conozca los requisitos previos y posteriores a la transición para los
+        hosts Red Hat Enterprise Linux
+      url: "/san-host/concept_linux_host_remediation.html"
+    - title: Windows
+      summary: Comprender los pasos previos y posteriores a la transición relativos
+        a los hosts de Microsoft Windows
+      url: "/san-host/concept_windows_host_remediation.html"
+product-family:
+  name: ONTAP
+  repo: ontap-family
+  sidebar_label: Documentación de productos All ONTAP

@@ -1,0 +1,31 @@
+---
+permalink: snapmirror/task_transitioning_a_data_protection_relationship.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, snapmirror, staggered, configuration, volumes 
+summary: Puede realizar la transición de una relación de SnapMirror para volúmenes de 7-Mode y conservar la relación de protección de datos si realiza la transición del volumen secundario antes del volumen primario. En este método, se establece una relación de recuperación ante desastres de SnapMirror escalonada entre los volúmenes primarios de 7-Mode y los volúmenes secundarios de Clustered Data ONTAP. 
+---
+= La transición de una relación de SnapMirror para volúmenes en una configuración escalonada
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede realizar la transición de una relación de SnapMirror para volúmenes de 7-Mode y conservar la relación de protección de datos si realiza la transición del volumen secundario antes del volumen primario. En este método, se establece una relación de recuperación ante desastres de SnapMirror escalonada entre los volúmenes primarios de 7-Mode y los volúmenes secundarios de Clustered Data ONTAP.
+
+* Ya deben configurarse los clústeres primario y secundario y las SVM.
+* Para establecer una relación entre iguales de una SVM durante la transición de una relación de SnapMirror de volumen, se deben cumplir las siguientes condiciones:
++
+** El clúster secundario no debe tener una SVM con el mismo nombre que la SVM principal.
+** El clúster principal no debe tener una SVM con el mismo nombre que la SVM secundaria.
+** Debe haber revisado la información sobre cómo prepararse para la transición.
++
+xref:task_preparing_for_transition.adoc[Preparación para la transición]
+
+
+
+
+
+*Información relacionada*
+
+xref:task_resuming_a_failed_snapmirror_transfer_transition.adoc[Reanudación de una transferencia básica de SnapMirror con fallos]

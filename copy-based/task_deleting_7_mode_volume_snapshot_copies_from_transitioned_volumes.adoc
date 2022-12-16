@@ -1,0 +1,25 @@
+---
+permalink: copy-based/task_deleting_7_mode_volume_snapshot_copies_from_transitioned_volumes.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, delete, volume, snapshot, copy 
+summary: Dado que las copias de Snapshot de volumen 7-Mode no se eliminan automáticamente de un volumen que ha realizado la transición, debe eliminar estas copias de Snapshot manualmente una vez que finaliza la operación de transición. 
+---
+= Eliminación de copias Snapshot de volúmenes de 7-Mode de los volúmenes que se han trasladado
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dado que las copias de Snapshot de volumen 7-Mode no se eliminan automáticamente de un volumen que ha realizado la transición, debe eliminar estas copias de Snapshot manualmente una vez que finaliza la operación de transición.
+
+Debido a que la convención de nomenclatura para las copias Snapshot difiere entre los entornos de 7-Mode y Clustered Data ONTAP, las copias Snapshot de 7-Mode no pueden ser sobrescritas automáticamente por las copias Snapshot en el entorno Clustered Data ONTAP.
+
+Para mejorar el aprovechamiento del espacio, debería eliminar las copias Snapshot de 7-Mode no deseadas, incluidas las de las relaciones de SnapMirror de 7-Mode a 7-Mode y las relaciones de SnapMirror de 7-Mode a Clustered Data ONTAP.
+
+.Pasos
+. Una vez finalizada la operación de transición del almacenamiento, elimine las copias Snapshot de 7-Mode que no desee:
++
+`*snap delete -vserver <svm_name> -volume <volume_name> -snapshot <snapshot_name>*`
+
+

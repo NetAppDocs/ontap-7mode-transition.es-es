@@ -1,0 +1,34 @@
+---
+permalink: snapmirror/concept_considerations_for_using_snapmirror_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, 7, transition, mode, snapmirror, operations, snapvault, considerations 
+summary: Debe tener en cuenta determinadas consideraciones que se deben tener en cuenta al ejecutar operaciones de transición simultáneamente con las operaciones de SnapMirror o SnapVault que se producen en el sistema de 7-Mode, como el número máximo de transferencias simultáneas de SnapMirror, las programaciones de copias de datos y el uso de varias rutas para la transición. 
+---
+= Consideraciones para usar SnapMirror para la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe tener en cuenta determinadas consideraciones que se deben tener en cuenta al ejecutar operaciones de transición simultáneamente con las operaciones de SnapMirror o SnapVault que se producen en el sistema de 7-Mode, como el número máximo de transferencias simultáneas de SnapMirror, las programaciones de copias de datos y el uso de varias rutas para la transición.
+
+
+
+== El número máximo de transferencias de SnapMirror que simultáneamente
+
+Durante la transición, el número máximo de transferencias de SnapMirror que se admiten en los sistemas de 7-Mode y ONTAP depende de la cantidad de operaciones de replicación de SnapMirror para volúmenes permitidas para un modelo de sistema de almacenamiento específico.
+
+Para obtener más información sobre el número máximo de transferencias de SnapMirror para volúmenes simultáneas para su modelo de sistema, consulte link:https://library.netapp.com/ecm/ecm_get_file/ECMP1635994["Guía de recuperación y backup en línea de protección de datos de Data ONTAP para 7-Mode"].
+
+
+
+== Programas de copias de datos
+
+Los programas de copias de datos para operaciones de transición no deben solaparse con las programaciones existentes de las operaciones de SnapMirror o SnapVault que se ejecutan en el sistema de 7-Mode.
+
+
+
+== Uso de varias rutas para la transición
+
+Puede especificar dos rutas de transición mediante una dirección IP de copia de datos y una dirección IP multivía. Sin embargo, ambas rutas pueden utilizarse únicamente para el equilibrio de carga, no para la conmutación por error.

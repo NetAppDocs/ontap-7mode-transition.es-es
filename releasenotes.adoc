@@ -1,0 +1,13 @@
+---
+permalink: releasenotes.html 
+sidebar: sidebar 
+keywords: release, notes, new, features, fixed, issues, known, limitations, 7-mode, transition, tool 
+summary: Describe nuevas funciones, notas de actualización, problemas solucionados, limitaciones conocidas y problemas conocidos. 
+---
+= Notas de la versión de 7-Mode Transition Tool
+:allow-uri-read: 
+
+
+La link:https://library.netapp.com/ecm/ecm_download_file/ECMLP2883526["Notas de la versión de 7-Mode Transition"] describa las nuevas funciones, las notas de actualización, los problemas solucionados, las limitaciones conocidas y los problemas conocidos.
+
+Debe iniciar sesión en el sitio de soporte de NetApp para acceder a las notas de la versión.

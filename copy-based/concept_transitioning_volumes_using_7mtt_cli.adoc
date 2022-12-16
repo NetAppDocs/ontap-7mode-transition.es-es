@@ -1,0 +1,16 @@
+---
+permalink: copy-based/concept_transitioning_volumes_using_7mtt_cli.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, cli, tool, columes 
+summary: La herramienta de transición de 7-Mode proporciona comandos que le permiten realizar la transición de volúmenes de 7-Mode. Si tiene instalada la herramienta 7-Mode Transition Tool en un sistema Linux, debe utilizar la CLI para realizar la transición. 
+---
+= Realizar la transición de volúmenes usando la interfaz de línea de comandos de 7-Mode Transition Tool
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La herramienta de transición de 7-Mode proporciona comandos que le permiten realizar la transición de volúmenes de 7-Mode. Si tiene instalada la herramienta 7-Mode Transition Tool en un sistema Linux, debe utilizar la CLI para realizar la transición.
+
+La herramienta recopila información sobre el volumen y la dirección IP del sistema de almacenamiento de 7-Mode, verifica la configuración de 7-Mode e interactúa con el clúster para aplicar la configuración en la SVM.

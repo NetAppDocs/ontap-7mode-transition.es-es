@@ -1,0 +1,84 @@
+---
+permalink: copy-based/task_starting_data_copy_for_a_transition_session.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, start, data, copy, project 
+summary: Puede iniciar una copia de datos de volúmenes de 7-Mode a volúmenes de ONTAP para una transferencia completa. La transferencia de línea de base se inicia cuando la copia de datos programa configurada en un proyecto se activa. Una vez finalizada la transferencia completa, los volúmenes de ONTAP se actualizan periódicamente según la programación de la copia de datos. 
+---
+= Iniciando la copia de datos para un proyecto de transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede iniciar una copia de datos de volúmenes de 7-Mode a volúmenes de ONTAP para una transferencia completa. La transferencia de línea de base se inicia cuando la copia de datos programa configurada en un proyecto se activa. Una vez finalizada la transferencia completa, los volúmenes de ONTAP se actualizan periódicamente según la programación de la copia de datos.
+
+* Debe haber realizado las comprobaciones previas en el proyecto y resuelto todos los errores.
+* Debe haber configurado una red dedicada de alto ancho de banda y baja latencia entre los sistemas de origen y destino para la transferencia de datos.
++
+
+NOTE: Puede utilizar la multivía de SnapMirror para equilibrar la carga de transferencia de datos entre las dos rutas.
+
+* Es necesario configurar una programación de copia de datos para la sesión.
+
+
+Si va a realizar la transición a una SVM existente, se crean los volúmenes durante esta operación. Si va a realizar la transición a una SVM nueva, la SVM y sus volúmenes se crean durante esta operación.
+
+Las relaciones de SnapMirror se crean entre 7-Mode y volúmenes de ONTAP.
+
+.Pasos
+. Inicie la copia de datos:
++
+`*transition start -p _project_name_*`
+
++
+Si la operación de inicio falla y no se inicia la copia de datos, debe resolver los problemas y ejecutar el `transition start` comando de nuevo.
+
++
+[listing]
+----
+7-Mode Transition Tool>transition start -p project_finance
+
+[1/17 ] Project status checks                                      [      Ok       ]
+[2/17 ] Validating 7-Mode system information                       [      Ok       ]
+[3/17 ] Validating 7-Mode volumes information                      [      Ok       ]
+[4/17 ] Validating Cluster-Mode system information                 [      Ok       ]
+[5/17 ] Validating Cluster-Mode volume information                 [      Ok       ]
+[6/17 ] Validating LIF information                                 [ Notifications ]
+[7/17 ] WAFL prechecks                                             [      Ok       ]
+[8/17 ] UNIX users and groups prechecks                            [   Warnings    ]
+[9/17 ] SnapMirror prechecks                                       [ Notifications ]
+[10/17] NFS prechecks                                              [   Warnings    ]
+[11/17] Networking prechecks                                       [ Notifications ]
+[12/17] CIFS prechecks                                             [   Warnings    ]
+[13/17] Name services prechecks                                    [   Warnings    ]
+[14/17] SAN prechecks                                              [      Ok       ]
+[15/17] Creating Cluster-Mode volumes                              [      Ok       ]
+[16/17] Establishing SnapMirror relationships between the 7-Mode and Cluster-Mode volumes                                                            [      Ok       ]
+[17/17] Initializing SnapMirror relationships between the 7-Mode and Cluster-Mode volumes                                                            [      Ok       ]
+
+Operation summary:
+------------------
+The 'start' operation is completed with warnings and notifications.
+
+ 0  Errors - No action required
+22  Warnings - Need your attention!
+16  Notifications - Please review
+102  Informational messages
+
+Do you want to see a detailed report {yes, no} [yes]:
+
+22 Warnings:
+------------
+20362: Checking whether 7-Mode UNIX groups' names are in use in the Vserver 'vs2'.  [    Warning    ]
+  > The following 7-Mode UNIX groups' names are already in use in the Vserver 'vs2'.
+  > AFFECTED-OBJECTS: { daemon }
+
+20372: Checking whether 7-Mode UNIX groups' ids are in use in the Vserver 'vs2'.    [    Warning    ]
+  > The following 7-Mode UNIX groups' ids are already in use in the Vserver 'vs2'.
+  > AFFECTED-OBJECTS: { daemon }
+----
++
+El proyecto pasa al estado de línea base de copia. Una vez finalizada la transferencia prevista, el proyecto pasa al estado de copia-actualización.
+
+

@@ -1,0 +1,12 @@
+---
+permalink: inventory-collect/reference_copyright_and_trademark.html 
+sidebar: sidebar 
+keywords: 7, mode, copyright, host, storage, information, collection, transition, copyright, trademark 
+summary: Copyright y Marca comercial para la guía de recopilación de información de hosts y almacenamiento. 
+---
+= Copyright, Marca comercial y traducción automática
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+

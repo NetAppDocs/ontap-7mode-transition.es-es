@@ -1,0 +1,465 @@
+---
+permalink: copy-based/task_creating_schedule_for_snapmirror_transfers.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, create, data, copy, schedule, snapmirror, transfer 
+summary: Puede crear programas de copia de datos para gestionar de manera eficaz las operaciones de copia de datos de transición para los volúmenes en un proyecto. También es posible especificar el número de transferencias simultáneas de SnapMirror que se van a ejecutar durante esa programación para garantizar que no se produzca un error en ninguna operación de replicación debido a que las transferencias simultáneas de SnapMirror alcanzan el límite máximo. 
+---
+= Crear una programación de copias de datos para transferencias de SnapMirror
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede crear programas de copia de datos para gestionar de manera eficaz las operaciones de copia de datos de transición para los volúmenes en un proyecto. También es posible especificar el número de transferencias simultáneas de SnapMirror que se van a ejecutar durante esa programación para garantizar que no se produzca un error en ninguna operación de replicación debido a que las transferencias simultáneas de SnapMirror alcanzan el límite máximo.
+
+* El proyecto debe estar en la fase de preparación, copia de datos o aplicación de configuración (previa).
+* El servicio 7-Mode Transition Tool debe estar siempre en ejecución para que las programaciones sean efectivas.
+
+
+
+NOTE: La programación de la copia de datos se utiliza para las operaciones de copia de referencia, actualización y resincronización de SnapMirror.
+
+* Debe crear al menos una programación de copia de datos para cada proyecto.
+* Puede crear un máximo de 7 planificaciones por proyecto; sin embargo, las programaciones no se pueden superponer dentro de un proyecto.
++
+Por ejemplo, puede crear programaciones personalizadas para el horario laboral y el horario no laboral, las horas de recuperación ante desastres y las horas que no sean de recuperación ante desastres, así como los días laborables y los fines de semana.
+
++
+
+NOTE: Si los proyectos utilizan la misma controladora o clúster de 7-Mode, asegúrese de que las programaciones de copias de datos no se superponen en distintos proyectos.
+
+* Las programaciones configuradas se aplican en función de la zona horaria de la controladora 7-Mode.
+* El número de transferencias de SnapMirror simultáneas que se debe utilizar durante la programación se determina en el tiempo de ejecución en función del porcentaje de flujos de SnapMirror concurrentes que se deben utilizar y el límite máximo configurado.
+* El número de transferencias de SnapMirror simultáneas que se deben utilizar durante la programación debe proporcionarse de modo que las programaciones de recuperación ante desastres de 7-Mode existentes no se vean afectadas por la herramienta que usa las transferencias de SnapMirror especificadas en el programa.
+* Si el número de transferencias de SnapMirror que utiliza la herramienta es menor que el número configurado de transferencias de SnapMirror simultáneas que se debe utilizar durante el programa, la herramienta programa la realización de nuevas transferencias para utilizar el resto de las transferencias.
+* Si la programación llega a su finalización o si se reduce el número de transferencias de SnapMirror simultáneas en el sistema de almacenamiento de 7-Mode, la herramienta cancela las transferencias adicionales para garantizar que utiliza únicamente el número de transferencias configurado en cualquier momento.
++
+
+NOTE: Si hay una línea base en curso y aún no se ha creado el punto de comprobación de instantánea, la herramienta no anula la transferencia, pero espera a que se cree el punto de comprobación de instantánea antes de interrumpir la transferencia.
+
+
+
+.Pasos
+. Cree programas desde la página Programación de copia de datos del Panel haciendo clic en *Editar proyecto* y, a continuación, seleccionando *Configurar programa*.
+. Escriba un nombre para la programación nueva.
+. En el panel días recurrentes, seleccione los días en los que se debe ejecutar la operación de copia de datos.
++
+|===
+| Si desea ejecutar las operaciones de copia de datos... | Realice lo siguiente... 
+
+
+ a| 
+Todos los días
+ a| 
+Seleccione *Diario*. Este es el valor predeterminado.
+
+
+
+ a| 
+Sólo en determinados días
+ a| 
+.. Seleccione *Seleccionar días*.
+.. Seleccione los días de la semana.
+
+
+|===
+. En el panel Time Interval, especifique la hora de inicio, la duración y la frecuencia de la programación de la copia de datos.
++
+.. Introduzca la hora a la que deben empezar las operaciones de copia de datos seleccionando las horas y minutos de la lista desplegable *Hora de inicio*.
++
+Los valores válidos son de 00:00 a 23:30.
+
+.. Introduzca el período de tiempo en el que desea que se ejecuten las operaciones de copia de datos, seleccione las horas y minutos en la lista desplegable *duración*.
++
+
+NOTE: La duración de una programación no debe ser superior a una semana (167 horas y 30 minutos).
+
++
+Por ejemplo, si se especifica 20:30, se ejecutan las operaciones de SnapMirror durante las siguientes 20 horas y 30 minutos desde la hora de inicio.
+
+.. Seleccione la frecuencia con la que se deben realizar las transferencias incrementales (dentro de la duración de la programación creada) una vez que se haya completado la transferencia inicial realizando una de las siguientes acciones:
++
+*** Seleccione las horas y minutos de la lista desplegable *frecuencia de actualización*.
+*** Seleccione *actualizaciones continuas*.
++
+El retraso mínimo entre dos actualizaciones consecutivas será de 5 minutos.
+
+
+
+
+
++
+De manera predeterminada, las actualizaciones de SnapMirror se ejecutan cada 30 minutos.
+
+. En el panel Parameters for Transition Data Copy Operations, introduzca los parámetros de SnapMirror.
++
+.. Especifique la cantidad máxima de transferencias de SnapMirror que debe usarse para la copia de datos realizando una o todas las siguientes acciones:
++
+*** Especifique el porcentaje de las transferencias de SnapMirror para volúmenes disponibles que se deben utilizar para la copia de datos (cuando el programa está activo), introduciendo el porcentaje en el campo *número máximo de transferencias de VSM simultáneas*.
++
+Las transferencias de SnapMirror para volúmenes disponibles se calculan en tiempo de ejecución.
+
++
+
+NOTE: En este panel se muestra el número máximo de transferencias de SnapMirror simultáneas compatibles con su plataforma.
+
+*** Especifique el número máximo de transferencias simultáneas de SnapMirror para volúmenes que se pueden ejecutar durante esta programación en el campo *no superior*. Si introduce ambos valores, el valor más bajo se utiliza como el número de transferencias simultáneas.
+
+
+
+
++
+El número de transferencias simultáneas que se utilizará para la transición se calcula en tiempo de ejecución según la programación y el número de transferencias simultáneas configuradas.
+
++
++ su plataforma admite un máximo de 100 transferencias de SnapMirror para volúmenes simultáneas, 60 están disponibles actualmente y ha especificado los siguientes valores:
+
++
+** El porcentaje de la opción de transferencia SnapMirror para volúmenes disponibles es del 50 %.
++
+La cantidad máxima de transferencias simultáneas en función de la opción de porcentaje es 50% de 60 = 30.
+
+** El número máximo de opciones de transferencia de SnapMirror para volúmenes simultáneos es 25. En este escenario, la herramienta establece el número máximo de transferencias simultáneas de SnapMirror para volúmenes a 25, que es el más bajo de los dos valores.
++
+... Especifique el ancho de banda máximo en MB/s (acelerador) realizando una de las siguientes acciones:
++
+|===
+| Si desea... | Realice lo siguiente... 
+
+
+ a| 
+Utilice todo el ancho de banda disponible
+ a| 
+Seleccione *máximo*. Este es el valor predeterminado.
+
+
+
+ a| 
+Especifique el valor del acelerador
+ a| 
+Introduzca el valor en el campo *no excede*. El valor máximo permitido de entrada es 4194303.
+
++
+
+|===
++
+El valor del acelerador se distribuye por igual entre todas las transferencias activas del proyecto.
+
++
+
+NOTE: La aceleración de cada transferencia se determina en el tiempo de ejecución en función del número de transferencias SnapMirror para volúmenes simultáneos disponibles.
+
++
+Si la programación activa está configurada con el valor de aceleración de 200 Mbps y sólo hay disponibles 10 transferencias simultáneas, cada transferencia utiliza un ancho de banda de 20 Mbps.
+
+
+
+
+
+
+
+Las programaciones solo serán efectivas cuando el proyecto se encuentre en la fase de copia de datos o aplicación de configuración (previa).
+
+
+
+== Ejemplo de planificación de una programación de copia de datos
+
+Piense en una controladora de 7-Mode que admite 100 transferencias SnapMirror simultáneas con 75 relaciones de recuperación ante desastres. Los requisitos empresariales necesitan que las operaciones de SnapMirror se ejecuten durante el tiempo siguiente:
+
+|===
+| Días | Tiempo | Transferencias de SnapMirror utilizadas actualmente 
+
+
+ a| 
+De lunes a viernes
+ a| 
+9:00 a.m. a las 5:00 horas
+ a| 
+el 50 % de las transferencias disponibles
+
+
+
+ a| 
+De lunes a viernes
+ a| 
+11:30 p.m. a las 2:30 horas
+ a| 
+75 transferencias utilizadas para la recuperación ante desastres
+
+
+
+ a| 
+De lunes a viernes
+ a| 
+2:30 a.m. a las 9:00 horas y..
+
+5:00 p.m. a las 11:30 horas
+ a| 
+el 25 % de las transferencias disponibles
+
+
+
+ a| 
+De sábado a lunes
+ a| 
+2:30 a.m. (Sábado) a 9:00 a.m. (Lunes)
+ a| 
+el 10 % de las transferencias disponibles
+
+|===
+Es posible crear las siguientes programaciones de copia de datos para gestionar las operaciones de copia de datos de transición:
+
+|===
+| Programación | Opción | Valor 
+
+
+ a| 
+horas_pico
+ a| 
+Intervalo de días
+ a| 
+De lunes a viernes
+
+
+
+ a| 
+Hora de inicio
+ a| 
+09:30
+
+
+
+ a| 
+Duración
+ a| 
+8:00
+
+
+
+ a| 
+Porcentaje del número máximo de transferencias simultáneas
+ a| 
+50
+
+
+
+ a| 
+Número máximo de transferencias simultáneas
+ a| 
+
+
+
+ a| 
+Acelerador (Mbps)
+ a| 
+100
+
+
+
+ a| 
+Frecuencia de actualización
+ a| 
+0:00
+
+
+
+ a| 
+dr_activa
+ a| 
+Intervalo de días
+ a| 
+De lunes a viernes
+
+
+
+ a| 
+Hora de inicio
+ a| 
+23:30
+
+
+
+ a| 
+Duración
+ a| 
+3:00
+
+
+
+ a| 
+Porcentaje del número máximo de transferencias simultáneas
+ a| 
+
+
+
+ a| 
+Número máximo de transferencias simultáneas
+ a| 
+25
+
+
+
+ a| 
+Acelerador (Mbps)
+ a| 
+200
+
+
+
+ a| 
+Frecuencia de actualización
+ a| 
+0:30
+
+
+
+ a| 
+non_peak_non_dr1
+ a| 
+Intervalo de días
+ a| 
+De lunes a viernes
+
+
+
+ a| 
+Hora de inicio
+ a| 
+17:00
+
+
+
+ a| 
+Duración
+ a| 
+6:30
+
+
+
+ a| 
+Porcentaje del número máximo de transferencias simultáneas
+ a| 
+75
+
+
+
+ a| 
+Número máximo de transferencias simultáneas
+ a| 
+
+
+
+ a| 
+Acelerador (Mbps)
+ a| 
+300
+
+
+
+ a| 
+Frecuencia de actualización
+ a| 
+1:00
+
+
+
+ a| 
+non_peak_non_dr2
+ a| 
+Intervalo de días
+ a| 
+De lunes a viernes
+
+
+
+ a| 
+Hora de inicio
+ a| 
+02:30
+
+
+
+ a| 
+Duración
+ a| 
+6:30
+
+
+
+ a| 
+Porcentaje del número máximo de transferencias simultáneas
+ a| 
+75
+
+
+
+ a| 
+Número máximo de transferencias simultáneas
+ a| 
+
+
+
+ a| 
+Acelerador (Mbps)
+ a| 
+300
+
+
+
+ a| 
+Frecuencia de actualización
+ a| 
+1:00
+
+
+
+ a| 
+fin_semana
+ a| 
+Intervalo de días
+ a| 
+Sábado
+
+
+
+ a| 
+Hora de inicio
+ a| 
+02:30
+
+
+
+ a| 
+Duración
+ a| 
+53:30
+
+
+
+ a| 
+Porcentaje del número máximo de transferencias simultáneas
+ a| 
+90
+
+
+
+ a| 
+Número máximo de transferencias simultáneas
+ a| 
+
+
+
+ a| 
+Acelerador (Mbps)
+ a| 
+500
+
+
+
+ a| 
+Frecuencia de actualización
+ a| 
+2:00
+
+|===

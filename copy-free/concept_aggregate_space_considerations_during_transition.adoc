@@ -1,0 +1,107 @@
+---
+permalink: copy-free/concept_aggregate_space_considerations_during_transition.html 
+sidebar: sidebar 
+keywords: transition, copy, free, aggregate, space, requirements 
+summary: Antes de la transición, debe asegurarse de que los agregados de 7-Mode tengan espacio libre suficiente. La herramienta de transición de 7-Mode realiza distintas comprobaciones de espacio en los agregados en función del espacio físico, el espacio lógico, el espacio ocupado por las copias Snapshot y la configuración de garantía de espacio. También debe tener en cuenta las consideraciones de espacio con los agregados de Flash Pool. 
+---
+= Requisitos de espacio de agregados para la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de la transición, debe asegurarse de que los agregados de 7-Mode tengan espacio libre suficiente. La herramienta de transición de 7-Mode realiza distintas comprobaciones de espacio en los agregados en función del espacio físico, el espacio lógico, el espacio ocupado por las copias Snapshot y la configuración de garantía de espacio. También debe tener en cuenta las consideraciones de espacio con los agregados de Flash Pool.
+
+
+
+== Espacio físico en los agregados
+
+La transición está bloqueada si el espacio libre es inferior al 5% del espacio físico de los agregados de 7-Mode. La mejor práctica consiste en tener al menos un 20% de espacio libre en los agregados de 7-Mode antes de la transición.
+
+Se necesita espacio adicional en los agregados por los siguientes motivos:
+
+* Creación de la copia Snapshot en el nivel de agregado para cada agregado de 7-Mode durante la fase de exportación
+* Prueba de la carga de trabajo en los agregados convertidos con datos nuevos en la fase de pruebas de preproducción
+
+
+Si no dispone de espacio adicional, puede añadir discos a los sistemas 7-Mode antes de la transición. Si no es posible agregar discos o si puede asegurarse de que solo se escribe una cantidad limitada de datos en los volúmenes que se han trasladado durante la fase de preproducción, la herramienta de transición de 7-Mode le permite reconocer este error y continuar con la transición. Sin embargo, debe continuar supervisando el espacio agregado durante la transición y asegurarse de que los agregados no crezcan en la fase de pruebas de preproducción.
+
+
+
+== Espacio lógico en los agregados
+
+Si el espacio lógico en los agregados de 7-Mode tiene una ocupación superior al 97 %, la herramienta 7-Mode Transition Tool produce un error de bloqueo durante las comprobaciones previas. Puede ignorar este error durante la fase de planificación y continuar con la transición. sin embargo, debe asegurarse de que el espacio lógico utilizado sea inferior al 97 % antes de la exportación y detenga la operación, ya sea reduciendo el tamaño de los volúmenes de dichos agregados o añadiendo más discos a los agregados. No puede ignorar este error en la fase de exportación y detención.
+
+
+
+== Derrame de instantáneas
+
+Si las copias Snapshot de los agregados 7-Mode ocupan más espacio que el espacio asignado para la reserva de copia de Snapshot, se podría producir un error en la creación de copias Snapshot a nivel de agregado en la operación de exportación y detención. 7-Mode Transition Tool produce un error de bloqueo durante las comprobaciones previas para esta condición. En estas condiciones, debe eliminar todas las copias Snapshot existentes a nivel de agregado durante la fase de planificación.
+
+Si no desea eliminar las copias Snapshot existentes, puede ignorar este error durante la fase de planificación y continuar con la transición. Sin embargo, debe asegurarse de que el porcentaje de capacidad utilizada de la copia Snapshot sea inferior al 100 % antes de la operación de exportación y detención.
+
+
+
+== Ajustes de garantía de espacio
+
+7-Mode Transition Tool produce un error de bloqueo durante las comprobaciones previas si las controladoras 7-Mode tienen volúmenes con los siguientes ajustes de garantía de espacio:
+
+* Volúmenes garantizados por el volumen con garantía deshabilitada
+* Volúmenes garantizados por archivos
+* *Volúmenes con garantía por volumen desactivada*
++
+En algunos casos, se deshabilita la garantía de espacio para los volúmenes garantizados debido a la falta de espacio en los agregados.
+
++
+Debe crear suficiente espacio libre en los agregados de 7-Mode y, a continuación, habilitar la garantía de espacio para dichos volúmenes de 7-Mode mediante el siguiente comando de 7-Mode:
+
++
+`*vol options _volume_name_ guarantee volume*`
+
++
+Si no desea realizar ninguna acción correctiva en 7-Mode, puede ignorar este error. Después de la transición, examine los volúmenes para los que se ha deshabilitado la garantía y habilite la garantía manualmente mediante el siguiente comando:
+
++
+`*volume modify -vserver -volume -space-guarantee volume*`
+
+* *Volúmenes garantizados por archivos*
++
+ONTAP no es compatible con la garantía de archivo.
+
++
+Si tiene volúmenes garantizados por archivos, debe realizar una de las siguientes acciones:
+
++
+** Si los volúmenes de 7-Mode contienen LUN o archivos con espacio reservado, cambie el tipo de garantía de espacio de los volúmenes al volumen mediante el comando 7-Mode: +
+`*vol options _volume_name_ guarantee volume*`
++
+Debe asegurarse de que haya suficiente espacio libre en los agregados de 7-Mode antes de ejecutar este comando.
+
+** Si los volúmenes de 7-Mode no contienen ningún LUN o archivo con reserva de espacio, cambie la garantía de espacio de los volúmenes a none mediante el siguiente comando de 7-Mode: +
+`*vol options _volume_name_ guarantee none*`Si no desea realizar ninguna acción correctiva en 7-Mode, puede ignorar este error y continuar con la transición.
+
+
++
+Durante la transición, si estos volúmenes contienen LUN o archivos con espacio reservado, su garantía de espacio se convertirá automáticamente en `volume`, pero la garantía espacial será inhabilitada inicialmente. Debe crear suficiente espacio libre en los agregados y, a continuación, habilitar manualmente la garantía mediante el siguiente comando:
+
++
++
+`*volume modify -vserver -volume -space-guarantee volume*`
+
++
++ Si los volúmenes no contienen LUN o archivos reservados de espacio, su garantía de espacio se convertirá en ninguna automáticamente durante la transición.
+
+
+
+
+
+== Consideración adicional de los agregados de Flash Pool
+
+No se admite la transición si el espacio libre en los SSD de los agregados de Flash Pool es inferior al 5 % del espacio de disco total de los SSD. Debe deshabilitar la caché SSD o añadir más SSD para continuar con la transición.
+
+*Información relacionada*
+
+xref:reference_ignorable_errors_during_transition.adoc[Errores ignorables durante la transición]
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Gestión de discos y agregados"]

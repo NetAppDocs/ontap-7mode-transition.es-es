@@ -1,0 +1,71 @@
+---
+permalink: copy-free/task_expanding_an_aggregate_to_64_bit_format_without_adding_storage.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, expanding, aggregate, 64, bit 
+summary: Si su sistema contiene agregados de 32 bits, debe ampliarlos al formato de 64 bits del sistema 7-Mode antes de pasar a Data ONTAP 8.3 o versiones posteriores, ya que estas versiones de Data ONTAP no admiten el formato de 32 bits. 
+---
+= Ampliación de un agregado al formato de 64 bits
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si su sistema contiene agregados de 32 bits, debe ampliarlos al formato de 64 bits del sistema de 7-Mode _before_ haciendo la transición a Data ONTAP 8.3 o versiones posteriores, ya que estas versiones de Data ONTAP no admiten el formato de 32 bits.
+
+* Si el agregado contiene volúmenes de destino para una relación de SnapMirror con un volumen de origen de 32 bits, el agregado que contiene el volumen de origen debe ampliarse antes de expandir el agregado que contiene el volumen de destino.
+
+
+En el caso de los volúmenes de una relación de SnapMirror, el volumen de destino hereda el formato del volumen de origen mientras el reflejo está intacto. Si el agregado que va a ampliar contiene un volumen de destino cuyo origen es un volumen de 32 bits y la duplicación se puede romper antes de expandir el agregado, el volumen de destino se amplía al formato de 64 bits. Sin embargo, si el reflejo vuelve a establecer y el volumen de origen sigue siendo de 32 bits, el volumen de destino vuelve al formato de 32 bits. Por este motivo, debe expandir el agregado que contiene el volumen de origen antes de restablecer la relación de SnapMirror si desea expandir los volúmenes de 32 bits del agregado al formato de 64 bits.
+
+.Pasos
+. Entre en el modo de privilegio avanzado:
++
+`*priv set advanced*`
+
+. Inicie la expansión:
++
+`*aggr 64bit-upgrade start _aggr_name_*`
+
+. Ejecute la acción adecuada:
++
+|===
+| Si el comando... | Realice lo siguiente... 
+
+
+ a| 
+Se inicia correctamente
+ a| 
+Continúe con el próximo paso.
+
+
+
+ a| 
+Indica que uno o varios volúmenes no se pudieron expandir porque no tenían espacio suficiente
+ a| 
+Vuelva a intentar el comando, añadiendo el `grow-all` opción.
+
+
+
+ a| 
+Indica que no se pudo completar la expansión por algún otro motivo
+ a| 
+Realice la acción adecuada, según el problema descrito en el mensaje de error.
+
+|===
+. Mostrar el estado de la expansión:
++
+`*aggr 64bit-upgrade status _aggr_name_*`
+
++
+Se muestra el estado actual de la expansión. Cuando el mensaje indica que no hay ninguna actualización en curso, la ampliación se ha completado.
+
+. Confirme que todos los volúmenes del agregado tienen un formato de 64 bits:
++
+`*aggr 64bit-upgrade status _aggr_name_ -all*`
+
+. Volver al modo de privilegio administrativo:
+`*priv set admin*`
+
+
+El agregado se amplía al formato de 64 bits. Sin embargo, incluso si todos los volúmenes se amplían, se pueden conservar algunas copias Snapshot de 32 bits. La presencia de copias Snapshot de 32 bits en los volúmenes de origen impide que se actualice o realice la transición a Data ONTAP 8.3 o una versión posterior.

@@ -1,0 +1,18 @@
+---
+permalink: copy-free/concept_reverting_a_copy_free_transition_project.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, performing, rollback, 7, mode 
+summary: La reversión hace referencia a interrumpir la transición al sistema ONTAP y revertir al sistema 7-Mode. La reversión de la transición es manual; sin embargo, la herramienta 7-Mode Transition Tool proporciona la lista de tareas manuales que deben realizarse para una reversión. 
+---
+= Realizar una reversión de la transición a 7-Mode
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La reversión hace referencia a interrumpir la transición al sistema ONTAP y revertir al sistema 7-Mode. La reversión de la transición es manual; sin embargo, la herramienta 7-Mode Transition Tool proporciona la lista de tareas manuales que deben realizarse para una reversión.
+
+Puede revertir un proyecto de transición en la fase de aprovisionamiento, exportación, cableado, importación o prueba de preproducción de SVM. No puede revertir después de que se haya comprometido el proyecto de transición.
+
+Todos los datos nuevos escritos o modificados, como las LUN o los clones de LUN, en los volúmenes convertidos se perderán después de realizar una reversión. Los volúmenes se revertirá a su estado original de 7-Mode.

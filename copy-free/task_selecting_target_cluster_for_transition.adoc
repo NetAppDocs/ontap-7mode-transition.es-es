@@ -1,0 +1,36 @@
+---
+permalink: copy-free/task_selecting_target_cluster_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, select, target, cluster, nodes 
+summary: Puede seleccionar el par de alta disponibilidad del clúster de destino y asignar cada controladora de 7-Mode del par de alta disponibilidad a un nodo de clúster de destino correspondiente. El nodo asignado especifica el nodo de clúster al que se deben conectar las bandejas de discos de la controladora 7-Mode correspondiente. 
+---
+= Selección de los nodos del clúster de destino para la transición
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede seleccionar el par de alta disponibilidad del clúster de destino y asignar cada controladora de 7-Mode del par de alta disponibilidad a un nodo de clúster de destino correspondiente. El nodo asignado especifica el nodo de clúster al que se deben conectar las bandejas de discos de la controladora 7-Mode correspondiente.
+
+El clúster de destino debe ejecutar Data ONTAP 8.3.2 o una versión posterior.
+
+Puede realizar la transición de las bandejas de discos de 7-Mode a una pareja de ha objetivo que tenga volúmenes y agregados de datos ya existentes.
+
+Para un clúster de dos nodos, debe tener un agregado de datos para alojar los volúmenes raíz de las SVM de destino. Para un clúster con cuatro o más nodos, los volúmenes raíz de las SVM se pueden alojar en los nodos de destino de la transición o en otros nodos del clúster.
+
+.Pasos
+. Seleccione la pareja de alta disponibilidad de destino a la que se deben conectar las bandejas de discos 7-Mode.
++
+La herramienta asigna automáticamente cada sistema de almacenamiento 7-Mode a un nodo de clúster de destino.
+
++
+
+NOTE: La propiedad de disco y agregado de cada controladora 7-Mode se transfiere al nodo de clúster de destino asignado correspondiente durante la fase de importación.
+
+. Haga clic en *asignación de nodos de intercambio* para cambiar la asignación automática de nodos de origen a destino.
+. Haga clic en *Guardar y continuar*.
++
+Se muestra la pantalla SVM y Volume Mapping.
+
+
