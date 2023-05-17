@@ -22,7 +22,7 @@ Debe haber registrado las programaciones de SnapMirror definidas en el `/etc/sna
 
 . En cada clúster, cree la relación de paridad de clústeres.
 +
-http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-clus-peer/home.html["Configuración exprés de relación entre iguales de clústeres y SVM"]
+http://["Configuración exprés de relación entre iguales de clústeres y SVM"]
 
 . Cree programaciones en las SVM secundarias que coincidan con las programaciones del sistema secundario 7-Mode:
 +
@@ -32,4 +32,4 @@ http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-clus-peer/home.html["Con
 
 *Información relacionada*
 
-http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr/GUID-5CB10C70-AC11-41C0-8C16-B4D0DF916E9B.html["Comandos de ONTAP 9"]
+http://["Comandos de ONTAP 9"]

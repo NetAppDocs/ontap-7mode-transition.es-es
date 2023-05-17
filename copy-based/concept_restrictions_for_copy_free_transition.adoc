@@ -24,7 +24,7 @@ Los siguientes tipos de volúmenes no son compatibles para la transición:
 Se pueden utilizar métodos de transición basados en hosts para realizar la transición de volúmenes tradicionales.
 
 +
-http://www.netapp.com/us/media/tr-4052.pdf["Informe técnico de NetApp 4052: Transición correcta a Clustered Data ONTAP (Data ONTAP 8.2.x y 8.3)"]
+http://["Informe técnico de NetApp 4052: Transición correcta a Clustered Data ONTAP (Data ONTAP 8.2.x y 8.3)"]
 
 * Volúmenes de FlexCache
 

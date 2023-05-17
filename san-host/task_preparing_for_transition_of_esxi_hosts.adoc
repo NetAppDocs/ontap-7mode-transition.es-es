@@ -47,6 +47,6 @@ La alta disponibilidad y el DRS de VMware no son compatibles durante la transici
 
 *Información relacionada*
 
-http://kb.vmware.com/kb/2032893["Retención de pools de recursos al deshabilitar clústeres de VMware DRS en vSphere Web Client"]
+http://["Retención de pools de recursos al deshabilitar clústeres de VMware DRS en vSphere Web Client"]
 
-http://kb.vmware.com/kb/1008025["Deshabilitación de VMware High Availability (ha)"]
+http://["Deshabilitación de VMware High Availability (ha)"]

@@ -15,7 +15,7 @@ Debe configurar el clúster antes de realizar la transición de un sistema de 7-
 
 * El clúster y la SVM ya deben estar configurados.
 +
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-ssg/home.html["Configuración de software"]
+https://["Configuración de software"]
 
 +
 La SVM de destino no debe estar en una relación de recuperación ante desastres de SVM.
@@ -71,9 +71,9 @@ system7mode is alive
 
 Para la multivía, debe tener dos LIF de interconexión de clústeres en cada nodo.
 
-https://docs.netapp.com/us-en/ontap/networking/index.html["Gestión de redes y LIF"]
+https://["Gestión de redes y LIF"]
 
 .Información relacionada
 xref:task_creating_a_transition_peering_relationship.adoc[Creación de una relación de transición entre iguales]
 
-https://mysupport.netapp.com/site/docs-and-kb["Documentación de NetApp: Biblioteca de productos A-Z"]
+https://["Documentación de NetApp: Biblioteca de productos A-Z"]

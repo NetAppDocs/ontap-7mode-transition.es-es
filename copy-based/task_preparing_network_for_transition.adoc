@@ -44,4 +44,4 @@ NOTE: Las direcciones IPv6 no se pueden cambiar y se deben configurar manualment
 
 *Información relacionada*
 
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/home.html["Gestión de redes y LIF"]
+https://["Gestión de redes y LIF"]

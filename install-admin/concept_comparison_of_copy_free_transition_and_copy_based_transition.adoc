@@ -38,7 +38,7 @@ Nuevas bandejas de discos y discos para alojar los volúmenes que se han traslad
  a| 
 Requisitos de plataforma
  a| 
-Solo se admite en plataformas de nivel medio y alto https://mysupport.netapp.com/matrix["Herramienta de matriz de interoperabilidad de NetApp"]
+Solo se admite en plataformas de nivel medio y alto https://["Herramienta de matriz de interoperabilidad de NetApp"]
  a| 
 Compatible con todas las plataformas
 

@@ -19,11 +19,11 @@ link:https://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Not
 
 * *Modelos de plataforma*
 +
-La transición sin copia solo es compatible con sistemas FAS de gama media y alta y sistemas de serie N de IBM. La https://mysupport.netapp.com/matrix["Herramienta de matriz de interoperabilidad de NetApp"] Tiene la información más reciente sobre las plataformas compatibles para sistemas 7-Mode y los nodos de clúster de destino.
+La transición sin copia solo es compatible con sistemas FAS de gama media y alta y sistemas de serie N de IBM. La https://["Herramienta de matriz de interoperabilidad de NetApp"] Tiene la información más reciente sobre las plataformas compatibles para sistemas 7-Mode y los nodos de clúster de destino.
 
 * *Data ONTAP en sistemas fuente 7-Mode*
 +
-Para obtener una lista de las versiones de 7-Mode compatibles con la migración de 7-Mode Transition Tool, consulte https://mysupport.netapp.com/matrix["Herramienta de matriz de interoperabilidad de NetApp"]
+Para obtener una lista de las versiones de 7-Mode compatibles con la migración de 7-Mode Transition Tool, consulte https://["Herramienta de matriz de interoperabilidad de NetApp"]
 
 * *Sistemas de destino ONTAP*
 +
@@ -65,19 +65,19 @@ NOTE: El modelo de bandeja de discos DS14mk2 FC no es compatible.
 Debe descargar e instalar el paquete de cualificación de disco, el firmware de disco y la bandeja de discos más recientes, y el firmware ACP en los sistemas 7-Mode y los nodos de clúster de destino.
 
 +
-https://mysupport.netapp.com/NOW/download/tools/diskqual/["Descargas de NetApp: Paquete de cualificación de disco"]
+https://["Descargas de NetApp: Paquete de cualificación de disco"]
 
 +
-https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware["Descargas de NetApp: Firmware de la unidad de disco"]
+https://["Descargas de NetApp: Firmware de la unidad de disco"]
 
 +
-https://mysupport.netapp.com/site/downloads/firmware/disk-shelf-firmware["Descargas de NetApp: Firmware de bandeja de discos"]
+https://["Descargas de NetApp: Firmware de bandeja de discos"]
 
 * *Herramienta para verificar el cableado*
 +
 Después de conectar las bandejas de discos de 7-Mode a los nodos del clúster de destino durante la transición, debe utilizar Config Advisor para verificar el cableado.
 
 +
-https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["Descargas de NetApp: Config Advisor"]
+https://["Descargas de NetApp: Config Advisor"]
 
 

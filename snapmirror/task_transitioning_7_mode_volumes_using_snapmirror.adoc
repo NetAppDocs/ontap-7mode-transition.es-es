@@ -17,7 +17,7 @@ Sin embargo, en el caso de ONTAP 9.11.1 y versiones anteriores, puede realizar l
 
 *Recomendación:* debería utilizar la herramienta 7-Mode Transition Tool para la transición basada en copias a los volúmenes 7-Mode de transición para ONTAP 9.11.1 y versiones anteriores, ya que la herramienta proporciona comprobaciones previas para verificar tanto 7-Mode como el clúster en cada paso del proceso de migración, lo que ayuda a evitar muchos problemas potenciales. Esta herramienta simplifica de forma significativa la migración de todos los protocolos, configuraciones de red y servicios junto con la migración de datos.
 
-http://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Notas de la versión de 7-Mode Transition Tool"]
+http://["Notas de la versión de 7-Mode Transition Tool"]
 
 Este procedimiento proporciona las tareas de alto nivel que debe realizar para la transición con SnapMirror.
 
@@ -44,23 +44,23 @@ Una vez finalizada la migración de datos, debe realizar las siguientes tareas:
 
 * Opcional: Cree una LIF de datos en la SVM para habilitar el acceso de los clientes.
 +
-https://docs.netapp.com/us-en/ontap/networking/index.html["Gestión de redes y LIF"].
+https://["Gestión de redes y LIF"].
 
 * Configure los protocolos, las redes y los servicios en la SVM.
 +
-** https://docs.netapp.com/us-en/ontap/networking/index.html["Gestión de redes y LIF"].
-** http://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-cifs/home.html["Gestión de SMB/CIFS"]
-** https://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-nfs/home.html["Gestión de NFS"]
+** https://["Gestión de redes y LIF"].
+** http://["Gestión de SMB/CIFS"]
+** https://["Gestión de NFS"]
 
 
 * Cree iGroups y asigne LUN
 +
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["Administración de SAN"]
+https://["Administración de SAN"]
 
 * Si realiza la transición de volúmenes con LUN, debe realizar las tareas posteriores a la transición necesarias en los hosts antes de restaurar el acceso a los volúmenes de Clustered Data ONTAP convertidos.
 +
-http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["Transición y corrección de hosts de SAN"]
+http://["Transición y corrección de hosts de SAN"]
 
 
 
-https://mysupport.netapp.com/site/global/dashboard["Soporte de NetApp"]
+https://["Soporte de NetApp"]

@@ -23,4 +23,4 @@ Si hay volúmenes que contienen LUN reservadas para el espacio, es posible que e
 
 *Información relacionada*
 
-http://docs.netapp.com/ontap-9/index.jsp["Documentación de NetApp: ONTAP 9"]
+http://["Documentación de NetApp: ONTAP 9"]

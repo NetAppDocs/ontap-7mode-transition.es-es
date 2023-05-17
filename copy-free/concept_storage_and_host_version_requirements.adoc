@@ -15,4 +15,4 @@ Debe tener en cuenta las versiones de Data ONTAP funcionando en 7-Mode, los host
 
 Para obtener una lista de versiones de 7-Mode, hosts y switches FC que son compatibles para la evaluación con 7-Mode Transition Tool, consulte la herramienta de matriz de interoperabilidad de NetApp.
 
-https://mysupport.netapp.com/matrix["Herramienta de matriz de interoperabilidad de NetApp"]
+https://["Herramienta de matriz de interoperabilidad de NetApp"]

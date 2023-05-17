@@ -55,7 +55,7 @@ NOTE: Si creó una nueva LIF, los usuarios y aplicaciones de los volúmenes en t
 
 Si ha completado la transición de una relación de SnapMirror entre clústeres que ejecutan ONTAP 9.3 o versiones compatibles posteriores, debe convertir la relación de SnapMirror del tipo DP al tipo XDP.
 
-http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-dap/home.html["Protección de datos"]
+http://["Protección de datos"]
 
 *Información relacionada*
 

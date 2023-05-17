@@ -43,7 +43,7 @@ Si se reinicia el servicio 7-Mode Transition Tool o el sistema en el que se inst
 +
 ... En el menú Informes, haga clic en *completar exportaciones diarias*.
 ... En el cuadro de diálogo completar exportaciones diarias, introduzca FAS en el campo de búsqueda.
-... Descargue el archivo Excel del host SAN de ONTAP y guárdelo.https://mysupport.netapp.com/matrix["Herramienta de matriz de interoperabilidad de NetApp"]
+... Descargue el archivo Excel del host SAN de ONTAP y guárdelo.https://["Herramienta de matriz de interoperabilidad de NetApp"]
 
 
 .. Desde la interfaz de línea de comandos, importe los datos de IMT mediante el `transition imt import` comando.

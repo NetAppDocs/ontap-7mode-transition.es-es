@@ -17,7 +17,7 @@ Si se cancela una actualización programada en curso debido a una operación DE 
 
 Si realiza la transición de un volumen independiente o una relación de SnapMirror para volúmenes con LUN, debe crear iGroups y asignar LUN. A continuación, debe realizar las tareas posteriores a la transición necesarias en los hosts antes de configurar el acceso a los volúmenes de Clustered Data ONTAP convertidos.
 
-http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["Transición y corrección de hosts de SAN"]
+http://["Transición y corrección de hosts de SAN"]
 
 *Información relacionada*
 

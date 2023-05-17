@@ -20,7 +20,7 @@ Los siguientes escenarios no se admiten para ningún flujo de trabajo de transic
 Puede configurar un LUN de arranque SAN para que funcione en un entorno Veritas Dynamic Multipathing (DMP) o un entorno MPxIO de Solaris ejecutando las utilidades de host de Solaris y utilizando el protocolo FC. El método que se utiliza para configurar un LUN DE arranque SAN puede variar en función del gestor de volúmenes y el sistema de archivos.
 
 +
-https://library.netapp.com/ecm/ecm_download_file/ECMLP2748974["Guía de instalación y configuración de Solaris Host Utilities 6.2"]
+https://["Guía de instalación y configuración de Solaris Host Utilities 6.2"]
 
 * Transición de clustering de host Solaris
 * Configuración de Veritas

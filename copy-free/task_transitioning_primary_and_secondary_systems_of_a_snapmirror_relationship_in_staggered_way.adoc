@@ -49,14 +49,14 @@ xref:task_performing_copy_free_transition_of_7_mode_aggregates.adoc[Transición 
 +
 .. A partir del clúster de destino, cree una relación entre iguales de SVM que contenga los volúmenes primario y secundario convertidos.
 +
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Administración del sistema"]
+https://["Administración del sistema"]
 
 .. Utilice la `snapmirror delete` Comando para eliminar la relación de TDP de SnapMirror entre el volumen primario de 7-Mode y el volumen secundario de ONTAP que se creó en el paso <<SUBSTEP_D528769DF8EC49058D1958565914CF47,#SUBSTEP_D528769DF8EC49058D1958565914CF47>>.
 .. Elimine la programación de trabajo de cron que se creó en el paso <<SUBSTEP_EB470706425C45759EAAE8F0A87BA547,#SUBSTEP_EB470706425C45759EAAE8F0A87BA547>>: +
 `*job schedule cron delete*`
 .. Cree una relación de SnapMirror para volúmenes entre los volúmenes primario y secundario convertidos.
 +
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-sm-ic-cg/home.html["Preparación exprés para la recuperación ante desastres de volúmenes"]
+https://["Preparación exprés para la recuperación ante desastres de volúmenes"]
 
 .. En el volumen de destino, resincronice el volumen de origen y el volumen de destino de la relación de SnapMirror: +
 `*snapmirror resync*`
@@ -83,6 +83,6 @@ xref:task_committing_7_mode_aggregates_to_clustered_ontap_format.adoc[Compromiso
 
 *Información relacionada*
 
-http://docs.netapp.com/us-en/ontap-7mode-transition/snapmirror/index.html["Transición de datos de 7-Mode mediante SnapMirror"]
+http://["Transición de datos de 7-Mode mediante SnapMirror"]
 
-http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr/GUID-5CB10C70-AC11-41C0-8C16-B4D0DF916E9B.html["Comandos de ONTAP 9"]
+http://["Comandos de ONTAP 9"]

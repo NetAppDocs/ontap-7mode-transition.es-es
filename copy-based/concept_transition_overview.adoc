@@ -25,4 +25,4 @@ La implementación incluye la implementación y configuración del clúster, la 
 
 *Información relacionada*
 
-http://docs.netapp.com/ontap-9/index.jsp["Documentación de NetApp: ONTAP 9"]
+http://["Documentación de NetApp: ONTAP 9"]

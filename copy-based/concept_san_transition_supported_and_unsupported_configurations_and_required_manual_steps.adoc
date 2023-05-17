@@ -87,8 +87,6 @@ Debe configurar manualmente los iGroups vinculados a un conjunto de puertos desp
 
 *Información relacionada*
 
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-nfs/home.html["Gestión de NFS"]
+https://["Gestión de NFS"]
 
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/home.html["Gestión de redes y LIF/ONTAP 9.7 y versiones anteriores"]
-
-https://docs.netapp.com/us-en/ontap/networking/index.html["Gestión de redes y LIF/ONTAP 9.8 y versiones posteriores"]
+https://["Gestión de redes y LIF"]

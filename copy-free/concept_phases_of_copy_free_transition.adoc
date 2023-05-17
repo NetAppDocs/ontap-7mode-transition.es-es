@@ -134,4 +134,4 @@ No puede revertir a 7-Mode después de comprometer los agregados de 7-Mode y com
 
 *Información relacionada*
 
-https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["Descargas de NetApp: Config Advisor"]
+https://["Descargas de NetApp: Config Advisor"]

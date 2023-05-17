@@ -37,11 +37,11 @@ xref:task_transitioning_a_stand_alone_volume.adoc[Realizar la transición de un 
 
 . Cree una relación entre iguales de SVM que contenga los volúmenes primario y secundario convertidos.
 +
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Administración del sistema"]
+https://["Administración del sistema"]
 
 . Cree una relación de SnapMirror para volúmenes entre los volúmenes primario y secundario convertidos.
 +
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-sm-ic-cg/home.html["Preparación exprés para la recuperación ante desastres de volúmenes"]
+https://["Preparación exprés para la recuperación ante desastres de volúmenes"]
 
 . En el volumen de destino, resincronice el volumen de origen y el volumen de destino de la relación de SnapMirror.
 +

@@ -48,4 +48,4 @@ Extent name: naa.600a098054314c6c445d446f79716475:1 range: 0 - 409599
 
 *Información relacionada*
 
-http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=1011387["Base de conocimientos de VMware: Manejo de vSphere de LUN detectadas como LUN de snapshot"]
+http://["Base de conocimientos de VMware: Manejo de vSphere de LUN detectadas como LUN de snapshot"]

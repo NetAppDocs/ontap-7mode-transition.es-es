@@ -22,4 +22,4 @@ image::../media/32bit_upgrade_path_updated.gif[ruta de actualización de 32 bits
 
 *Información relacionada*
 
-http://www.netapp.com/us/media/tr-3978.pdf["Informe técnico de NetApp 3978: Ampliación in situ de agregados de 32 bits a información general y prácticas recomendadas de 64 bits"]
+http://["Informe técnico de NetApp 3978: Ampliación in situ de agregados de 32 bits a información general y prácticas recomendadas de 64 bits"]

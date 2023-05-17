@@ -104,4 +104,4 @@ No se admite la transición si el espacio libre en los SSD de los agregados de F
 
 xref:reference_ignorable_errors_during_transition.adoc[Errores ignorables durante la transición]
 
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Gestión de discos y agregados"]
+https://["Gestión de discos y agregados"]

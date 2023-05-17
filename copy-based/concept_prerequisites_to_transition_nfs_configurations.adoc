@@ -43,4 +43,4 @@ La herramienta de transición de 7-Mode solo realiza una transición de las regl
 
 xref:concept_how_nfs_exports_are_transitioned.adoc[Cómo se realiza la transición de las exportaciones de NFS]
 
-http://docs.netapp.com/ontap-9/index.jsp["Documentación de NetApp: ONTAP 9"]
+http://["Documentación de NetApp: ONTAP 9"]

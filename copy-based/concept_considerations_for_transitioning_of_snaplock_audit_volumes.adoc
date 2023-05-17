@@ -19,4 +19,4 @@ En ONTAP, los volúmenes de auditoría se configuran en el nivel de SVM. En Data
 
 Los volúmenes de auditoría de SnapLock son un tipo de volumen de cumplimiento de normativas de SnapLock. No se admite la transición de volúmenes de auditoría de SnapLock si el clúster de destino está en una configuración de MetroCluster.
 
-Consulte https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/How_to_configure_audit_volume_in_clustered_Data_ONTAP_for_the_transitioned_SnapLock_volumes["Cómo configurar un volumen de auditoría en Data ONTAP para los volúmenes de SnapLock convertidos"]
+Consulte https://["Cómo configurar un volumen de auditoría en Data ONTAP para los volúmenes de SnapLock convertidos"]

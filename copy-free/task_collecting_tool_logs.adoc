@@ -24,4 +24,4 @@ Los registros se descargan como un `.zip` y el nombre de la carpeta es la marca 
 
 *Información relacionada*
 
-https://kb.netapp.com/Advice_and_Troubleshooting/Miscellaneous/How_to_upload_a_file_to_NetApp["Cómo cargar un archivo en NetApp"]
+https://["Cómo cargar un archivo en NetApp"]
