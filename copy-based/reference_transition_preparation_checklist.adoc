@@ -22,7 +22,7 @@ Antes de iniciar la transición, debe verificar que ha cumplido todos los requis
 
 
  a| 
-Versión de 7-Mode compatible https://["Herramienta de matriz de interoperabilidad de NetApp"]
+Versión de 7-Mode compatible https://mysupport.netapp.com/matrix["Herramienta de matriz de interoperabilidad de NetApp"]
  a| 
 
 

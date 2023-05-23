@@ -108,4 +108,4 @@ Las siguientes configuraciones de NFS son funcionalmente diferentes en ONTAP:
 
 xref:task_customizing_configurations_for_transition.adoc[Personalización de la transición de configuraciones de 7-Mode]
 
-https://["Gestión de NFS"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-nfs/home.html["Gestión de NFS"]

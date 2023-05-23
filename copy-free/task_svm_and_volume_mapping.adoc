@@ -15,9 +15,9 @@ Debe asignar cada controladora de 7-Mode del par de alta disponibilidad a una SV
 
 Debe haber creado las SVM en el clúster de destino.
 
-https://["Gestión de clústeres con System Manager"]
+https://docs.netapp.com/us-en/ontap/concept_administration_overview.html["Gestión de clústeres con System Manager"]
 
-https://["Administración del sistema"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Administración del sistema"]
 
 Una unidad vFiler solo se puede asignar a una única SVM. Los volúmenes de cualquier otra controladora de 7-Mode o unidad vFiler no se pueden realizar la transición a una SVM asignada.
 

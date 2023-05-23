@@ -61,7 +61,7 @@ Se puede utilizar el resultado de este comando para obtener información acerca 
 Puede planificar el traslado de las tarjetas de expansión desde los sistemas de 7-Mode si también son compatibles con la plataforma de destino y la versión de ONTAP. También puede planificar tarjetas PAM si es necesario.
 
 +
-https://["Hardware Universe de NetApp"]
+https://hwu.netapp.com["Hardware Universe de NetApp"]
 
 .. Planifique los puertos de destino que deben usar para cableado de la bandeja de discos.
 +
@@ -96,8 +96,8 @@ La práctica recomendada es etiquetar las pilas de bandejas de discos de 7-Mode 
 
 *Información relacionada*
 
-https://["Guía de instalación y servicio de bandejas de discos SAS para DS4243, DS2246, DS4486 y DS4246"]
+https://library.netapp.com/ecm/ecm_download_file/ECMP1119629["Guía de instalación y servicio de bandejas de discos SAS para DS4243, DS2246, DS4486 y DS4246"]
 
-https://["Guía de servicio de hardware de DiskShelf14mk2 AT"]
+https://library.netapp.com/ecm/ecm_download_file/ECMM1280273["Guía de servicio de hardware de DiskShelf14mk2 AT"]
 
-https://["Guía de servicio de hardware DS14mk2 FC y DS14mk4 FC"]
+https://library.netapp.com/ecm/ecm_download_file/ECMP1112854["Guía de servicio de hardware DS14mk2 FC y DS14mk4 FC"]

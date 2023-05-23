@@ -40,10 +40,10 @@ Debe instalar la herramienta 7-Mode Transition Tool en cada sitio MetroCluster y
 Lo mejor es compartir las estructuras de switch únicamente durante la transición.
 
 +
-https://["Instalación y configuración de MetroCluster estructural, ONTAP 9.8 o anterior"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-mcc-inst-cnfg-fabric/home.html["Instalación y configuración de MetroCluster estructural, ONTAP 9.8 o anterior"]
 
 +
-https://["Instalación y configuración de MetroCluster estructural, ONTAP 9.9.1"]
+https://docs.netapp.com/us-en/ontap-metrocluster/install-fc/index.html["Instalación y configuración de MetroCluster estructural, ONTAP 9.9.1"]
 
 * Las programaciones de tareas de cron creadas durante la transición no se replican en el sitio remoto y, por lo tanto, la conmutación negociada falla después de la transición.
 +

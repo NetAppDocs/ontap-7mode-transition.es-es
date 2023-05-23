@@ -35,4 +35,4 @@ Si el número total de usuarios y grupos de UNIX en transición supera el límit
 
 *Información relacionada*
 
-https://["Gestión de NFS"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-nfs/home.html["Gestión de NFS"]

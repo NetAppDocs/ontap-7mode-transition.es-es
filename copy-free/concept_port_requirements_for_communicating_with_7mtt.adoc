@@ -51,4 +51,4 @@ NOTE: Debe comprobar que los firewalls no bloquean este tráfico.
 
 *Información relacionada*
 
-http://["Instalación y administración de 7-Mode Transition Tool"]
+http://docs.netapp.com/us-en/ontap-7mode-transition/install-admin/index.html["Instalación y administración de 7-Mode Transition Tool"]

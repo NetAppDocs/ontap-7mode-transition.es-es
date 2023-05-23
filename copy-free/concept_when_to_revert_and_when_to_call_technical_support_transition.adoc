@@ -24,7 +24,7 @@ Si encuentra alguna de las siguientes circunstancias, póngase en contacto con e
 * El proceso de transición finaliza con algunos de los datos y la configuración, pero no con todos, y decide revertir la transición.
 * Tiene un problema en el proceso de transición y no puede resolver el problema con los mensajes de respuesta de error en la herramienta 7-Mode Transition Tool, los mensajes de eventos EMS de Data ONTAP y la base de conocimientos de NetApp.
 +
-https://["Base de conocimientos de NetApp"]
+https://kb.netapp.com/["Base de conocimientos de NetApp"]
 
 
 

@@ -27,7 +27,7 @@ Debe borrar la caché cada vez que instale una nueva versión de la herramienta.
 .Pasos
 . Descargue el software desde el sitio de soporte de NetApp.
 +
-http://["Descargas de NetApp: Software"]
+http://mysupport.netapp.com/NOW/cgi-bin/software["Descargas de NetApp: Software"]
 
 . Ejecute el `NetApp_7ModeTransitionTool_Setup.exe` archivo.
 . En la pantalla de bienvenida de 7-Mode Transition Tool Setup (Configuración de la herramienta de transición de-Mode), haga clic en *Siguiente*.

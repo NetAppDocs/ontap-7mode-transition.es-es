@@ -15,7 +15,7 @@ El primer paso a la hora de planificar un proyecto de transición es seleccionar
 
 * Las controladoras 7-Mode del par de alta disponibilidad deben ejecutar una versión de ONTAP compatible en una plataforma compatible para una transición sin copias.
 +
-https://["Herramienta de matriz de interoperabilidad de NetApp"]
+https://mysupport.netapp.com/matrix["Herramienta de matriz de interoperabilidad de NetApp"]
 
 * Las dos controladoras de la configuración de alta disponibilidad deben estar en buen estado.
 +

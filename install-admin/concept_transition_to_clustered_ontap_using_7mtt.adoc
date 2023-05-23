@@ -15,4 +15,4 @@ La herramienta 7-Mode Transition Tool le permite recopilar un inventario de cont
 
 Asegúrese de consultar la herramienta 7-Mode Transition Tool _Notas de la versión_ para obtener la información más reciente sobre las versiones de destino compatibles y los problemas conocidos.
 
-http://["Notas de la versión de 7-Mode Transition Tool"]
+http://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Notas de la versión de 7-Mode Transition Tool"]

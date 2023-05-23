@@ -107,7 +107,7 @@ El sistema 7-Mode muestra reglas de exportación de qtree.
 
 Reconocer este error significa haber entendido las diferencias en las reglas de exportación de qtrees entre las que opera Data ONTAP en 7-Mode y ONTAP. Es posible que tenga que realizar algunos pasos manuales después de que las reglas de exportación de NFS se apliquen mediante la herramienta 7-Mode Transition Tool.
 
-https://["Comprobación previa de 7MTT 10111: Transición de volúmenes de 7-Mode que tienen exportaciones a nivel de qtree"]
+https://kb.netapp.com/onprem/ontap/da/NAS/7MTT_Precheck_10111_-_How_to_transition_7-Mode_volumes_that_have_qtree_level_exports["Comprobación previa de 7MTT 10111: Transición de volúmenes de 7-Mode que tienen exportaciones a nivel de qtree"]
 
 
 
@@ -116,7 +116,7 @@ https://["Comprobación previa de 7MTT 10111: Transición de volúmenes de 7-Mod
  a| 
 Los objetos y las configuraciones que se van a realizar la transición superan un determinado límite.la transición del almacenamiento puede tardar mucho tiempo y debe prepararse para el tiempo de inactividad.
 
-https://["Consideraciones que se deben tener en cuenta para reducir el tiempo de transición del almacenamiento durante la transición sin copias"]
+https://kb.netapp.com/onprem/ontap/os/Storage_cutover_time_considerations_for_Copy-Free_Transition["Consideraciones que se deben tener en cuenta para reducir el tiempo de transición del almacenamiento durante la transición sin copias"]
 
 
 
@@ -127,7 +127,7 @@ La herramienta de transición de 7-Mode continúa con la transición de la confi
 
 Debe asegurarse de que los dominios CIFS Active Directory del sistema 7-Mode y la SVM de destino son dominios de confianza. De lo contrario, se producirá un error en la transición de las configuraciones CIFS a la SVM de destino.
 
-https://["Cómo realizar la transición de configuraciones CIFS cuando el dominio de Active Directory del servidor CIFS en 7-Mode y la SVM de destino son diferentes"]
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/How_to_transition_CIFS_configurations_when_Active_Directory_Domain_of_CIFS_server_on_7-Mode_and_target_SVM_are_different["Cómo realizar la transición de configuraciones CIFS cuando el dominio de Active Directory del servidor CIFS en 7-Mode y la SVM de destino son diferentes"]
 
 |===
 

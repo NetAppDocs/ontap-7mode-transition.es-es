@@ -102,4 +102,4 @@ Para obtener información sobre cómo descargar e instalar el software NetApp Ho
 
 *Información relacionada*
 
-http://["Documentación en el sitio de soporte de NetApp: mysupport.netapp.com"]
+http://mysupport.netapp.com/["Documentación en el sitio de soporte de NetApp: mysupport.netapp.com"]

@@ -15,7 +15,7 @@ La compatibilidad de versiones para clústeres de destino de transición de ONTA
 
 Asegúrese de consultar la herramienta 7-Mode Transition Tool _Notas de la versión_ para obtener la información más reciente sobre las versiones de destino compatibles y los problemas conocidos.
 
-https://["Notas de la versión de 7-Mode Transition Tool"]
+https://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Notas de la versión de 7-Mode Transition Tool"]
 
 Las transiciones basadas en copias son compatibles con estas versiones de destino de ONTAP.
 

@@ -19,7 +19,7 @@ El Config Advisor es la herramienta necesaria para realizar la transición sin c
 
 Deberá utilizar el perfil de ejecución «transición» de Config Advisor para comprobar el cableado una vez que las bandejas de discos de 7-Mode estén conectadas a los nodos del clúster de destino.
 
-https://["Descargas de NetApp: Config Advisor"]
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["Descargas de NetApp: Config Advisor"]
 
 
 
@@ -27,4 +27,4 @@ https://["Descargas de NetApp: Config Advisor"]
 
 Describe los pasos previos y posteriores a la transición que deben realizarse en hosts SAN cuando se realiza la transición usando una transición sin copias.
 
-http://["Transición y corrección de hosts de SAN"]
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["Transición y corrección de hosts de SAN"]

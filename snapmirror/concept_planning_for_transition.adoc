@@ -15,7 +15,7 @@ Antes de copiar datos de volúmenes de 7-Mode a volúmenes de Clustered ONTAP, d
 
 Debe revisar el _Notas de la versión_ para la versión de destino para la transición en caso de que haya algún problema con la transición.
 
-https://["Notas de la versión de ONTAP 9"]
+https://library.netapp.com/ecmdocs/ECMLP2492508/html/frameset.html["Notas de la versión de ONTAP 9"]
 
 Las relaciones de SnapMirror entre volúmenes de 7-Mode y Clustered ONTAP se admiten en las siguientes versiones:
 

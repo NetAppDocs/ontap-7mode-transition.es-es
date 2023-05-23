@@ -244,7 +244,7 @@ Por ejemplo, IPv6 y FPolicy deben configurarse manualmente después de la transi
 
 . Para la transición SAN, vuelva a configurar los hosts.
 +
-http://["Transición y corrección de hosts de SAN"]
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["Transición y corrección de hosts de SAN"]
 
 . Asegurarse de que la SVM está lista para servir datos a los clientes; para ello, se comprueban lo siguiente:
 +

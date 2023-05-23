@@ -34,4 +34,4 @@ Si desea reutilizar la dirección IP 7-Mode para LIF iSCSI, debe crear las LIF e
 
 *Información relacionada*
 
-https://["Administración de SAN"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["Administración de SAN"]

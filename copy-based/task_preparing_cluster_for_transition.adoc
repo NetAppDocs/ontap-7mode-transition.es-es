@@ -15,7 +15,7 @@ Antes de la transición, debe asegurarse de que el clúster cumpla requisitos, c
 
 * El clúster y la SVM ya deben estar configurados.
 +
-https://["Configuración de software"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-ssg/home.html["Configuración de software"]
 
 +
 La SVM de destino no debe estar en una relación de recuperación ante desastres de SVM.
@@ -28,7 +28,7 @@ La SVM de destino no debe estar en una relación de recuperación ante desastres
 Se necesita espacio adicional para actualizar el volumen que ha realizado la transición a su formato de 64 bits.
 
 +
-https://["Gestión de discos y agregados"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Gestión de discos y agregados"]
 
 * Para establecer una relación entre iguales de SVM durante la transición de una relación de SnapMirror de volumen, se deben cumplir las siguientes condiciones:
 +
@@ -114,7 +114,7 @@ mgmt
 
 
 +
-https://["Administración del sistema"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Administración del sistema"]
 
 . Cree una LIF de interconexión de clústeres en cada nodo del clúster para la comunicación entre el clúster y el sistema 7-Mode:
 +
@@ -165,7 +165,7 @@ system7mode is alive
 Para la multivía, debe tener dos LIF de interconexión de clústeres en cada nodo.
 
 +
-https://["Gestión de redes y LIF"]
+https://docs.netapp.com/us-en/ontap/networking/index.html["Gestión de redes y LIF"]
 
 
 

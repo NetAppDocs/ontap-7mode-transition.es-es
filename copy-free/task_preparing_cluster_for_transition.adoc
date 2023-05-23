@@ -15,7 +15,7 @@ Antes de la transición, debe preparar el clúster para comunicarse con la herra
 
 * El clúster ya debe estar configurado y los nodos del clúster de destino deben unirse al clúster.
 +
-https://["Configuración de software"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-ssg/home.html["Configuración de software"]
 
 * Las SVM deben crearse y asignarse a un espacio IP.
 * Puede realizar la transición de las bandejas de discos de 7-Mode a una pareja de ha objetivo que tenga volúmenes y agregados de datos ya existentes.
@@ -94,6 +94,6 @@ mgmt
 
 
 +
-https://["Administración del sistema"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Administración del sistema"]
 
 

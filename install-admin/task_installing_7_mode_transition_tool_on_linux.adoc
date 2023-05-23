@@ -23,7 +23,7 @@ xref:concept_system_requirements_for_7_mode_transition_tool_on_linux.adoc[Requis
 .Pasos
 . Descargue el `tar.gz` Archivo del sitio de soporte de NetApp.
 +
-http://["Descargas de NetApp: Software"]
+http://mysupport.netapp.com/NOW/cgi-bin/software["Descargas de NetApp: Software"]
 
 . Extraiga el `tar.gz` Archivo a un directorio del sistema Linux:
 +

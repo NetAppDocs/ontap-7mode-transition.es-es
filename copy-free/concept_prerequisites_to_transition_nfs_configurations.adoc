@@ -38,4 +38,4 @@ La herramienta de transición de 7-Mode solo realiza una transición de las regl
 
 *Información relacionada*
 
-http://["Documentación de NetApp: ONTAP 9"]
+http://docs.netapp.com/ontap-9/index.jsp["Documentación de NetApp: ONTAP 9"]

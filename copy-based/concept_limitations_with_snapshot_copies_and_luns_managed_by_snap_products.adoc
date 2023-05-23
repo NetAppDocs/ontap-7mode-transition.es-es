@@ -43,18 +43,18 @@ Ejecute una de las siguientes acciones:
 
 La mejor práctica es conservar los sistemas de 7-Mode hasta que venzan las copias Snapshot de 7-Mode.
 
-http://["Documentación de NetApp: SnapManager para Microsoft Exchange Server"]
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30034["Documentación de NetApp: SnapManager para Microsoft Exchange Server"]
 
-http://["Documentación de NetApp: SnapManager para Hyper-V."]
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30055["Documentación de NetApp: SnapManager para Hyper-V."]
 
-http://["Documentación de NetApp: SnapManager para SAP"]
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30037["Documentación de NetApp: SnapManager para SAP"]
 
-http://["Documentación de NetApp: SnapManager para Oracle"]
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30040["Documentación de NetApp: SnapManager para Oracle"]
 
-http://["Documentación de NetApp: SnapDrive para UNIX"]
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30050["Documentación de NetApp: SnapDrive para UNIX"]
 
-http://["Documentación de NetApp: SnapDrive para Windows (versiones actuales)"]
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30049["Documentación de NetApp: SnapDrive para Windows (versiones actuales)"]
 
-http://["Documentación de NetApp: SnapManager para Microsoft SQL Server"]
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30041["Documentación de NetApp: SnapManager para Microsoft SQL Server"]
 
-http://["Documentación de NetApp: SnapManager para Microsoft SharePoint"]
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30036["Documentación de NetApp: SnapManager para Microsoft SharePoint"]

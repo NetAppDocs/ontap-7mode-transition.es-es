@@ -34,7 +34,7 @@ Para que los clientes NFS monte qtrees, los qtrees deben pertenecer a un volumen
 * Si se especifica el mismo host en la combinación de listas de permisos de acceso de solo lectura, escritura y raíz, se deben evaluar las reglas de exportación convertidas tras la transición para determinar el privilegio de acceso adecuado para los hosts.
 
 
-http://["Informe técnico de NetApp 4067: Guía de prácticas recomendadas e implementación de NFS"]
+http://www.netapp.com/us/media/tr-4067.pdf["Informe técnico de NetApp 4067: Guía de prácticas recomendadas e implementación de NFS"]
 
 
 
@@ -165,4 +165,4 @@ Tras la transición, debe evaluar el impacto que tiene aplicar las políticas de
 
 *Información relacionada*
 
-https://["Gestión de NFS"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-nfs/home.html["Gestión de NFS"]

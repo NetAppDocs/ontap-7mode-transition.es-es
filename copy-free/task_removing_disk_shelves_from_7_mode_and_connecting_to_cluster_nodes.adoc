@@ -30,9 +30,9 @@ Por ejemplo, IOM6e (controladora)--IOM6 (bandeja)--IOM3 (bandeja)--IOM3 (bandeja
 .. Si hay ID de bandeja duplicados (si se usan los ID de bandeja de discos de 7-Mode para las bandejas de discos en los nodos del clúster de destino), cambie los ID de bandeja de discos.
 +
 *** Para las bandejas de discos SAS, un ID de bandeja válido es de 00 a 99.
-*** Los ID de las bandejas SAS deben ser únicos en el par de alta disponibilidad.https://["Guía de instalación y servicio de bandejas de discos SAS para DS4243, DS2246, DS4486 y DS4246"]
+*** Los ID de las bandejas SAS deben ser únicos en el par de alta disponibilidad.https://library.netapp.com/ecm/ecm_download_file/ECMP1119629["Guía de instalación y servicio de bandejas de discos SAS para DS4243, DS2246, DS4486 y DS4246"]
 *** Para las bandejas de discos FC, un ID de bandeja válido es de 1 a 7.
-*** Los ID de las bandejas FC deben ser únicos en cada bucle FC.https://["Guía de servicio de hardware DS14mk2 FC y DS14mk4 FC"]
+*** Los ID de las bandejas FC deben ser únicos en cada bucle FC.https://library.netapp.com/ecm/ecm_download_file/ECMP1112854["Guía de servicio de hardware DS14mk2 FC y DS14mk4 FC"]
 
 
 .. Apague y encienda las bandejas de discos para que los nuevos ID entren en vigencia.
@@ -69,13 +69,13 @@ Debe haber verificado que la tarjeta de expansión es compatible con la platafor
 
 |===
 +
-https://["Guía de instalación y servicio de bandejas de discos SAS para DS4243, DS2246, DS4486 y DS4246"]
+https://library.netapp.com/ecm/ecm_download_file/ECMP1119629["Guía de instalación y servicio de bandejas de discos SAS para DS4243, DS2246, DS4486 y DS4246"]
 
 +
-https://["Guía de servicio de hardware de DiskShelf14mk2 AT"]
+https://library.netapp.com/ecm/ecm_download_file/ECMM1280273["Guía de servicio de hardware de DiskShelf14mk2 AT"]
 
 +
-https://["Guía de servicio de hardware DS14mk2 FC y DS14mk4 FC"]
+https://library.netapp.com/ecm/ecm_download_file/ECMP1112854["Guía de servicio de hardware DS14mk2 FC y DS14mk4 FC"]
 
 . Encienda las bandejas de discos.
 +
@@ -87,7 +87,7 @@ IMPORTANT: Debe esperar al menos 70 segundos para continuar.
 Debe corregir los problemas de cables identificados por Config Advisor.
 
 +
-https://["Descargas de NetApp: Config Advisor"]
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["Descargas de NetApp: Config Advisor"]
 
 . En la herramienta de transición de 7-Mode, haga clic en *verificar cableado*.
 +

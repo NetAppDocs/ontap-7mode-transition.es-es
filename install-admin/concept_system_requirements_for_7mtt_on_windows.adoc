@@ -72,7 +72,7 @@ Cuando JRE se actualiza automáticamente, el resto de aplicaciones que requieren
 NOTE: Con JRE versiones 1.8 Update 46 o posterior (incluido JRE 1.8 actualización 331) para que la herramienta de transición de 7-Mode se comunique con Data ONTAP en sistemas 7-Mode y sistemas ONTAP, la longitud de la clave SSL en los sistemas Data ONTAP que funcionan en 7-Mode y los sistemas ONTAP debe ser, al menos, 1024.
 
 +
-https://["7MTT: Cómo resolver un problema de comunicación TLS o SSL"]
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/7MTT%3A_How_to_resolve_TLS_or_SSL_communication_issue["7MTT: Cómo resolver un problema de comunicación TLS o SSL"]
 
 
 
@@ -134,4 +134,4 @@ Cada vez que instale una nueva versión de la herramienta, debe borrar la memori
 
 *Información relacionada*
 
-https://["Interoperabilidad de NetApp"]
+https://mysupport.netapp.com/NOW/products/interoperability["Interoperabilidad de NetApp"]

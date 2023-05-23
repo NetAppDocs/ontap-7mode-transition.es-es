@@ -263,7 +263,7 @@ Una vez que la fase de transición se haya completado correctamente y la transic
 . Si el clúster de destino ejecuta Data ONTAP 8.3.1 o una versión anterior, debe asignar manualmente los LUN secundarios.
 . Para las transiciones SAN, vuelva a configurar manualmente los hosts.
 +
-http://["Transición y corrección de hosts de SAN"]
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["Transición y corrección de hosts de SAN"]
 
 . Asegurarse de que la SVM está lista para servir datos a los clientes; para ello, se comprueban lo siguiente:
 +

@@ -123,4 +123,4 @@ xref:task_managing_logical_interfaces.adoc[Gestión de interfaces lógicas]
 
 xref:concept_considerations_for_quotas.adoc[Consideraciones sobre cuotas]
 
-https://["Funciones de 7MTT v2.0/Data ONTAP convertido"]
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/7MTT_v2.0%2F%2FTransitioned_Data_ONTAP_features["Funciones de 7MTT v2.0/Data ONTAP convertido"]

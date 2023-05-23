@@ -38,4 +38,4 @@ Si utiliza la herramienta 7-Mode Transition Tool para crear un volumen en ONTAP 
 
 *Información relacionada*
 
-https://["Archivado y cumplimiento de normativas con tecnología SnapLock"^]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-arch-con/home.html["Archivado y cumplimiento de normativas con tecnología SnapLock"^]

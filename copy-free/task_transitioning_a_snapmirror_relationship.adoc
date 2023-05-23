@@ -21,4 +21,4 @@ Después de realizar la transición de los pares de alta disponibilidad primario
 
 *Información relacionada*
 
-https://["Gestión de clústeres con System Manager"]
+https://docs.netapp.com/us-en/ontap/concept_administration_overview.html["Gestión de clústeres con System Manager"]

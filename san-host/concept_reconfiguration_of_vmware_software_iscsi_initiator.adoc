@@ -21,4 +21,4 @@ Para realizar los cambios necesarios en el iniciador iSCSI del software en el ho
 
 *Información relacionada*
 
-https://["Administración del sistema"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Administración del sistema"]

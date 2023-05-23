@@ -859,7 +859,7 @@ volcado
  a| 
 No soporteDebe iniciar la copia de seguridad utilizando NDMP como se describe en la documentación de copia de seguridad en cinta. Para la funcionalidad de volcado a nulo, debe establecer la variable DE entorno NDMP DUMP_TO_NULL.
 
-https://["Protección de datos mediante backup en cinta"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-ptbrg/home.html["Protección de datos mediante backup en cinta"]
 
 |===
 [role="lead"]
@@ -2500,7 +2500,7 @@ No admitido
 
 Se debe iniciar la restauración usando NDMP como se describe en la documentación de backup a cinta.
 
-https://["Protección de datos mediante backup en cinta"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-ptbrg/home.html["Protección de datos mediante backup en cinta"]
 
 
 
@@ -4053,7 +4053,7 @@ No soporteDebe utilizar uno de los siguientes métodos como se describe en la do
 * Replicar el volumen original con SnapMirror y, a continuación, romper la relación de SnapMirror para hacer una copia de volumen de lectura/escritura.
 
 
-http://["Guía de gestión de almacenamiento lógico"]
+http://docs.netapp.com/ontap-9/index.jsp?topic=%2Fcom.netapp.doc.dot-cm-vsmg%2FGUID-5578BA46-5522-4BA6-B354-5C924B8207B1.html["Guía de gestión de almacenamiento lógico"]
 
 
 
