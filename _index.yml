@@ -1,0 +1,48 @@
+---
+indexpage:
+  title: Documentación de transición de 7-Mode
+  summary: La documentación de transición de 7-Mode incluye información que le ayudará
+    a instalar y configurar la herramienta de transición de 7-Mode, realizar la transición
+    de datos mediante comandos de SnapMirror, llevar a cabo una transición sin copias
+    o sin copias, recopilar información para la transición y completar los procedimientos
+    previos y posteriores a la transición para hosts SAN.
+  keywords: transition, copy, free, 7-mode transition
+  lead: La documentación de transición de 7-Mode incluye información que le ayuda
+    a instalar y configurar la herramienta 7-Mode Transition Tool, realizar la transición
+    de datos con comandos SnapMirror, realizar una transición sin copias o de base,
+    recopilar información para la transición y completar los procedimientos previos
+    y posteriores a la transición para hosts SAN.
+  tiles:
+  - title: Manos a la obra
+    links:
+    - title: Novedades
+      url: releasenotes.html
+    - title: Instale la herramienta de transición de 7-Mode
+      url: "/install-admin/concept_transition_to_clustered_ontap_using_7mtt.html"
+    - title: Recopilación de los datos necesarios para la transición
+      url: "/inventory-collect/concept_collecting_host_and_storage_inventory_information_for_transition_assessment.html"
+  - title: Asignación de comandos para administradores de 7-Mode
+    links:
+    - title: Cómo se asignan los comandos de 7-Mode a comandos de la ONTAP
+      url: "/command-map/reference_how_7_mode_commands_map_to_clustered_ontap_commands.html"
+    - title: Cómo se asignan las opciones de 7-Mode a comandos de ONTAP
+      url: "/command-map/reference_how_7_mode_options_map_to_clustered_ontap_commands.html"
+    - title: Cómo se asignan los archivos de configuración de 7-Mode a los comandos
+        de ONTAP
+      url: "/command-map/reference_how_7_mode_configuration_files_map_to_clustered_ontap_commands.html"
+  - title: Formas de transición
+    links:
+    - title: Transición basada en copias
+      url: "/copy-based/concept_copy_based_transition_workflow.html"
+    - title: Transición sin copias
+      url: "/copy-free/task_copy_free_transition_workflow.html"
+    - title: Realice la transición de datos con SnapMirror
+      url: "/snapmirror/task_transitioning_7_mode_volumes_using_snapmirror.html"
+  - title: Transición y corrección de hosts de SAN
+    links:
+    - title: VMware ESXi
+      url: "/san-host/concept_vmware_esxi_host_remediation.html"
+    - title: Red Hat Enterprise Linux
+      url: "/san-host/concept_linux_host_remediation.html"
+    - title: Windows
+      url: "/san-host/concept_windows_host_remediation.html"

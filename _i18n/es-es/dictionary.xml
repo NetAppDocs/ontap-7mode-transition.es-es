@@ -7364,27 +7364,14 @@
   <block id="9653cf98bd0bafa030e219a7067934ce" category="sidebar">Transición de 7-Mode</block>
   <block id="be11c74c1dd7f307bb80183a90dc2067" category="sidebar">Manos a la obra</block>
   <block id="33871b6190a8d5adbe8b15282054766c" category="sidebar">Novedades</block>
-  <block id="d176f598177def951b765d49b8a1ad4d" category="sidebar">Consulte las novedades de la versión más reciente de 7-Mode Transition Tool</block>
   <block id="35895df246ab4fab18a15ad7203002a7" category="sidebar">Instale la herramienta de transición de 7-Mode</block>
-  <block id="7ea7bcc99dddaa8df76f592001954899" category="sidebar">Aprenda a instalar la herramienta en Microsoft Windows o Linux</block>
   <block id="35f0393a0f809b8834f1e94cf9aeb75d" category="sidebar">Recopilación de los datos necesarios para la transición</block>
-  <block id="f8d6780cf027291bb431321789717f05" category="sidebar">Descubra cómo recoger la información esencial para la transición</block>
   <block id="9715d735daefe53c846d6422d269ba9c" category="sidebar">Asignación de comandos para administradores de 7-Mode</block>
-  <block id="347239ff36e364d3f29f508ab66f7e5b" category="sidebar">Busque los equivalentes de ONTAP de los comandos de 7-Mode</block>
-  <block id="2d0b993704b5291e3d8c9104cd1eb3f4" category="sidebar">Conozca cómo se asignan las opciones de 7-Mode a los parámetros de comandos de ONTAP</block>
   <block id="d1cb91eced95c7ff33565c2ab700e6eb" category="sidebar">Cómo se asignan los archivos de configuración de 7-Mode a los comandos de ONTAP</block>
-  <block id="a04ffe42a976aa7c8eb5782495546115" category="sidebar">Reducir cómo se asignan los archivos de configuración de 7-Mode a los comandos de configuración de ONTAP</block>
   <block id="dc8134f825a7c1a45f8329a7db06ba5a" category="sidebar">Formas de transición</block>
-  <block id="95f77135b69a05aefa342ac301235f29" category="sidebar">Utilice la herramienta para realizar una transición basada en copias de 7-Mode a ONTAP</block>
-  <block id="a3fa8f36cd3178033ace1b35c238f00d" category="sidebar">Utilice la herramienta para realizar una transición sin copias de 7-Mode a ONTAP</block>
   <block id="606f512fc14158269146a632e3444e35" category="sidebar">Realice la transición de datos con SnapMirror</block>
-  <block id="5d2368c109186f55545b33483e97e8d0" category="sidebar">Comprender cómo realizar la transición de datos de 7-Mode a ONTAP mediante comandos de SnapMirror</block>
   <block id="f7eea647714641318ee86fedbbed4691" category="sidebar">VMware ESXi</block>
-  <block id="689c2aa583e8cf3395af25aaa2ef63f5" category="sidebar">Comprender los requisitos previos y posteriores a la transición relativos a los hosts VMware ESXi</block>
   <block id="c73bbd3786350b0a8d3577d82afdf489" category="sidebar">Red Hat Enterprise Linux</block>
-  <block id="80a4be74705a612be3887e601f338c11" category="sidebar">Conozca los requisitos previos y posteriores a la transición para los hosts Red Hat Enterprise Linux</block>
-  <block id="624868dc01678d5268f2ce0a2b5e6de8" category="sidebar">Comprender los pasos previos y posteriores a la transición relativos a los hosts de Microsoft Windows</block>
-  <block id="d1b92a4930d50c6ed1038655db0d2684" category="sidebar">Documentación de productos All ONTAP</block>
   <block id="84a6933c212881ac1351cccc03b06c5a" category="sidebar">Asignación de comandos para administradores de 7-Mode</block>
   <block id="02c0afc6dc57e30e77048bd78577f569" category="paragraph">Para realizar la transición de los volúmenes de SnapLock de 7-Mode a ONTAP 9, debe tener en cuenta estos requisitos y directrices.</block>
   <block id="3c6e2b20b81b258a6d07d897dcbc8837" category="list-text">Puede realizar la transición de los volúmenes empresariales de SnapLock de 7-Mode a volúmenes de SnapLock Enterprise en cualquier versión de ONTAP 9, excepto para ONTAP 9,6.</block>
@@ -7403,4 +7390,5 @@
   <block id="6705b8d93729b2ab59445f3c547fe952" category="paragraph"><block ref="6705b8d93729b2ab59445f3c547fe952" category="inline-link-rx"></block></block>
   <block id="53b500e941f815e0da37832bbbb3f265" category="inline-link">Gestión de clústeres con System Manager</block>
   <block id="54875b6362e405aeb3f3e1f1b65a3cc7" category="paragraph"><block ref="54875b6362e405aeb3f3e1f1b65a3cc7" category="inline-link-rx"></block></block>
+  <block id="e8fb469abd5e30926d4d1c7fc20519c2" category="sidebar">La documentación de transición de 7-Mode incluye información que le ayuda a instalar y configurar la herramienta 7-Mode Transition Tool, realizar la transición de datos con comandos SnapMirror, realizar una transición sin copias o de base, recopilar información para la transición y completar los procedimientos previos y posteriores a la transición para hosts SAN.</block>
 </blocks>
