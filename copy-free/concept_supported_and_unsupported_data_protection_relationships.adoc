@@ -30,7 +30,7 @@ xref:task_transitioning_a_snapmirror_relationship.adoc[Realizar la transición d
 Se pueden migrar los volúmenes que son el origen de una relación de SnapVault; sin embargo, la relación de SnapVault no se realiza la transición. Un volumen que es el destino de una relación de SnapVault solo se puede migrar después de que se detengan los backups de SnapVault.
 
 +
-http://www.netapp.com/us/media/tr-4052.pdf["Informe técnico de NetApp 4052: Transición correcta a Clustered Data ONTAP (Data ONTAP 8.2.x y 8.3)"]
+https://www.netapp.com/pdf.html?item=/media/19510-tr-4052.pdf["Informe técnico de NetApp 4052: Transición correcta a Clustered Data ONTAP (Data ONTAP 8.2.x y 8.3)"^]
 
 * Relaciones de SnapMirror para qtrees
 +
